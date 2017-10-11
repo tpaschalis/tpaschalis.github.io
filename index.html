@@ -10,9 +10,9 @@ layout: default
 
       <div class="entry">
         <!-- {{ post.excerpt }} -->
-	{{post.tags}
+	{{post.tags}}
 	<br>
-	{{% assign ttags = post.tags | join:'|' | append:'|' %}}
+	{% assign ttags = post.tags | join:'|' | append:'|' %}
       </div>
 
       <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
