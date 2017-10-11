@@ -20,7 +20,7 @@ I feel relieved that in 2017 I managed to wrap things up, move one step forward,
 I have so many people to thank for their support and guidance, my family, my girlfriend, friends, professors, and I hope to make it up to them.
 
 The thing I've been wanting to change the most is this sad diagram haha.
-<img src="https://raw.githubusercontent.com/tpaschalis/tpaschalis.github.io/master/sadgithub.png" style='height: 100%; width: 100%; object-fit: contain'/>
+<img src="/images/sadgithub.png" style='height: 100%; width: 100%; object-fit: contain'/>
 
 So what now? A new, fresh start is in order as the academic year begins.
 First of all, I'm excited that classes are starting, and searching for the right Thesis project. 

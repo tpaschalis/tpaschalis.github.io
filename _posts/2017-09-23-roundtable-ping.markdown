@@ -108,8 +108,7 @@ Of course, infrastructure at same continent/city are much closer to each other.
 If I were to choose only one location worlwide to serve from, solely on this information, I'd choose *Frankurt*. It has pretty good latency even when connecting to SE Asia or the East coast. When tested alone, the only disadvantage is the connection to Australia (and South America, in a lesser extend).  
 As a second option, NYC/Toronto locations provide good results for our benchmark.
 
-<img src="https://raw.githubusercontent.com/tpaschalis/tpaschalis.github.io/master/worldping.png" style='height: 100%; width: 100%; object-fit: contain'/>
+<img src="/images/worldping.png" style='height: 100%; width: 100%; object-fit: contain'/>
 
 
 
-<!-- <img src="https://raw.githubusercontent.com/tpaschalis/tpaschalis.github.io/master/hnpost.png" style='height: 100%; width: 100%; object-fit: contain'/> -->
