@@ -1,0 +1,59 @@
+---
+layout: post
+title:  Read/Write UTF8 characters in C++ in Windows.
+date:   2017-10-12
+author: Paschalis Ts
+tags:   [code, windows]
+mathjax: true
+description: "I had trouble reading/writing UTF8-encoded text in Windows."  
+---
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+
+About two months ago, I met a friend for a coffee to catch up on various stuff. (Hi Giannis!)  
+In some point he mentioned an application he'd been developing, and had run into an unexpected issue. He had been using C++ to manage a database, with contents encoded in UTF8 (greek characters). 
+
+The code worked just fine in Linux, but failed in the client's Windows systems. Instead of displaying and using greek text properly, some `Ìðïñþ íá ãñÜøù åëëçíéêïýò ÷áñáêôÞñ` mumbo-jumbo appeared. As it happens in the real-world you can't just change the client's infrastructure to Linux or just install another C++ version, so he asked me to take a look, so I hacked something fast.
+
+[Here's the code](https://github.com/tpaschalis/cpp-utf8-io), as a complete example, tested on MS Visual Studio 2017 Community Edition. (I hope GitHub handles UTF8 text). 
+
+Well, here's the main lines that make it work
+
+```cpp
+#include "stdafx.h"
+#include <iostream>
+#include <fstream>
+
+#include <codecvt>
+#include <fcntl.h>
+#include <io.h>
+
+...
+...
+...
+
+	// Write file in UTF-8
+	std::wofstream wof;
+	wof.imbue(std::locale(std::locale::empty(), new std::codecvt_utf8<wchar_t, 0x10ffff, std::generate_header>));
+	wof.open(L"example.txt");
+	wof << L"This is a test. \n";
+	wof << L"Μπορώ να γράψω ελληνικούς χαρακτήρες \n";
+	wof << L"Ακόμα μια δοκιμή;;;;!!11?1 \n";
+	wof.close();
+
+...
+...
+...
+
+	// Read file in UTF-8
+	std::ifstream f("utf8text.txt");
+	std::wbuffer_convert<std::codecvt_utf8<wchar_t>> conv(f.rdbuf());
+	std::wistream wf(&conv);
+
+#ifdef _WIN32
+	_setmode(_fileno(stdout), _O_WTEXT);
+#else
+	std::setlocale(LC_ALL, "");
+#endif 
+	for (wchar_t c; wf.get(c); )
+		std::wcout << c ;
+```
