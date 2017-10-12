@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Read/Write UTF8 characters in C++ in Windows.
+title:  Read/Write UTF-8 characters in C++, in Windows.
 date:   2017-10-12
 author: Paschalis Ts
 tags:   [code, windows]
@@ -8,15 +8,16 @@ mathjax: true
 description: "I had trouble reading/writing UTF8-encoded text in Windows."  
 ---
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+(Note : Add `<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />` to your Markdown source so that UTF8 is properly rendered)
 
-About two months ago, I met a friend for a coffee to catch up on various stuff. (Hi Giannis!)  
+About two months ago, I met a friend for a coffee to catch up with him. (Hi Giannis!)  
 In some point he mentioned an application he'd been developing, and had run into an unexpected issue. He had been using C++ to manage a database, with contents encoded in UTF8 (greek characters). 
 
-The code worked just fine in Linux, but failed in the client's Windows systems. Instead of displaying and using greek text properly, some `Ìðïñþ íá ãñÜøù åëëçíéêïýò ÷áñáêôÞñ` mumbo-jumbo appeared. As it happens in the real-world you can't just change the client's infrastructure to Linux or just install another C++ version, so he asked me to take a look, so I hacked something fast.
+The code worked just fine in Linux, but failed in the client's Windows systems. Instead of displaying and using greek text properly, some `Ìðïñþ íá ãñÜøù åëëçíéêïýò ÷áñáêôÞñ` mumbo-jumbo appeared. As it happens in the real-world you can't just change the client's infrastructure to Linux or just install another C++ version, so he asked me if we could hack something fast.
 
-[Here's the code](https://github.com/tpaschalis/cpp-utf8-io), as a complete example, tested on MS Visual Studio 2017 Community Edition. (I hope GitHub handles UTF8 text). 
+[Here's the code](https://github.com/tpaschalis/cpp-utf8-io), as a complete example, tested on MS Visual Studio 2017 Community Edition. (I hope GitHub handles UTF8 text). The code can correcty read/write/print UTF8 text, such as greek or cyrillic characters.
 
-Well, here's the main lines that make it work
+To save you some time, the main loc that make this work.
 
 ```cpp
 #include "stdafx.h"
@@ -49,6 +50,7 @@ Well, here's the main lines that make it work
 	std::wbuffer_convert<std::codecvt_utf8<wchar_t>> conv(f.rdbuf());
 	std::wistream wf(&conv);
 
+	// Print string in UTF-8
 #ifdef _WIN32
 	_setmode(_fileno(stdout), _O_WTEXT);
 #else
@@ -57,3 +59,9 @@ Well, here's the main lines that make it work
 	for (wchar_t c; wf.get(c); )
 		std::wcout << c ;
 ```
+
+### What happened then?
+The next day, after he made sure this code worked, he switched the project to C#.  
+C# natively supported UTF-8 and also allowed to quickly create both web and android apps for the main code.
+
+Well, maybe someone else will be in the same position and might find it useful!
