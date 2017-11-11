@@ -24,9 +24,9 @@ Over the course of 24 hours, 100 45-minute sessions, plus four keynote talks wer
 * Dev Ops in Government
 * Modern Infrastructure and Monitoring
 
-One of the refreshing and interesting things was their 'no vendor pitch' policy. I felt that most of the speakers were actual DevOps practitioners, and not some guy/gal from the Marketing Department that showed up with a scripted monologue to sell software licenses. I would prefer a sprinkle of more in-depth technical talks, but I'm pretty sure it was a great decision.
+One of the refreshing things was their 'no vendor pitch' policy. I felt that most of the speakers were actual DevOps practitioners, and not some guy/gal from the Marketing Department that showed up with a scripted monologue to sell software licenses. I would prefer a sprinkle of more in-depth technical talks, but I'm pretty sure it was a great decision.
 Also, most of the presenters were kind enough to hang out in the Slack channels, chat with the community and try to answer questions afterwards.  
-But enough with sounding like a promoter, this post is to share What I Learned!
+But enough with sounding like a promoter; this post is to share What I Learned!
 
 I tried to keep up with a couple of tracks when they were live, and then VOD whatever else sounded interesting, so I focused on *DevSecOps*, *Modern Infrastructure* and *CI/CD*.
 
@@ -51,7 +51,7 @@ DevOps is not just bringing Dev and Ops guys in the same room. It's a philosophy
 
 > It's 30 times cheaper to fix security defects in dev vs prod.
 
-In a "ABN AMRO Transforms with CI/CD", I really liked their five simple core principles, that can be applied to most teams.  
+In a "ABN AMRO Transforms with CI/CD", I liked their five simple core principles, that can be applied to most teams.  
 Automate *all* repetitive tasks. Integrate quickly and often. Everyone is equally responsible. Keep changes small. Get continuous feedback.
 
 The value of DevOps comes from implementing a KISS approach, using automation to minimize human errata, as well as tie the security state of the whole stack environment to the application build status.
@@ -73,7 +73,7 @@ In a more technical note:
 * Microservices-slash-container based infrastructure has gone past the 'buzzword hype', and is no longer seen as a panacea. Their merits *and* pitfalls, as well as their place in production are better understood. Huseyin Babal had a *great* talk about best practices in Microservice Architectures, in a wide range of examples.
 * `InSpec` is a neat tool to automate and 'turn infrastructure testing, compliance and security requirements into code', by the guys behind Chef.
 * "Testing Docker Images Security" showed best practices for Docker security.
-A lot of keywords to help with either static analysis or secure implementations of containers
+Keywords to help with either static analysis or secure implementations of containers
 `clair`, `canchore`, `dagda`, `lynis`, `TwistLock`, `Aqua`.
 * `Escrow` is a tool by Under Armour that will be open-sourced in the next few months, similar to Vault's functionality.
 * `Foreman`, `OpenSCAP`
@@ -107,7 +107,7 @@ Instead of thinking in term of {Actions, Causal, Prevent, Problems, Failure, Fac
 Especially when considering the high rate of change in a startup environment
 > High Complexity + Dramatic Change Vectors = Emergent Behavior
 
-[Cynefin]() is a way of quantifying your understanding of complex systems. Knowledge and practice moves patterns towards more favorable 'quadrants', where complacency moves you backwards.
+[Cynefin]() is a way of quantifying your understanding of complex systems. Knowledge and practice moves patterns towards more favorable 'quadrants'; where complacency moves you backwards.
 
 Cue "Infrastructure as Code". Not just in the sense of automating specific provisioning tasks, but actually dealing with your whole infrastructure as code, using Versioning, CI/CD, proper pipelines. Each time, you start from the same validated state, and the nodes are built once and deployed into a production-like environment everywhere. 
 Infrastructure as Code has to do with  
