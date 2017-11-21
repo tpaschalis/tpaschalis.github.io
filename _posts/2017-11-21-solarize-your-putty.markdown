@@ -28,7 +28,7 @@ Right click, save the registry file somewhere, and open it with your favorite te
 
 Modify by pasting [your favorite colorscheme](https://github.com/altercation/solarized/blob/master/putty-colors-solarized/solarized_light.reg) in the appropriate section.
 
-``
+```
 Windows Registry Editor Version 5.00
 
 [HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\YOUR_SESSION_NAME]
@@ -54,7 +54,7 @@ Windows Registry Editor Version 5.00
 "Colour19"="147,161,161"
 "Colour20"="238,232,213"
 "Colour21"="253,246,227"
-``
+```
 
 Save the modified `.reg` file, right click on it and `Merge`. You can also keep the modified registry file to reproduce on another machine
 
