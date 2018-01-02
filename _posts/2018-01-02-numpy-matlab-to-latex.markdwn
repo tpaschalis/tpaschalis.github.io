@@ -62,7 +62,7 @@ def np2lat(A):
 
 	f.write('\n\\begin{table}[h]\n')
 	f.write('\\centering\n')
-	f.write('\\begin{tabular}{%s}\n' %tabalign)
+	f.write('\\begin{tabular}{\%s}\n' %tabalign)
 	
 	# Use some numpy magic, just addding correct delimiter and newlines
 	np.savetxt(f, A, fmt=tabformat, delimiter='\t&\t', newline='\t \\\\ \n')
