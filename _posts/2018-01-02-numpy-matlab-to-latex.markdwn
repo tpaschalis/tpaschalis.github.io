@@ -31,7 +31,7 @@ tabalign = repmat('c', 1, cols);
 
 fprintf(fileID,'\\begin{table}[h] \n');
 fprintf(fileID,'\\centering \n');
-fprintf(fileID,'\\begin{tabular}{%s} \n', tabalign);
+fprintf(fileID,'\\begin{tabular}{\%s} \n', tabalign);
 
 % Change formatting of your output with the following line
 tabformat = repmat('%.2f & \t', 1, cols);	% Define output format
