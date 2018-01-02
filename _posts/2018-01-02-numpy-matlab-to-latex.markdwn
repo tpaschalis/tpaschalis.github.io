@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Convert Matlab/Numpy matrices to LaTeX table
+title:  Convert Matlab - Numpy matrices to LaTeX table
 date:   2018-01-02
 author: Paschalis Ts
 tags:   [tutorial,wip]
@@ -9,6 +9,7 @@ description: "I still haven't caught up with writing *2018*"
 ---
 (New Year wishes and resolutions will be on a separate post. I hope all of you have a wonderful, wonderful year. I wish you and your loved ones, health and smiles. That's all anyone needs.)
 
+### What's this about?
 LaTeX is...divisive. It's also beautiful, frustrating, magnificent and *truly horrendous*. 
 
 This semester, I have been doing some Numerical Analysis for my MSc program, using both Matlab and Numpy.  
@@ -16,6 +17,8 @@ Well, here's how to convert matrices from these two environment, into LaTeX tabu
 Other solutions also exist, but who in his right mind would prefer using external dependencies and searching the internet than hacking together less than 25 lines? Remember, you (or me, in this case) *chose* to use LaTeX in the first place, make of that what you wish.....
 
 Here are the two gists, one for the [Matlab version](https://gist.github.com/tpaschalis/841dd4a57434ea34506c4408b13547c5) and one for the [Python Version](https://gist.github.com/tpaschalis/7a2943c2248b78b2558c457428086082)
+
+### Where's the sauce?
 
 Feel free to fork/hack/ignore the code, or use a saner method of writing your reports. Well, in any case, here's how the code works.
 
@@ -72,6 +75,5 @@ def np2lat(A):
  
 M = np.array([[12, 5, 2], [20, 4, 8], [ 2, 4, 3], [ 7, 1, 10]])
 np2lat(M)
-
 ```
 
