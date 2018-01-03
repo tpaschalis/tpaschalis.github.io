@@ -36,8 +36,9 @@ tabalign = repmat('c', 1, cols);
 
 fprintf(fileID,'\\begin{table}[h] \n');
 fprintf(fileID,'\\centering \n');
+{% raw  %}
 fprintf(fileID,'\\begin{tabular}{%s} \n', tabalign);
-
+{% endraw %}
 % Change formatting of your output with the following line
 tabformat = repmat('%.2f & \t', 1, cols);	% Define output format
 tabformat = tabformat(1:end-4);			% Remove last '&' char
@@ -67,8 +68,10 @@ def np2lat(A):
 
 	f.write('\n\\begin{table}[h]\n')
 	f.write('\\centering\n')
+	{% raw  %}
 	f.write('\\begin{tabular}{%s}\n' %tabalign)
-	
+	{% endraw %}
+
 	# Use some numpy magic, just addding correct delimiter and newlines
 	np.savetxt(f, A, fmt=tabformat, delimiter='\t&\t', newline='\t \\\\ \n')
 
