@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Convert Matlab - Numpy matrices to LaTeX table
+title:  Convert Matlab - NumPy matrices to LaTeX tables
 date:   2018-01-02
 author: Paschalis Ts
 tags:   [tutorial, wip]
