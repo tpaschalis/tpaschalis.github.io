@@ -5,24 +5,23 @@ date:   2018-01-02
 author: Paschalis Ts
 tags:   [tutorial, wip]
 mathjax: true
-description: "I still haven't caught up with writing *2018*"  
+description: "I'm still getting used to writing *2018*"  
+
+
 ---
 
-
-(New Year wishes and resolutions will be on a separate post. I hope all of you have a wonderful, wonderful year. I wish you and your loved ones, health and smiles. That's all anyone needs.) This post also took eight friggin commits to proper build on Jekyll.
-
 ### What's this about?
-LaTeX is...divisive. It's also beautiful, frustrating, magnificent and *truly horrendous*. 
+LaTeX is...divisive. It's simultaneously beautiful, frustrating, magnificent and at times, *truly horrendous*. 
 
 This semester, I have been doing some Numerical Analysis for my MSc program, using both Matlab and Numpy.   
-Well, here's how to convert matrices from these two environment, into LaTeX tabular/matrix/table/whatever to integrate into my reports.   
-Other solutions also exist, but who in his right mind would prefer using external dependencies and searching the internet than hacking together less than 25 lines? Remember, you (or me, in this case) *chose* to use LaTeX in the first place, make of that what you wish.....  
+Well, here's how I convert matrices from these two environment, into LaTeX tabular/matrix/table to integrate into my reports.   
+Other solutions also exist, but who would prefer using external dependencies and searching the internet than hacking together less than 25 lines? Certainly not someone that *chose* to use LaTeX in the first place!  ^^ 
 
 Here are the two gists, one for the [Matlab version](https://gist.github.com/tpaschalis/841dd4a57434ea34506c4408b13547c5) and one for the [Python Version](https://gist.github.com/tpaschalis/7a2943c2248b78b2558c457428086082)
 
 
 ### Where's the sauce?
-Feel free to fork/hack/ignore the code, or use a sane-er method of writing your reports. Well, in any case, here's how the code works.
+Feel free to check/fork/use the code, or use a saner method of writing your reports. Well, in any case, here's how it works.
 
 ```matlab
 function mat2lat(A)
@@ -71,7 +70,6 @@ def np2lat(A):
 	{% raw  %}
 	f.write('\\begin{tabular}{%s}\n' %tabalign)
 	{% endraw %}
-
 	# Use some numpy magic, just addding correct delimiter and newlines
 	np.savetxt(f, A, fmt=tabformat, delimiter='\t&\t', newline='\t \\\\ \n')
 
