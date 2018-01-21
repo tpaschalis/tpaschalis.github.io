@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  A new blog appears! -- Using Jekyll
-date:   2017-01-20
+date:   2017-01-22
 author: Paschalis Ts
 tags:   [meta, blog,jekyll]
 mathjax: true
