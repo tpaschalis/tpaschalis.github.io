@@ -13,7 +13,7 @@ description: "One year of blogging"
 
 ## Who is this?
 
-Hey! It's still Paschalis, now a *graduate* physicist, that is now working towards an MSc in Computational Physics, loves to build and break stuff, as well as learn about new stuff (nearly) every day! ^^
+Hey! It's still Paschalis, now a *graduate* physicist, that is now working towards an MSc in Computational Physics, loves to build and break stuff, as well as learn about something new (nearly) every day! ^^
 
 Exactly one year ago, I started this blog. During this time, it has grown into something that I actually *care* about, a personal space that I enjoy fiddling around with, and that I can be proud of at least one or two things that are hosted here.
 
@@ -38,7 +38,7 @@ Looking back to the very first post, I see
 And that's what really happened. I learned more about Jekyll, and [blogging like a hacker](http://tom.preston-werner.com/2008/11/17/blogging-like-a-hacker.html). I used Git to monitor my train of thought and gamify the advancement of projects. I implemented features I needed. I pushed myself to document solutions to my own problems, and motivate myself to polish them. I threw out (or just kept in the drawer) *a lot* of sub-par drafts of posts, and forced myself to take conscious steps towards becoming a better writer. I don't know if I do have 5-6 good blog posts, but again, I'd say I have one or two that personally, I'm proud of.
 
 
-Also, I started noticing how other people set up their own blogs and personal webpages, CVs and Portfolios. That provided a scale of measurement and goals to reach. I found tiny corners of the internet that you wouldn't end up unless you Googled for very specific keywords in quotes. I found really smart and interesting people that inspired me and lit new ideas. 
+Also, I started noticing how other people set up their own blogs and personal webpages, CVs and Portfolios. That provided a scale of measurement and goals to reach. I found tiny corners of the internet that you wouldn't end up to, unless you Googled for very specific keywords in quotes. I found really smart and interesting people that inspired me and lit new ideas. 
 
 It sometimes felt like the internet of the early 2000, *where you went to places, and not to the mall.*
 
