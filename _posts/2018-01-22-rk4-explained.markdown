@@ -16,7 +16,7 @@ description: "Well, at least try to..."
 Such methods use discretization to calculate the solutions in small steps. The approximation of the "next step" is calculated from the previous one, by adding *s* terms.
 <figure>
 <center>
-	<img src="/images/rk4eq2.svg" style='height: 50%; width: 50%; object-fit: contain'/> 
+	<img src="/images/rk4eq2.svg" style='height: 40%; width: 40%; object-fit: contain'/> 
 </center>
 </figure>
 
