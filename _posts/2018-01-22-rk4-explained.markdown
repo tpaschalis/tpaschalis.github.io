@@ -3,7 +3,7 @@ layout: post
 title:  Explain Runge-Kutta to a beginner, with a figure.
 date:   2018-01-22
 author: Paschalis Ts
-tags:   [numerical, analysis, explained]
+tags:   [numerical, analysis, explained, wip]
 mathjax: false
 description: "Well, at least try to..."
 ---
@@ -59,9 +59,10 @@ The approximation of the "next step" is given by weighted average of these four 
 </center>
 </figure>
 
+The local truncation error is O(h^5), while the total accumulated error order is O(h^4).
 
 ### What's more?
-
+A lot more could be said about the order of the errors versus order of the methods, adaptive and implicit Runge-Kutta variants, stability of various implementations. I hope to find the time to write about cool stuff like this soon!
 
 
 
