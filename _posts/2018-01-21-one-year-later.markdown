@@ -4,7 +4,7 @@ title:  One year later
 date:   2018-01-21
 author: Paschalis Ts
 tags:   [meta, blog,jekyll]
-mathjax: true
+mathjax: false
 description: "One year of blogging"
 ---
 

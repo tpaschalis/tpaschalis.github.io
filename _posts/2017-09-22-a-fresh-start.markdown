@@ -4,7 +4,7 @@ title:  A fresh start!
 date:   2017-09-22
 author: Paschalis Ts
 tags:   [meta, blog, academia]
-mathjax: true
+mathjax: false
 description: "A fresh start!"  
 ---
 

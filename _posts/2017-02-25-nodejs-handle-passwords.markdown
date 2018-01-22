@@ -4,7 +4,7 @@ title:  Storing and Authenticating passwords for a Node.js application with Pass
 date:   2017-02-25
 author: Paschalis Ts
 tags:   [tutorial, code, nodejs, infosec]
-mathjax: true
+mathjax: false
 description: "A simple solution to store and authenticate passwords for a Node.js application"  
 ---
 

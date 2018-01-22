@@ -4,7 +4,7 @@ title:  What I Learned from All Day Devops 2017 - Part 1
 date:   2017-11-09
 author: Paschalis Ts
 tags:   [wil, sysadmin]
-mathjax: true
+mathjax: false
 description: "Notes, thoughts, and rambings from watching way too many hours of talks."  
 ---
 

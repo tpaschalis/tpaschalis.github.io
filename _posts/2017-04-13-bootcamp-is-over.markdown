@@ -4,7 +4,7 @@ title:  Briefly breaking radio silence for a small update; Bootcamp is over, and
 date:   2017-04-13
 author: Paschalis Ts
 tags:   [life, academia, wip]
-mathjax: true
+mathjax: false
 description: "Briefly breaking radio silence"  
 ---
 

@@ -4,7 +4,7 @@ title:  Convert Matlab - NumPy matrices to LaTeX tables
 date:   2018-01-02
 author: Paschalis Ts
 tags:   [tutorial, wip]
-mathjax: true
+mathjax: false
 description: "I'm still getting used to writing *2018*"  
 
 

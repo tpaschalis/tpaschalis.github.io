@@ -4,7 +4,7 @@ title:  Automated testing of latency - Roundtable ping a network around the worl
 date:   2017-09-23
 author: Paschalis Ts
 tags:   [code, api, bash]
-mathjax: true
+mathjax: false
 description: "I wanted to test the latency between DigitalOcean Droplets worldwide."  
 ---
 

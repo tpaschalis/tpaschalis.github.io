@@ -4,7 +4,7 @@ title:  How to run a sandboxed browser using Docker.
 date:   2017-05-08
 author: Paschalis Ts
 tags:   [tutorial, code, docker, infosec]
-mathjax: true
+mathjax: false
 description: "Use a base Dockerfile to run jailed-sandboxed browser sessions"  
 ---
 

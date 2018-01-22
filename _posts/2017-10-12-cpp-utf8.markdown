@@ -4,7 +4,7 @@ title:  Read/Write UTF-8 characters in C++, in Windows.
 date:   2017-10-12
 author: Paschalis Ts
 tags:   [code, windows]
-mathjax: true
+mathjax: false
 description: "I had trouble reading/writing UTF8-encoded text in Windows."  
 ---
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />

@@ -4,7 +4,7 @@ title:  Simulate Random User Actions in JMeter.
 date:   2017-10-11
 author: Paschalis Ts
 tags:   [jmeter, sysadmin]
-mathjax: true
+mathjax: false
 description: "I wanted to randomize user actions for a JMeter test."  
 ---
 

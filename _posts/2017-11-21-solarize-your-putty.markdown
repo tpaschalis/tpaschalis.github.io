@@ -4,7 +4,7 @@ title:  Solarize your PuTTY (or pick your own colorscheme).
 date:   2017-11-21
 author: Paschalis Ts
 tags:   [tutorial, windows]
-mathjax: true
+mathjax: false
 description: "Modify the registry to avoid the horrendous PuTTY default colorscheme"  
 ---
 

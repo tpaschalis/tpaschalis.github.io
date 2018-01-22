@@ -4,7 +4,7 @@ title:  Show HN&#58; Tweetstream – Get a user's tweets, between two dates
 date:   2017-03-09
 author: Paschalis Ts
 tags:   [code, twitter, project, public]
-mathjax: true
+mathjax: false
 description: "I showed one of my toy projects to the world, on HN. Here's what went down."  
 ---
 
