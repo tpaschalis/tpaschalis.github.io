@@ -16,14 +16,14 @@ description: "Well, at least try to..."
 Such methods use discretization to calculate the solutions in small steps. The approximation of the "next step" is calculated from the previous one, by adding *s* terms.
 <figure>
 <center>
-	<img src="/images/rk4eq2.svg" style='height: 20%; width: 20%; object-fit: contain'/> 
+	<img src="/images/rk4eq2.svg" style='height: 50%; width: 50%; object-fit: contain'/> 
 </center>
 </figure>
 
 An actual, in-depth analysis could be the subject of a whole book, but in this post, I'd like to show a graphical overview of how the most popular member of this family works.
 
 ### Let's get to it!
-The fourth-order Runge-Kutta method also known as "RK4" or "*the* Runge–Kutta method" is one of the most (if not *the* most) popular method of solving ODEs. It provides a very good balance between computational cost and accuracy. It is used as a solver in many frameworks and libraries, including `SciPy`, `JuliaDiffEq`, `Matlab`, `Octave` and `Mathematica`.
+The fourth-order Runge-Kutta method also known as "RK4" or "*the* Runge-Kutta method" is one of the most (if not *the* most) popular method of solving ODEs. It provides a very good balance between computational cost and accuracy. It is used as a solver in many frameworks and libraries, including `SciPy`, `JuliaDiffEq`, `Matlab`, `Octave` and `Mathematica`.
 
 Beyond fourth-order methods, the gain in accuracy is offset by the complexity. For RK1 through RK4, the number of steps (or stages) required is the same as the order, but that doesn't hold for higher-order versions (eg. RK4 : 4 steps, RK5 : 6 steps).
 
@@ -42,7 +42,7 @@ The figure is adapted from [Prof. Kosmidis'](https://www.researchgate.net/profil
 </figure>
 
 
-We start from point y=f(ti) and wish to approximate f(ti+h)  
+We start from point y=f(xi) and wish to approximate f(xi+h)  
 
 Step 1:   
 Start from *y*, with the initial *k1* approximation from Euler's method, evaluate at the midpoint, finding *k2*.   
@@ -55,7 +55,7 @@ The approximation of the "next step" is given by weighted average of these four 
 
 <figure>
 <center>
-	<img src="/images/rk4eq.svg" style='height: 20%; width: 20%; object-fit: contain'/> 
+	<img src="/images/rk4eq.svg" style='height: 50%; width: 50%; object-fit: contain'/> 
 </center>
 </figure>
 
