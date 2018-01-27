@@ -57,7 +57,32 @@ For this whole past year, I haven't had any analytics, except for the traffic su
 
 ## Here's a small token of appreciation for anyone reading.
 
-Thanks a lot for taking a moment of your time to be here, instead of "a mall".
+Thanks a lot for taking a moment of your time to be here, instead of "a mall".    
 Here's a list of blogs that I visited last year, and might be of interest to you, too!
 
+(Small detail, I do not have a personal opinion on any of the authors, this is not an endorsement, neither have I read *all* of their content. I JUST enjoyed some their content throughout the year, and am happy to share it with y'all). Most of these were through peer recommendations, following internet rabbit holes, or through HN/Reddit. I did not include any company blogs, because they're easier to find.
+
+* [Dan Luu](https://danluu.com/). Dan also has an *awesome* list of programming blogs [here](https://danluu.com/programming-blogs/)
+* [Jeff Atwood](https://blog.codinghorror.com/)
+* [Joel Spolsky](https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/)
+* [Moxie Marlinspike](https://moxie.org/blog/)
+* [Yegor Bugayenko](https://moxie.org/blog/)
+* [Martin Sústrik](http://250bpm.com/)
+* [Kyle Kingsbury](https://aphyr.com/posts/341-hexing-the-technical-interview/)
+* [Language Log](http://languagelog.ldc.upenn.edu/nll/)
+* [Jessie Frazelle](https://blog.jessfraz.com/)
+* [Zack Holman](https://zachholman.com/)
+* [Chris Albon](https://chrisalbon.com/)
+* [Justin O'Beirne](https://www.justinobeirne.com/)
+* [Paul Graham](http://www.paulgraham.com/articles.html)
+* [Tim Hopper](https://tdhopper.com/)
+* [Benoit Bernard](https://benbernardblog.com/)
+* [Wesley Aptekar-Cassels](http://blog.wesleyac.com/)
+* [Ian Miell](https://zwischenzugs.com/)
+* [Rick Carlino](http://rickcarlino.com/)
+* [Ben Evans](https://www.ben-evans.com/archive/)
+* [Tom Lianza](https://lianza.org/blog/)
+* [Andreas Zwinkau](http://beza1e1.tuxen.de/blog_en.html)
+* [Dragan Djuric](http://dragan.rocks/)
+* [Crooked Timber](http://crookedtimber.org/)
 
