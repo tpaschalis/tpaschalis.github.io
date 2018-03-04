@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  WIL Computational Physics MSc - Semester 1
+title:  Computational Physics MSc - Semester 1
 date:   2018-03-03
 author: Paschalis Ts
 tags:   [academia, comphys, msc, wil]
@@ -32,7 +32,7 @@ This was *by far* the most difficult and demanding course. We had to use `Matlab
 *I learned about (and worked on): Distributions and their parameters, the Likelihood function, Statistical tests, Null hypotheses, Confidence Intervals, Fitting, Chi-squared gof, Least Squares, Linear/non-linear and multivariate regression, Time-series*
 
 * Computational Mathematics   
-This was the second most difficult course. It was quite math-heavy, and the curriculum was super dense in information, but [Prof. Kosmidis] (http://kelifos.physics.auth.gr/MEMBERS/kosmas.html) managed to provide examples and mandated a hands-on approach on how the methods and their extensions are used in real-world projects. I chose the Python/NumPy/PyPlot stack for my reports, but also experimented with C and Fortran on my own time. I was very interested because not only we learned the methods as well as their mathematical basis, but also common pitfalls of their implementations, and how to mitigate them (eg. Chebyshev nodes for Runge's phenomenon, or how to deal with Stiff ODEs or non-well defined systems).   
+This was the second most difficult course. It was quite math-heavy, and the curriculum was super dense in information, but [Prof. Kosmidis](http://kelifos.physics.auth.gr/MEMBERS/kosmas.html) managed to provide examples and mandated a hands-on approach on how the methods and their extensions are used in real-world projects. I chose the Python/NumPy/PyPlot stack for my reports, but also experimented with C and Fortran on my own time. I was very interested because not only we learned the methods as well as their mathematical basis, but also common pitfalls of their implementations, and how to mitigate them (eg. Chebyshev nodes for Runge's phenomenon, or how to deal with Stiff ODEs or non-well defined systems).   
 *I learned about (and implemented): Root Finding methods, Numerical Differentiation/Integration, (Ordinary/Partial) Differential Equation Solvers, the Runge-Kutta family, Systems of Equations, Polynomial Interpolation, Linear Regression*. 
 
 * Programming Tools   
@@ -55,6 +55,6 @@ Finally, I was also assigned in some TA-esque tasks with helping students in the
 
 
 
-PS. I consider AUTh to be my [alma mater](https://en.wikipedia.org/wiki/Alma_mater). It's unbelievable that six years ago, at eighteen years of age I moved here alone, with little to my name. During this time, Thessaloniki has become my new home. It's where I worked hard, got my Physics degree, got my first paper published, got pushed into research, internships, and felt the immense support of my professors-slash-mentors for which I will ever be grateful.
+PS. I consider AUTh to be my [alma mater](https://en.wikipedia.org/wiki/Alma_mater). It seems to me so far away, that on 2011, at eighteen years of age I moved here alone, with little to my name. During this time, Thessaloniki has become my new home. It's where I worked hard, got my Physics degree, got my first paper published, got pushed into research, internships, and felt the immense support of my professors-slash-mentors for which I will ever be grateful.
 
 
