@@ -39,7 +39,7 @@ This was the second most difficult course. It was quite math-heavy, and the curr
 This was a four-part course, where we had two to four weeks per "subject", to get the basics, and write a report, solving problems with the tools we learned about. Emphasis was placed on the efficiency of the results.    
 These "subjects" were *Parallel Programming using OpenMP, Fortran, Wolfram Mathematica, and Matlab Plotting*. Example of problems we had to solve for the project report were ODE solving, Numerical Differentiation and Integration, Numerical approximation of pi, Root finding using various methods.
 
-* **Programming Languages**
+* **Programming Languages**   
 This was one of the course that seemed relatively easier as I had already worked with C and C++, but ultimately the course was of more importance than I thought. I "re-learned" some core concepts I *thought* I knew well, worked on a lower-level language after some time (Python et. al does a good job of hiding issues under the carpet), and got a better understanding of some GNU utils and libraries.
 
 
