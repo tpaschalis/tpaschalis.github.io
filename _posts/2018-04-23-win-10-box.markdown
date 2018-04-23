@@ -15,19 +15,24 @@ During [my first weeks](https://tpaschalis.github.io/new-job-new-goals/) at Sigm
 
 I mean, coming from my personal old-faithful, 2GB-DDR2, barely-two cores, hdd old pal, I feel like a spoiled kid that gets a *friggin' Mercedes* as a graduation present.
 
-Well, the laptop, as the Mercedes have one thing in common. Their true goal, is to get you from *point A* to *point B* and enable you to get sh\*t done, in the best way possible. So after marvelling at the *terrific* hardware, I was motivated to set up the best possible workstation.
-
+Well, the laptop and the Mercedes have one thing in common. If you look past all the bells and whistles, their true goal, is to get you from *point A* to *point B* and enable you to get sh\*t done, in the best way possible. So after marvelling at the *terrific* hardware, I was motivated to set up the best possible workstation.
+<center>
 <img src="/images/x1vsamg.png" style='height: 90%; width: 90%; object-fit: contain'/>
+</center>
 
+For work purposes, I needed to use Windows 10. After counting on one hand, I realized I haven't used exclusively Windows as a work machine in more than half a decade, so this was going to be a challenge!
 
-For work purposes, I needed to use Windows 10. After counting on one hand, I realized I haven't used Windows as a work machine in more than half a decade, so this was going to be a challenge!
-
-This challenge was to set my box up, in a way that is : efficient, minimal, reproducible and non-intrusive.
+The challenge;   
+Set my box up, in a way that is : 
+* efficient, 
+* minimal, 
+* reproducible and 
+* non-intrusive.
 
 Here's how it went down!
 
 # Getting stuff from my old computer.
-Before this, I briefly used another Windows 7 box, so I wanted to transfer over some parts. As I knew that box was temporary, I had mostly used portable apps, and the only things that needed transferring were my Putty settings and sessions, as well as the working Environment variables. I powered up `cmd` and 
+Before this, I briefly used another Windows 7 box, so I wanted to transfer over some leftover work. As I knew that box was temporary, I had mostly used portable apps, and the main things that needed transferring were my Putty settings and sessions, as well as the working Environment variables. On `cmd` 
 ```
 SET >> env-variables.txt
 regedit /e "%USERPROFILE%\Desktop\putty-pas.reg" HKEY_CURRENT_USER\Software\SimonTatham
@@ -36,14 +41,14 @@ Most of my other data was easily hauled over.
 
 # Firing up the new beast.
 After reading up a few comments, I booted the new machine, and was greeted by Cortana.  
-I opted out of all available "conveniences", and followed along the process. To tell the truth, "Personal Assistants" are not something I'm really fond of as an idea, and think of them as more of a distraction.
+I opted out of all available "conveniences", and followed along the process. IMHO, Personal Assistants are not something I'm really fond of as an idea, and think of them as more of a distraction.
 
-When the first setup was finished, I set out to install all available Windows updates, so that my settings would not get overwritten later on. Just in case I set a windows "restore point", even though I don't know how well (or not) they work. It was time to get my hands dirty!
+When the first setup was finished, I set out to install all available Windows updates, so that my settings would not get overwritten later on. Just in case I set a windows "restore point", even though I don't know how well (or not) they work. **It was time to get my hands dirty!**
 
 The first thing I noticed after all updates were installed, were a multitude of applications that I could only describe as 'clutter'. I really *don't* need (or want to be forced) to have 'Kandy Krush' on my work machine! Sorry, Microsoft!
 
-At first, it was a little frustrating, for seemingly different applications to appear on a "Apps and Features", a "Programs and Features", *and* in the Start Menu. I didn't even know how and where to properly set environment variables! :( But, the terminal and the internet are our friends.   
-After searching around, I found out that using Powershell one can 
+At first, it was a little frustrating, for seemingly different applications to appear on a "Apps and Features", a "Programs and Features", *and* in the Start Menu. I didn't even know how and where to properly set environment variables! :(    
+Alas, the terminal is our friend! After searching around, I found out that using Powershell one can 
 ```
 #List all store-installed programs
 Get-AppxPackage | Select-Object Name, PackageFullName, Version |Format-Table -AutoSize
@@ -118,7 +123,7 @@ Set 'Do not allow web search' → Enabled
 Set 'Don't search the web or display web results in Search' → Enabled
 ```
 
-My system was starting to look *a lot* clean-er and lean-er, so then I went on to look at getting a little paranoid with some diagnostic and privacy settings.
+My system was starting to look *a lot* clean-er and lean-er, so then I went on to get a little paranoid and tinker with some diagnostic/telemetry and privacy settings.
 
 ```
 sc stop DiagTrack
@@ -148,23 +153,24 @@ Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -N
 
 ## Personal, grumpy things.
 There are a couple of other, personal preference thingies.
-* Disabled **all* applications that want to be initialized at Startup using the Task Manager, and used `msconfig` to disable other non-Microsoft services, like automatic updates on other software.
-* I didn't like OneDrive appearing on the sidebar of File Explorer. To fix that, Using `regedit`, I navigated to `Computer\HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}` and set `System.IsPinnedToNameSpaceTree` to `0`.
-* I didn't like Cortana appearing on the start menu bar, as well as many apps on the start menu.
+* Disabled **all** applications that want to be initialized at Startup using the Task Manager, and used `msconfig` to disable other non-Microsoft services, like automatic updates on other software.
+* I absolutely hated that the login and lock screens contained random wallpapers, prompts, or even ads.
+I navigated to `Settings → Personalization → Lock screen`, set the background as a plain black image, and removed all apps.
+* I didn't like OneDrive appearing on the sidebar of File Explorer. To fix that, Using `regedit`, I navigated to   
+`Computer\HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}`    
+and set `System.IsPinnedToNameSpaceTree` to `0`.
+* I didn't like Cortana appearing on the start menu bar, as well as many apps on the start menu, so I right-clicked and hid them.
 * I didn't want the "3D Objects" thingy appearing on "This PC". To remove 3D Objects file, you'll have to delete the following registry key `{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}` which contains only one value, from the following two paths.
 ```
 HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace
 HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace
 ```
-
-* I absolutely hated that the login and lock screens contained random wallpapers, prompts, or even ads.
-I navigated to `Settings → Personalization → Lock screen`, set the background as a plain black image, and removed all apps.
 * Changed date/time settings to sensible iso-compatible formats.
 * I wanted File Explorer to start on "This PC", so I opened File Explorer and went to `View → Options → Change folder and Search Options → Open File Explorer to`. I also checked to see the file extensions.
 
 
 # A good thing.
-One of the things I wanted to try, is to use Windows increasingly from the command line. Powershell is a brand-new type of shell that I'm going to fiddle with, so that made me double happy! 
+One of the things I want to try, is to use Windows increasingly from the command line. Powershell is a brand-new type of shell that I'm going to fiddle with, so that made me double happy! 
 
 Some time ago, I heard about [Chocolatey](https://chocolatey.org/faq), a cli package manager that poses as an 'apt/yum/pacman for Windows'. It not only allows to install a multitude of packages, but also allows to package stuff yourself, chain dependencies, and other package-manager-y stuff. 
 
@@ -192,7 +198,7 @@ So, you can run Linux apps, both in cli and graphical mode, in a way that's clos
 
 To enable it, one can just use the "Turn Windows Features on or off" dialog, and opt-in the WSL. After the necessary files are downloaded and installed, you can simply go to the Windows Store, search for Ubuntu, and click Install.
 
-At this point I'm...struck. I can simply `apt-get update && apt-get install screen vim pip3", and run all my stuff on Linux.
+At this point I'm...struck. I can simply `apt-get update && apt-get install screen vim pip3`, and run all my Linux stuff right there. Who thought it could be this easy!
 
 
 ## Final Words
@@ -201,7 +207,7 @@ A big, big thanks to [Jessie Frazelle](https://blog.jessfraz.com/post/windows-fo
 
 Images sources are [here](https://www.engadget.com/2018/01/08/lenovo-thinkpad-x1-carbon-yoga-tablet-2018-hands-on/) and [here](http://www.autoguide.com/auto-news/2018/01/what-happened-when-i-took-a-stranger-for-a-ride-in-a-mercedes-amg-gt.html).
 
-What did I do next? I noticed the time and said to myself "Oh, I have work to do". I fired up a full-screen Linux VM, (that on this beefy machine now works *veeery* close to full speed), and got myself to work. 
+What did I do next? I glanced at my watch and said to myself "Oh, I have work to do". I fired up a full-screen Linux VM, (that on this beefy machine now works *veeery* close to full speed), and got myself to work. 
 
 # A verdict?
 
