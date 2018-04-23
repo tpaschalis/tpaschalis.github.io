@@ -1,0 +1,212 @@
+---
+layout: post
+title:  Setting up my Windows 10 box.
+date:   2018-04-23
+author: Paschalis Ts
+tags:   [windows, powershell]
+mathjax: false
+description: "My first Windows machine in over half a decade."  
+---
+
+
+
+# Hey, what's up?!
+During [my first weeks](https://tpaschalis.github.io/new-job-new-goals/) at Sigmia, I was handed a brand new fully-spec'd [Lenovo X1 Carbon 2018](https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Carbon-2018-WQHD-HDR-i7-Laptop-Review.284682.0.html).
+
+I mean, coming from my personal old-faithful, 2GB-DDR2, barely-two cores, hdd old pal, I feel like a spoiled kid that gets a *friggin' Mercedes* as a graduation present.
+
+Well, the laptop, as the Mercedes have one thing in common. Their true goal, is to get you from *point A* to *point B* and enable you to get sh\*t done, in the best way possible. So after marvelling at the *terrific* hardware, I was motivated to set up the best possible workstation.
+
+<img src="/images/x1vsamg.png" style='height: 90%; width: 90%; object-fit: contain'/>
+
+
+For work purposes, I needed to use Windows 10. After counting on one hand, I realized I haven't used Windows as a work machine in more than half a decade, so this was going to be a challenge!
+
+This challenge was to set my box up, in a way that is : efficient, minimal, reproducible and non-intrusive.
+
+Here's how it went down!
+
+# Getting stuff from my old computer.
+Before this, I briefly used another Windows 7 box, so I wanted to transfer over some parts. As I knew that box was temporary, I had mostly used portable apps, and the only things that needed transferring were my Putty settings and sessions, as well as the working Environment variables. I powered up `cmd` and 
+```
+SET >> env-variables.txt
+regedit /e "%USERPROFILE%\Desktop\putty-pas.reg" HKEY_CURRENT_USER\Software\SimonTatham
+```
+Most of my other data was easily hauled over.
+
+# Firing up the new beast.
+After reading up a few comments, I booted the new machine, and was greeted by Cortana.  
+I opted out of all available "conveniences", and followed along the process. To tell the truth, "Personal Assistants" are not something I'm really fond of as an idea, and think of them as more of a distraction.
+
+When the first setup was finished, I set out to install all available Windows updates, so that my settings would not get overwritten later on. Just in case I set a windows "restore point", even though I don't know how well (or not) they work. It was time to get my hands dirty!
+
+The first thing I noticed after all updates were installed, were a multitude of applications that I could only describe as 'clutter'. I really *don't* need (or want to be forced) to have 'Kandy Krush' on my work machine! Sorry, Microsoft!
+
+At first, it was a little frustrating, for seemingly different applications to appear on a "Apps and Features", a "Programs and Features", *and* in the Start Menu. I didn't even know how and where to properly set environment variables! :( But, the terminal and the internet are our friends.   
+After searching around, I found out that using Powershell one can 
+```
+#List all store-installed programs
+Get-AppxPackage | Select-Object Name, PackageFullName, Version |Format-Table -AutoSize
+
+#List all installed programs
+Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*| Select-Object DisplayName, DisplayVersion, Publisher, InstallDate|Format-Table -AutoSize
+```
+
+I wanted to disable/delete some stuff, to work from a clean slate and have the option of re-enabling them later, when necessary
+```
+Get-AppxPackage *3DBuilder* | Remove-AppxPackage
+Get-AppxPackage *Getstarted* | Remove-AppxPackage
+Get-AppxPackage *WindowsAlarms* | Remove-AppxPackage
+Get-AppxPackage *WindowsCamera* | Remove-AppxPackage
+Get-AppxPackage *bing* | Remove-AppxPackage
+Get-AppxPackage *photos* | Remove-AppxPackage
+Get-AppxPackage *SkypeApp* | Remove-AppxPackage
+Get-AppxPackage *solit* | Remove-AppxPackage
+Get-AppxPackage *WindowsSoundRecorder* | Remove-AppxPackage
+Get-AppxPackage *windowscommunicationsapps* | Remove-AppxPackage
+Get-AppxPackage *zune* | Remove-AppxPackage
+Get-AppxPackage *Sway* | Remove-AppxPackage
+Get-AppxPackage *CommsPhone* | Remove-AppxPackage
+Get-AppxPackage *ConnectivityStore* | Remove-AppxPackage
+Get-AppxPackage *Microsoft.Messaging* | Remove-AppxPackage
+Get-AppxPackage *Facebook* | Remove-AppxPackage
+Get-AppxPackage *Twitter* | Remove-AppxPackage
+Get-AppxPackage *Drawboard PDF* | Remove-AppxPackage
+Get-AppxPackage Soda | Remove-AppxPackage
+Get-AppxPackage Microsoft.XboxApp | Remove-AppxPackage
+Get-AppxPackage Microsoft.XboxIdentityProvider | Remove-AppxPackage
+Get-AppxPackage *Autodesk* | Remove-AppxPackage
+Get-AppxPackage Microsoft.BingFinance | Remove-AppxPackage
+Get-AppxPackage Microsoft.BingNews | Remove-AppxPackage
+Get-AppxPackage Microsoft.BingSports | Remove-AppxPackage
+Get-AppxPackage Microsoft.BingWeather | Remove-AppxPackage
+Get-AppxPackage *BubbleWitch* | Remove-AppxPackage
+Get-AppxPackage king.com.CandyCrush* | Remove-AppxPackage
+Get-AppxPackage Microsoft.CommsPhone | Remove-AppxPackage
+Get-AppxPackage *Dropbox* | Remove-AppxPackage
+Get-AppxPackage *Facebook* | Remove-AppxPackage
+Get-AppxPackage Microsoft.WindowsFeedbackHub | Remove-AppxPackage
+Get-AppxPackage *Keeper* | Remove-AppxPackage
+Get-AppxPackage Microsoft.WindowsMaps | Remove-AppxPackage
+Get-AppxPackage *MarchofEmpires* | Remove-AppxPackage
+Get-AppxPackage *Disney* | Remove-AppxPackage
+Get-AppxPackage *Twitter* | Remove-AppxPackage
+Get-AppxPackage *Minecraft* | Remove-AppxPackagex   
+Get-AppxPackage *Netflix* | Remove-AppxPackage
+Get-AppxPackage *Plex* | Remove-AppxPackage
+Get-AppxPackage *spotify* | Remove-AppxPackage
+Get-AppxPackage *McAfee* | Remove-AppxPackage
+
+$mcafee = gci "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" | foreach { gp $_.PSPath } | ? { $_ -match "McAfee Security" } | select UninstallString
+if ($mcafee) {
+	$mcafee = $mcafee.UninstallString -Replace "C:\Program Files\McAfee\MSC\mcuihost.exe",""
+	Write "Uninstalling McAfee..."
+	start-process "C:\Program Files\McAfee\MSC\mcuihost.exe" -arg "$mcafee" -Wait
+}
+
+Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR" -Name AppCaptureEnabled -Type DWord -Value 0
+Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name GameDVR_Enabled -Type DWord -Value 0
+```
+
+I count over 40 lines of `Remove-AppxPackage`s, and I'm pretty sure that there's leftovers, too! At this point, my Start Menu was starting to get cleared up, and I did right click-uninstall a couple of other things.   
+
+When using the Search functionality, I noticed that I was getting web results. [To fix that](https://superuser.com/questions/1196618/how-to-disable-internet-search-results-in-start-menu-post-creators-update), I started the `Edit group policy` and navigated towards `Computer Configuration → Administrative Templates → Windows Components → Search`. 
+
+```
+Set 'Allow Cortana' → Disable
+Set 'Do not allow web search' → Enabled
+Set 'Don't search the web or display web results in Search' → Enabled
+```
+
+My system was starting to look *a lot* clean-er and lean-er, so then I went on to look at getting a little paranoid with some diagnostic and privacy settings.
+
+```
+sc stop DiagTrack
+sc stop diagnosticshub.standardcollector.service
+sc stop dmwappushservice
+sc stop WMPNetworkSvc
+sc stop WSearch
+
+# Privacy: Let apps use my advertising ID: Disable
+If (-Not (Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo")) {
+    New-Item -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo | Out-Null
+}
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo -Name Enabled -Type DWord -Value 0
+
+# WiFi Sense: HotSpot Sharing: Disable
+If (-Not (Test-Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting")) {
+    New-Item -Path HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting | Out-Null
+}
+Set-ItemProperty -Path HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting -Name value -Type DWord -Value 0
+
+# WiFi Sense: Shared HotSpot Auto-Connect: Disable
+Set-ItemProperty -Path HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots -Name value -Type DWord -Value 0
+
+# Start Menu: Disable Bing Search Results
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name BingSearchEnabled -Type DWord -Value 0
+```
+
+## Personal, grumpy things.
+There are a couple of other, personal preference thingies.
+* Disabled **all* applications that want to be initialized at Startup using the Task Manager, and used `msconfig` to disable other non-Microsoft services, like automatic updates on other software.
+* I didn't like OneDrive appearing on the sidebar of File Explorer. To fix that, Using `regedit`, I navigated to `Computer\HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}` and set `System.IsPinnedToNameSpaceTree` to `0`.
+* I didn't like Cortana appearing on the start menu bar, as well as many apps on the start menu.
+* I didn't want the "3D Objects" thingy appearing on "This PC". To remove 3D Objects file, you'll have to delete the following registry key `{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}` which contains only one value, from the following two paths.
+```
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace
+```
+
+* I absolutely hated that the login and lock screens contained random wallpapers, prompts, or even ads.
+I navigated to `Settings → Personalization → Lock screen`, set the background as a plain black image, and removed all apps.
+* Changed date/time settings to sensible iso-compatible formats.
+* I wanted File Explorer to start on "This PC", so I opened File Explorer and went to `View → Options → Change folder and Search Options → Open File Explorer to`. I also checked to see the file extensions.
+
+
+# A good thing.
+One of the things I wanted to try, is to use Windows increasingly from the command line. Powershell is a brand-new type of shell that I'm going to fiddle with, so that made me double happy! 
+
+Some time ago, I heard about [Chocolatey](https://chocolatey.org/faq), a cli package manager that poses as an 'apt/yum/pacman for Windows'. It not only allows to install a multitude of packages, but also allows to package stuff yourself, chain dependencies, and other package-manager-y stuff. 
+
+The paranoid in me is both curious and wary, but I went on to install and test it!
+```
+Get-ExecutionPolicy
+# if it returns 'Restricted' run the following
+Set-ExecutionPolicy AllSigned
+
+# `AllSigned` requires that all scripts and configuration files be signed by a trusted publisher
+
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+choco install vim
+```
+Then, you can just `vim helloworld.py` and use "Your Favorite Text Editor™" right in Powershell. Windows just became about 1.7x friendlier and easier!
+
+# The killer feature.
+The main reason I was friggin excited to use a Windows 10 laptop of course was.. *Windows Subsystem for Linux*..!
+
+WSL (for short), is truly one of the coolest pieces of tech I wanted to use. One can read [a short overview](https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/), or [a series of resources](https://blogs.msdn.microsoft.com/commandline/learn-about-windows-console-and-windows-subsystem-for-linux-wsl/), but if I wanted to explain it in less than a tweet. 
+> "WSL is a compatibility layer for running ELF Linux binaries natively on Windows 10. It provides a Linux-compatible kernel interface, that can run a GNU userland. Calls from and to a Linux app are translated to a Windows native system call and a native Linux response, so the app thinks it's running on a Linux Kernel"
+
+So, you can run Linux apps, both in cli and graphical mode, in a way that's closer to the bare metal than a VM. I hope to be able to explore the technology, and write an in-depth blog post.
+
+To enable it, one can just use the "Turn Windows Features on or off" dialog, and opt-in the WSL. After the necessary files are downloaded and installed, you can simply go to the Windows Store, search for Ubuntu, and click Install.
+
+At this point I'm...struck. I can simply `apt-get update && apt-get install screen vim pip3", and run all my stuff on Linux.
+
+
+## Final Words
+
+A big, big thanks to [Jessie Frazelle](https://blog.jessfraz.com/post/windows-for-linux-nerds/)! I shamelessly copied *a lot* of stuff off her configuration. I also used a lot of stuff from [Nick Craver's](https://gist.github.com/NickCraver) gist, too. Next time, I'm going to take a look at [boxstarter](http://boxstarter.org/), too.
+
+Images sources are [here](https://www.engadget.com/2018/01/08/lenovo-thinkpad-x1-carbon-yoga-tablet-2018-hands-on/) and [here](http://www.autoguide.com/auto-news/2018/01/what-happened-when-i-took-a-stranger-for-a-ride-in-a-mercedes-amg-gt.html).
+
+What did I do next? I noticed the time and said to myself "Oh, I have work to do". I fired up a full-screen Linux VM, (that on this beefy machine now works *veeery* close to full speed), and got myself to work. 
+
+# A verdict?
+
+I can't have a definite say just yet.    
+Windows 10 seems like an **truly good** OS, that wanted me to fight it to get where I wanted. It might have a different initial end-user target group? :/
+
+The thing is, I **love** to tinker. And for this reason I'm going to tinker some more! I'm pretty happy with the way the OS is set up, the hardware compatibility and the breezing speed! Let me spend a couple of weeks on it, and I'll report back with more observations ^^
+
