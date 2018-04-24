@@ -11,7 +11,7 @@ description: "My first Windows machine in over half a decade."
 
 
 # Hey, what's up?!
-During [my first weeks](https://tpaschalis.github.io/new-job-new-goals/) at my new job, I was handed a brand new, fully-spec'd [Lenovo X1 Carbon 2018](https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Carbon-2018-WQHD-HDR-i7-Laptop-Review.284682.0.html).
+During [my first weeks](https://tpaschalis.github.io/new-job-new-goals/) at the new job, I was handed a brand new, fully-spec'd [Lenovo X1 Carbon 2018](https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Carbon-2018-WQHD-HDR-i7-Laptop-Review.284682.0.html).
 
 I mean, coming from my personal old-faithful, 2GB-DDR2, barely-two cores, hdd old pal, I feel like a spoiled kid that gets a *friggin' Mercedes* as a graduation present.
 
