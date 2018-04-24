@@ -11,7 +11,7 @@ description: "My first Windows machine in over half a decade."
 
 
 # Hey, what's up?!
-During [my first weeks](https://tpaschalis.github.io/new-job-new-goals/) at Sigmia, I was handed a brand new fully-spec'd [Lenovo X1 Carbon 2018](https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Carbon-2018-WQHD-HDR-i7-Laptop-Review.284682.0.html).
+During [my first weeks](https://tpaschalis.github.io/new-job-new-goals/) at my new job, I was handed a brand new, fully-spec'd [Lenovo X1 Carbon 2018](https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Carbon-2018-WQHD-HDR-i7-Laptop-Review.284682.0.html).
 
 I mean, coming from my personal old-faithful, 2GB-DDR2, barely-two cores, hdd old pal, I feel like a spoiled kid that gets a *friggin' Mercedes* as a graduation present.
 
@@ -123,7 +123,7 @@ Set 'Do not allow web search' → Enabled
 Set 'Don't search the web or display web results in Search' → Enabled
 ```
 
-My system was starting to look *a lot* clean-er and lean-er, so then I went on to get a little paranoid and tinker with some diagnostic/telemetry and privacy settings.
+My system was starting to look *a lot* clean-er and lean-er, so then I went on to tinker with some diagnostic/telemetry and privacy settings.
 
 ```
 sc stop DiagTrack
@@ -167,7 +167,7 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explore
 ```
 * Changed date/time settings to sensible iso-compatible formats.
 * I wanted File Explorer to start on "This PC", so I opened File Explorer and went to `View → Options → Change folder and Search Options → Open File Explorer to`. I also checked to see the file extensions.
-
+* Start Menu bar belongs on the left hand side.
 
 # A good thing.
 One of the things I want to try, is to use Windows increasingly from the command line. Powershell is a brand-new type of shell that I'm going to fiddle with, so that made me double happy! 
