@@ -40,7 +40,7 @@ There's no excuse in not taking some time to accustomize yourself with your tool
 * Work with a purpose     
 For some people carpenting is fun in itself, for some not so much, but most will agree on the benefit of having an end goal in mind. Build stuff, showcase them to your peers, let others people to use them to get some feedback. Talking theoretically about the benefits of woodworking practices, reading books, contemplating the best type of wood to withstand heat and humidity; all of this is useful, but at some point you actually have to go out and make something useful!
 
-* Theory vs Practice in the Real World
+* Theory vs Practice in the Real World   
 [Reality has a surprising amount of detail](http://johnsalvatier.org/blog/2017/reality-has-a-surprising-amount-of-detail). No matter how much you plan beforehand, when you actually start building your roof or deploying your server, things will break, and you have to display some adaptability. Remember to [measure twice, cut once](https://idiomation.wordpress.com/2014/03/14/measure-twice-cut-once/).
 
 * Having a mentor makes things .so. much easier.
