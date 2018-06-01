@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Programming as a trade.
-date:   2018-04-23
+date:   2018-05-17
 author: Paschalis Ts
 tags:   [meta, software, industry]
 mathjax: false
