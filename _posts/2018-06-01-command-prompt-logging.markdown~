@@ -27,13 +27,13 @@ export PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:
 
 This prompt checks that the current user is not `root` and then appends the current date, working directory and command to a new file for each day, under `~/.logs`, where it's available for `grep`.
 
-I first found the specific command on [this](https://news.ycombinator.com/item?id=14103688) HackerNews post, and don't know the original author. There's a heated discussion over there too, regarding the security implications of using a tool like that. I understand the `ln -sf /dev/null ~/.bash_history` crowd, and that's what I would advocate for in a production setting, but the command has been really useful for some cases such as:
+I first found the specific command on [this](https://news.ycombinator.com/item?id=14103688) HackerNews post, and don't know the original author. There's a heated discussion over there too, regarding the security implications of using a tool like that. I understand the `ln -sf /dev/null ~/.bash_history` crowd, and that's what I would advocate in a production setting, but the command has been really useful for some cases such as:
 
 * Documenting the setup of a new system
 * Creating a tutorial for someone
 * Writing automation scripts
 * Debugging someone's workflow
-* [Visualizing](https://medium.com/@DavisKnuckles/visualizing-your-bash-history-using-python-7aa84ef244c0) your `.bash_history` and finding patterns you *should* automate
+* [Visualizing](https://medium.com/@DavisKnuckles/visualizing-your-bash-history-using-python-7aa84ef244c0) your bash\_history and finding patterns you *should* furtherly automate
 * Keep notes when I'm toying with a new tool or environment
 
 
