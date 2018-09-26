@@ -22,7 +22,7 @@ Woof (Web Offer One File), creates a simple stupid webserver, and serves the fil
 Poof. *Simple. Beautiful. Genius*. No maintaining software, long-running daemons, transferring keys, agreeing on installed software/stack, or using three different interfaces.
 
 ```
-woof filename
+$ woof filename
 
 Now serving on http://193.169.10.112:8080/filename
 ```
