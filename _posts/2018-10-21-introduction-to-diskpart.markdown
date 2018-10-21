@@ -103,27 +103,28 @@ And because, well, help sections are dull to some people, let's jump right in ac
 
 ### Diagnostics
 
-You can easily get a view of the available disks, partitions, volumes or virtual disks using this command
+You can easily get a view of the available disks, partitions, volumes or virtual disks using this command :   
 `list disk/partition/volume/vdisk`
 
-One of the advantages of using this utility is its ability to rescan for the I/O buses along with any newly added disks to the computer.
+One of the advantages of using this utility is its ability to rescan for the I/O buses along with any newly added disks to the computer.   
 `rescan`
 
 
 Generally, subsequent commands will be acted upon the object that is currently `select`ed (also called "focused").
-You can do that by `list`ing the type of object you want, and selecting it via the numerical ID that it was assigned
+You can do that by `list`ing the type of object you want, and selecting it via the numerical ID that it was assigned :    
 `select disk/partition/volume ###`
 
 
-Be extremely careful when you're messing around with disks. Use `detail` to get, well, more details on the partition you're about to mess up.
+Be extremely careful when you're messing around with disks. Use `detail` to get, well, more details on the partition you're about to mess up.    
 `detail disk/partition/volume`
 
 ### Creation
-`create volume simple size=XX`
-`create volume stripe size=XX disk=###,###`
-`create volume raid size=XX disk=###,###,###`
+Creating volumes and partitions is easy.    
+`create volume simple size=XX`   
+`create volume stripe size=XX disk=###,###`   
+`create volume raid size=XX disk=###,###,###`   
 
-`create partition primary/logical/extended [size] [offset] size=XX offset=YY`   
+`create partition primary/logical/extended [size] [offset] size=XX offset=YY`     
 `create partition primary/efi/msr size=XX`
 
 For a stripe you need to specify at least two disks, for RAID at least three.
@@ -136,13 +137,13 @@ Finally, the `noerr` option is useful throughout `DiskPart` for its scripting mo
 
 
 ### Deletion
-Well, it's no big deal, to delete your current `selected` object, just call   
+Well, it's no big deal, to delete your current `selected` object, just call      
 `delete disk/partition/volume`
 
 
 ## Conversion
 
-Use the following command to convert an empty disk with MBR partition style to GPT partition style and vice versa.  
+Use the following command to convert an empty disk with MBR partition style to GPT partition style and vice versa :     
 `convert mbr/gpt`
 
 The following command will convert a 'basic' disk to a 'dynamic' and vice versa. For the differences take a look [here](https://docs.microsoft.com/en-us/windows/desktop/fileio/basic-and-dynamic-disks).  
@@ -151,7 +152,7 @@ The following command will convert a 'basic' disk to a 'dynamic' and vice versa.
 ## Formatting
 To get information on the *current* filesystem on a volume, just call `filesystem`.
 
-Formatting a volume/partition/disk is as simple as selecting it, and calling the following command. If you don't specify the `quick` option, you'll get a `full` format. You can check out their differences [here](https://superuser.com/questions/699784/what-is-the-difference-between-a-quick-and-full-format).
+Formatting a volume/partition/disk is as simple as selecting it, and calling the following command. If you don't specify the `quick` option, you'll get a `full` format. You can check out their differences [here](https://superuser.com/questions/699784/what-is-the-difference-between-a-quick-and-full-format).     
 `format FS=NTFS label=”My Drive” quick`
 
 
@@ -162,15 +163,13 @@ As per the documentation, "On master boot record (MBR) disks, only the MBR parti
 On the other hand, `clean all` specifies that each and every sector on the disk is zeroed, which completely deletes all data contained on the disk.
 
 
-`extend`
-
-The extend command takes no options and displays no warning message or confirmation. IT will cause the  current in-focus volume to be extended into contiguous unallocated space.
+The `extend` command takes no options and displays no warning message or confirmation. IT will cause the  current in-focus volume to be extended into contiguous unallocated space.
 
 ### Utilities
 
-A couple of other commands that you might find useful include assigning/removing a letter to your currently "focused" object
-`assign letter=Q`
-`remove letter=Q`
+A couple of other commands that you might find useful include assigning/removing a letter to your currently "focused" object   
+`assign letter=Q`   
+`remove letter=Q`   
 
 To setting a disk or volume that is marked as "offline" back online, just "select" it and call `online`.
 
@@ -212,3 +211,5 @@ create partition primary size=300
 format quick fs=ntfs label="Windows RE tools"  
 assign letter="T"  
 ```
+
+Hope you learned something new, or that you can use this as a cheatsheet the next time you need to automate something in a windows environment! Peace out!
