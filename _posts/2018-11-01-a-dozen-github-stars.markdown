@@ -8,7 +8,7 @@ mathjax: false
 description: "I showed another of my toy projects to the world, on HN and Reddit. Here's what went down."  
 ---
 
-I got my first GitHub stars... About a dozen of them, actually, along with the fork!!
+[I got my first GitHub stars...](https://github.com/tpaschalis/goof) About a dozen of them, actually, along with the fork!!
 
 I'm pretty happy about what happened this past week, and I wanted to share!   
 I haven't been able to wrap up personal projects as much as I'd like, and even moreso open-source them. And this bite-sized utility was a good start to encourage me to polish and show the world some more complex stuff I've been shelving.
@@ -16,7 +16,7 @@ I haven't been able to wrap up personal projects as much as I'd like, and even m
 ## What happened?
 Last weekend, I finally had *juust a little* free time, and ported the ["woof"](http://www.home.unix-ag.org/simon/woof.html) Python script to Golang. It was something that I and some other colleagues had been using in a day-to-day basis.
 
-> Goof (Go Offer File) is a small utility to easily serve a single file or directory over a network.    
+> [Goof](https://github.com/tpaschalis/goof) (Go Offer File) is a small utility to easily serve a single file or directory over a network.    
 > All you need is Goof, and a command line, or a web browser
 
 Finally, I was pretty satisfied with the first feature set. I knew the code was not without faults, and decided to put it in front of other people's judgment. 
