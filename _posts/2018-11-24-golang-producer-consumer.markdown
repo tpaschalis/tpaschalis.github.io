@@ -8,14 +8,14 @@ mathjax: false
 description: "Go makes concurrency fun, and simple, and that makes me happy!"  
 ---
 
+### Intro
 I've been writing new solutions to existing problems using Go.  
-[CS50](https://www.edx.org/course/cs50s-introduction-computer-science-harvardx-cs50x) exercise sets, or [`psets`](http://cs50.tv/2014/fall/#about,psets) are interesting little problems, and while the problems themselves are not huge challenges, they're fun to solve, using each language's special features to provide idiomatic and efficient solutions.
+[CS50](https://www.edx.org/course/cs50s-introduction-computer-science-harvardx-cs50x) exercise sets, or [`psets`](http://cs50.tv/2014/fall/#about,psets) are interesting little problems, and while the problems themselves are not huge challenges, they're fun to solve, using a language's special features to provide idiomatic and efficient solutions.
 
 
 One of the problems was 'breaking' a DES hash, to 'decode' a 5-character password. The bruteforce approach is quite slow, but using simple concurrency, there was a 5x speedup, *without adding much complexity*. Here's the solution in a [gist](https://gist.github.com/tpaschalis/223045b4c50490fc950dfbc2d98d0a4f). If you have any suggestions for improvements, you can leave a comment or feel free to fork it.
 
-&nbsp;
-
+### The Pattern in Go
 
 This specific problem was a good opportunity to implement a ["Producer-Consumer"](https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem) [pattern](https://www.cs.cornell.edu/courses/cs3110/2010fa/lectures/lec18.html).
 
@@ -65,14 +65,14 @@ func main() {
 }
 ```
 
-* So, in short. You build two `string` channels and a WaitGroup.  
+* So, in short. You build two `string` channels and a `WaitGroup`.  
 * You can then fire up goroutines to `produce` your passwords in parallel, along the `in` channel. 
 * You can spawn a separate set of goroutines, to `consume` this `in` channel.
-* The WaitGroup is used to sync this job
-* If the hash is cracked, the success result is passed along to the `out` channel.
-* Function `stop` waits until all consumers are finished, and then close the chanel, to signal that there was nothing found. Otherwise, the program would be blocked forever from reading the `out` channel.
+* The `WaitGroup` is used to sync this job.
+* If the hash is cracked, the successful result is passed along to the `out` channel.
+* Function `stop` waits until all consumers are finished, and then closes that chanel, to signal that there was nothing found. Otherwise, the program would be blocked forever from reading the `out` channel.
 
-
+### Test it yourself!
 A more bare-bones implementation that you can compile right away and start picking apart, is the one below. (HINT : You will need to add a WaitGroup at some point. Can you guess when?)
 
 ```go
@@ -118,8 +118,9 @@ Thanks for your time, and keep on tinkering!
 &nbsp;
 
 Some *nice* resources :   
-[0] https://blog.golang.org/share-memory-by-communicating
+[0] https://blog.golang.org/share-memory-by-communicating   
 [1] https://blog.golang.org/pipelines  
 [2] https://github.com/golang/go/wiki/LearnConcurrency  
-[3] https://stackoverflow.com/questions/48233009/using-concurrency-in-nested-for-loop-brute-force  
-[4] https://stackoverflow.com/questions/11075876/what-is-the-neatest-idiom-for-producer-consumer-in-go [5] https://medium.com/@trevor4e/learning-gos-concurrency-through-illustrations-8c4aff603b3
+[3] https://stackoverflow.com/questions/48233009/using-concurrency-in-nested-for-loop-brute-force   
+[4] https://stackoverflow.com/questions/11075876/what-is-the-neatest-idiom-for-producer-consumer-in-go   
+[5] https://medium.com/@trevor4e/learning-gos-concurrency-through-illustrations-8c4aff603b3   
