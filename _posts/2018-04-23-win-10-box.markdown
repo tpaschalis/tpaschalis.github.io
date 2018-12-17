@@ -200,6 +200,12 @@ To enable it, one can just use the "Turn Windows Features on or off" dialog, and
 
 At this point I'm...struck. I can simply `apt-get update && apt-get install screen vim pip3`, and run all my Linux stuff right there. Who thought it could be this easy!
 
+## Launch Portable Apps
+To easily launch portable apps, customs scripts and whatnot, you can create shortcuts in the following directory; they will be available on the Start Menu and Windows search.
+```
+%AppData%\Microsoft\Windows\Start Menu\Programs
+```
+
 
 ## Final Words
 
