@@ -11,7 +11,7 @@ description: "As if CS wasn't 'ambiguous' enough :P"
 
 A few days ago, [this](http://www.randomhacks.net/2005/10/11/amb-operator/) article from 2005 was featured on HN.    
 
-It was about the `amb` or operator, which many people knew from [SICP](https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-28.html). It was my first time hearing about it, and as I haven't found the time to go through the Wizard Book yet, I meant to make it work in Go.
+It was about the `amb` operator, which many people knew from [SICP](https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-28.html). It was my first time hearing about it, and as I haven't found the time to go through the Wizard Book yet, I meant to make it work in Go.
 
 ## What is the `amb` operator?
 
@@ -49,7 +49,7 @@ In the HN discussion, there are comments stating that this can be simply defined
 [(c, d) | c <- [2, 4, 8], d <- [3, 7, 10], c * d == 40]
 ```
 
-But the initial idea behind the operator is that of an abstracted candidates (i.e. not necessarily a list), but that a search space can be an arbitrary call stack, which we'll try to explore.
+But the initial idea behind the operator is that of abstracted candidates (i.e. not necessarily a list), but that a search space can be an arbitrary call stack, which we'll try to explore.
 
 One can find people who have put `amb` to creative use, such as [solving sudokus](http://continuation.passing.style/2016/02/21/solving-sudoku-amb/), to [combine concurrent sequences](http://introtorx.com/Content/v1.0.10621.0/12_CombiningSequences.html), or to find [word chains](http://www.fantascienza.net/leonardo/ar/amb_chain.html). If all this sounds intriguing, the [Mozart Programming System](http://mozart.github.io/) with the Oz language or [Icon](https://en.wikipedia.org/wiki/Icon_(programming_language)), which features "goal-directed execution"  might also be of interest.
 
@@ -185,7 +185,7 @@ D[ 0 ]
 
 ## Conclusion
 
-I hope that by now I have either picked your interest, explained something in a clear way and/or sparked new ideas!
+I hope that by now I have either piqued your interest or explained something in a clear way.
 
 Unfortunately, I don't think the operator has seen much use in the real-world, although it is a neat theoretical idea. The whole concept of (naive) *backtracking* adds a O(2^n) term to the algorithmic complexity (and then some more on the mental outline of someone who will maintain the code), and perceived gains in productivity and elegance might not be enough offset.
 
