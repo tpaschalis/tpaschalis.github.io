@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  GNU screen primer in 4 minutes.
+title:  A GNU Screen primer in 4 minutes.
 date:   2019-02-20
 author: Paschalis Ts
 tags:   [linux, screen, tutorial]
@@ -128,3 +128,6 @@ And if you're hardcore enough to use no mouse at all
 <space>     # Toggle selection to copy
 ^A ]        # Paste aforementioned selection
 ```
+
+
+Thanks for reading all the way to the end, talk to you soon!
