@@ -49,7 +49,7 @@ The magic sauce of the setup is `vim-go`.
 
 As I mentioned, I don't particularly care about vim plugins and mostly use it vanilla, but if I'm working with Go, I make an exception for this one.
 
-It does almost everything your IDE supports, but pre-baked into your `vim` workflow!
+It does almost everything your IDE supports, but pre-baked into your vim workflow!
 
 - Compile/Run/Install your Go project
 - Run `gofmt` and `goimports` on save.
@@ -63,7 +63,7 @@ It does almost everything your IDE supports, but pre-baked into your `vim` workf
 - Refactor safely
 - Code Linting
 
-In many cases, the commands might open up a *"quickfix window"* as to raise errors, quickly provide definitions, or report on test results. ou can use `Ctrl-WW` or `Ctrl-W-arrows` to cycle between your code and this extra window.
+In many cases, the commands might open up a *"quickfix window"* as to raise errors, quickly provide definitions, or report on test results. You can use `Ctrl-WW` or `Ctrl-W + ArrowKey` to cycle between your code and this extra window.
 
 
 ### Installing / Removing vim-go
@@ -77,7 +77,7 @@ and you're all set!
 
 To enable it, you only need to add `filetype plugin indent on` to your `~/.vimrc`. I suggest you also add `set backspace=indent,eol,start` in another line, just in case your backspace returns to *old-school/hardcore* vim mode, so it keeps working like for most other people.
 
-After installing and enabling the plugin, open up vim and run `:GoInstallBinaries` so that the tools checks `$GOPATH` and `go get`s requires binaries for `godoc`, `gopls` etc.
+After installing and enabling the plugin, open up vim and run `:GoInstallBinaries` so that the tool checks `$GOPATH` and `go get`s required binaries for `godoc`, `gopls` etc.
 
 ### Using vim-go.
 Without further ado, here's a handy reference table of how to achieve all this and more! 
@@ -97,7 +97,7 @@ K               # also has the same effect
 
    
 :GoTest         # run every *_test.go file and report results   
-:GoTestFunc     # or just test function under cursor   
+:GoTestFunc     # or just test the function under your cursor   
 :GoCoverage     # check your test coverage   
    
 :GoImport       # manage and name your imports   
@@ -115,23 +115,23 @@ K               # also has the same effect
 ```
 
 I've personally added the following two directives on my .vimrc, as they've proved really useful.
-```
+```vim
 let g:go_fmt_command = "goimports"    # Run goimports along gofmt on each save     
 let g:go_auto_type_info = 1           # Automatically get signature/type info for object under cursor     
 ```
 
 ### Autocomplete
-Completion is enabled by default via *omnifunc*, and supported by the `gocode` or `gopls` utilities. When you're in INSERT mode, you trigger it using `Ctrl-X Ctrl-O`.
+Completion is enabled by default via *omnifunc*, and supported by the `gocode` and `gopls` utilities. When you're in INSERT mode, you may trigger it using `Ctrl-X Ctrl-O`.
 
 To check if vim-go's `ftplugin/go.vim` has been configured correctly for autocompletion, you can run the following command. The message below should appear
-```
+```vim
 :verbose setlocal omnifunc?
 omnifunc=go#complete#Complete
         Last set from ~/.vim/pack/plugins/start/vim-go/ftplugin/go.vim
 ```
 
 If you want the autocomplete prompt to appear automatically whenever you press the dot (`.`), you can add the following line to your `~/.vimrc`, but I personally don't like to clutter the UI, and only call it whenever needed.
-```
+```vim
 au filetype go inoremap <buffer> . .<C-x><C-o>
 ```
 
@@ -160,7 +160,7 @@ Of course, to remove it just
 ### Using NERDTree
 The only command you need for NERDTree to help in your day-to-day workflow is  `:NERDTreeToggle`, to open and close the side file explorer. Switch between your code and NERDTree window using `Ctrl-WW` (double W) or `Ctrl-W + ArrowKey`.
 
-You can define shortcut like `Ctrl-G` (or any other one) to get NERDTree out of the way or into focus by adding something like this in your `~/.vimrc` 
+You can define a shortcut like `Ctrl-G` (or some other one) to get NERDTree out of the way or into focus by adding something like this in your `~/.vimrc` 
 ```vim
 " NERDTree plugin specific commands
 :nnoremap <C-g> :NERDTreeToggle<CR>
@@ -213,7 +213,7 @@ Well, one final little thing, the cherry on top. To get that sweet information a
 <img src="/images/vim-golang-ide/vim-fugitive.png" style='height: 50%; width: 50%; object-fit: contain'/>
 </center>
 
-[Tim Pope](http://twitter.com/tpope) is *the* vim plugin guide. He's the original creator of the most popular third-party package management, Pathogen, as well as the author of many of the top `vim` plugins.
+[Tim Pope](http://twitter.com/tpope) is *the* vim plugin guy. He's the original creator of the most popular third-party package management, Pathogen, as well as the author of many of the top `vim` plugins.
 
 Anyway, Tim says about his work : "*fugitive.vim: A Git wrapper so awesome, it should be illegal*". And he's mostly right.
 
@@ -341,9 +341,9 @@ let g:airline_symbols.linenr = ''
 
 ## Startup Time
 
-Some will argue "You're using `vi` for performance, all these plugin slow things down. Dpn't be stubborn, use a god-damned IDE".
+Someone will argue "You're using `vi` for performance, all these plugin slow things down. Don't be stubborn, just use a god-damned IDE".
 
-You might be wrong about the second point, not so sure about the first one though!
+He/She may have a point in trying some other IDE, not so sure about vim slowing down though!
 
 You can use `vim --startuptime startup.log` to start vim. It will list every action taken until the point where it becomes interactive for you to use, and save results on a `startup.log` file. The times reported there are in Milliseconds.
 
@@ -362,8 +362,8 @@ I tested the following cases, and present the results in a table below.
 
 - Windows 10 WSL "nude" Vim (no plugins, empty .vimrc)
 - CentOS 7 Virtualbox VM "nude" Vim
-- Centos 7 Server "nude" Vim
-- Windows 10 WSL w/ Auto NERDTree disable
+- Centos 7 Idle Server "nude" Vim
+- Windows 10 WSL w/ Automatic startup of NERDTree disabled
 - Windows 10 WSL w/ Full Plugins (hot start)
 - Windows 10 WSL w/ Full Plugins (cold start)
 - Windows 10 WSL w/ Full Plugins (inside Git repo)
