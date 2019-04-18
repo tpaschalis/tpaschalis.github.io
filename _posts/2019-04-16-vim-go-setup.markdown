@@ -16,8 +16,9 @@ But here's something I wanted to show you. How to use vim as a fully-fledged IDE
 
 First things first, here's how the result looks. I promise, this is not one of these "unix-porn", fantastical but unusable setups you see on the internet. It is something you can work in on a daily basis, and something that *you* can set up in less than 30 minutes.
 
-
-<img src="/images/vim-golang-ide/vim-go-ide-complete.png" style='height: 100%; width: 100%; object-fit: contain'/>
+<center>
+<img src="/images/vim-golang-ide/vim-go-ide-complete.png" style='height: 130%; width: 130%; object-fit: contain'/>
+</center>
 
 ### Convinced? Let's go! 
 
@@ -27,8 +28,8 @@ These are
 
 - [vim-go](https://github.com/fatih/vim-go) for all your Go needs
 - [NERDTree](https://github.com/scrooloose/nerdtree) as a handy file explorer
-- [vim-fugitive](https://github.com/tpope/vim-fugitive.git) as a seriously awesome git wrapper
 - [vim-airline](https://github.com/vim-airline/vim-airline) for eye candy. 
+- [vim-fugitive](https://github.com/tpope/vim-fugitive.git) as a seriously awesome git wrapper
 
 
 Let's check them out!
@@ -189,8 +190,9 @@ When you want to remove it, or freshen up with something more personal, it's jus
 ### Using vim-airline
 Here's how it looks like in action, in various statuses and files on my system.
 
-<img src="/images/vim-golang-ide/vim-airline.png" style='height: 70%; width: 70%; object-fit: contain'/>
-
+<center>
+<img src="/images/vim-golang-ide/vim-airline.png" style='height: 100%; width: 100%; object-fit: contain'/>
+</center>
 
 
 
@@ -198,18 +200,18 @@ If you have any issues with missing symbols or fonts not rendering correctly, yo
 
 If the issue persists, the next step would be to download a custom font that contains the additional symbols you need (such as [this one](https://github.com/runsisi/consolas-font-for-powerline) for Consolas), and/or add `let g:airline_powerline_fonts = 1` to your `~/.vimrc` and your issues should be resolved!
 
-
-<img src="/images/vim-golang-ide/vim-airline-utf8.png" style='height: 70%; width: 70%; object-fit: contain'/>
-
+<center>
+<img src="/images/vim-golang-ide/vim-airline-utf8.png" style='height: 100%; width: 100%; object-fit: contain'/>
+</center>
 
 
 ## vim-fugitive
 
 Well, one final little thing, the cherry on top. To get that sweet information about your Version Control, you need [vim-fugitive](https://github.com/tpope/vim-fugitive). 
 
-
-<img src="/images/vim-golang-ide/vim-fugitive.png" style='height: 40%; width: 40%; object-fit: contain'/>
-
+<center>
+<img src="/images/vim-golang-ide/vim-fugitive.png" style='height: 50%; width: 50%; object-fit: contain'/>
+</center>
 
 [Tim Pope](http://twitter.com/tpope) is *the* vim plugin guide. He's the original creator of the most popular third-party package management, Pathogen, as well as the author of many of the top `vim` plugins.
 
@@ -237,8 +239,104 @@ The next step would be to check the [documentation](https://github.com/tpope/vim
 
 You can take a look at my personal `~/.vimrc` setup, if you want to copy some ideas.
 
-### .vimrc 
-Here's the lines I added to my `~/.vimrc` for `vim-go` to play nice.
+## .vimrc 
+
+Here's  my `~/.vimrc` in case you want to steal any ideas.
+
+```vim
+syntax on
+colo pablo
+
+" Flash screen instead of beep sound
+set visualbell
+
+" Change how vim represents characters on the screen
+set encoding=utf-8
+
+" Set the encoding of files written
+set fileencoding=utf-8
+
+
+autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
+" ts - show existing tab with 4 spaces width
+" sw - when indenting with '>', use 4 spaces width
+" sts - control <tab> and <bs> keys to match tabstop
+
+" Control all other files
+set shiftwidth=4
+
+set undofile " Maintain undo history between sessions
+set undodir=~/.vim/undodir
+
+" Hardcore mode, disable arrow keys.
+"noremap <Up> <NOP>
+"noremap <Down> <NOP>
+"noremap <Left> <NOP>
+"noremap <Right> <NOP>
+
+filetype plugin indent on
+
+" Allow backspace to delete indentation and inserted text
+" i.e. how it works in most programs
+set backspace=indent,eol,start
+" indent  allow backspacing over autoindent
+" eol     allow backspacing over line breaks (join lines)
+" start   allow backspacing over the start of insert; CTRL-W and CTRL-U
+"        stop once at the start of insert.
+
+
+" go-vim plugin specific commands
+" Also run `goimports` on your current file on every save
+" Might be be slow on large codebases, if so, just comment it out
+let g:go_fmt_command = "goimports"
+
+" Status line types/signatures.
+let g:go_auto_type_info = 1
+
+au filetype go inoremap <buffer> . .<C-x><C-o>
+
+" If you want to disable gofmt on save
+" let g:go_fmt_autosave = 0
+
+
+" NERDTree plugin specific commands
+:nnoremap <C-g> :NERDTreeToggle<CR>
+"autocmd vimenter * NERDTree
+
+
+" air-line plugin specific commands
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
+```
+
 
 
 ## Startup Time
@@ -269,17 +367,6 @@ I tested the following cases, and present the results in a table below.
 - Windows 10 WSL w/ Full Plugins (hot start)
 - Windows 10 WSL w/ Full Plugins (cold start)
 - Windows 10 WSL w/ Full Plugins (inside Git repo)
-
-
-| System                    | Median | Average | Worst  |
-|---------------------------|--------|---------|--------|
-| Win10 WSL "nude" vim      |  23.25 | 23.50   |  27    |
-| CentOS 7 VM "nude" vim    |  33.82 | 33.83   |  36    |
-| CentOS 7 Native "nude" vim|  46.49 | 49.09   |  61    | 
-| Win10 WSL No Auto NERDTree| 108.06 | 107.85  | 112    | 
-| Win10 WSL Full vim (hot)  | 194.08 | 193.64  | 254    |
-| Win10 WSL Full vim (cold) | 230.61 | 231.03  | 254    |
-| Win10 WSL Full vim (repo) | 252.38 | 250.99  | 276    |
 
 
 ```
