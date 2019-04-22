@@ -1,14 +1,14 @@
 ---
 layout: post
-title:  My Vim "IDE" setup for Go (wip).
+title:  My Vim IDE setup for Go.
 date:   2019-04-16
 author: Paschalis Ts
-tags:   [go, code, dev]
+tags:   [go, code, dev, wip]
 mathjax: false
 description: "I should learn an IDE sometime, but I can't force myself to do it."  
 ---
 
-I'm a vi person, it says so right there on my CV. The time I've spent to learn how to work with this little beast is one of the best ROI decisions I've made as a programmer. But every now and then, people say "Well, how the *hell* do you work with such an archaic setup??! you're missing on 30 years of IDE advancements, get on with the times!!!".
+I like to claim I'm a vi person. The time I've spent to learn how to work with this little beast is one of the best ROI decisions I've made as a programmer. But every now and then, people say "Well, how the *hell* do you work with such an archaic setup??! you're missing on 30 years of IDE advancements, get on with the times!!!".
 
 Personally I like to keep my `vi/vim` setup nice and minimal like it's 1999, and don't really use plugins. When you're hopping between servers all day long, it's the *sane* thing to do.
 
@@ -99,6 +99,7 @@ K               # also has the same effect
 :GoTest         # run every *_test.go file and report results   
 :GoTestFunc     # or just test the function under your cursor   
 :GoCoverage     # check your test coverage   
+:GoAlternate	# switch to the test case if you’re in the implementation and vice versa
    
 :GoImport       # manage and name your imports   
 :GoImportAs   
@@ -294,7 +295,7 @@ let g:go_fmt_command = "goimports"
 " Status line types/signatures.
 let g:go_auto_type_info = 1
 
-au filetype go inoremap <buffer> . .<C-x><C-o>
+"au filetype go inoremap <buffer> . .<C-x><C-o>
 
 " If you want to disable gofmt on save
 " let g:go_fmt_autosave = 0
@@ -343,7 +344,7 @@ let g:airline_symbols.linenr = ''
 
 Someone will argue "You're using `vi` for performance, all these plugin slow things down. Don't be stubborn, just use a god-damned IDE".
 
-He/She may have a point in trying some other IDE, not so sure about vim slowing down though!
+They may have a point in trying some other IDE, not so sure about vim slowing down though!
 
 You can use `vim --startuptime startup.log` to start vim. It will list every action taken until the point where it becomes interactive for you to use, and save results on a `startup.log` file. The times reported there are in Milliseconds.
 
@@ -381,7 +382,13 @@ I tested the following cases, and present the results in a table below.
 | Win10 WSL Full vim (repo) | 252.38 | 250.99  | 276    |
 ```
 
-
+Not bad at all!
 
 ### Parting words
+I hope you have enjoyed this post as much as I did creating it! Feel free to share and discuss, send me an email or a Twitter DM for any suggestions, insights or corrections.
 
+If you indeed try to use this setup exlusively, you *might* need an afternoon or so of tinkering, but it's up to you to decide if it's worth your time. For me, personally, it's both fun and provides immense utility, make of that what you will.
+
+Finally, if you want to try some more advanced stuff, feel free to check out [ale](https://github.com/w0rp/ale) as an "ascynchronous lint engine" to provide on-the-fly syntax checking, warnings about semantic erros and other goodies, [vim-delve](https://github.com/sebdah/vim-delve) to tie delve support into vim for debugging your Go application as well as any of the numerous plugins that provide snippet support.
+
+Until next time!
