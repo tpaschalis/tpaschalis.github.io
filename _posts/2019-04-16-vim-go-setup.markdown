@@ -12,7 +12,7 @@ I like to claim I'm a vi person. The time I've spent to learn how to work with t
 
 Personally I like to keep my `vi/vim` setup nice and minimal like it's 1999, and don't really use plugins. When you're hopping between servers all day long, it's the *sane* thing to do.
 
-But here's something I wanted to show you. How to use vim as a fully-fledged IDE for developing in Golang, and keep your lighting fast workflow, without missing out on *any* niceties.
+But here's something I wanted to show you. How to use vim as a fully-fledged IDE for developing in Golang and keep your lighting fast workflow, without missing out on *any* niceties.
 
 First things first, here's how the result looks. I promise, this is not one of these "unix-porn", fantastical but unusable setups you see on the internet. It is something you can work in on a daily basis, and something that *you* can set up in less than 30 minutes.
 
@@ -41,6 +41,8 @@ Vim has an expanding, awesome plugin ecosystem, but it can be complicated for be
 
 Vim 8 means that you can load plugins by just copy/pasting their contents into your `~/.vim` directory! Installing and removing them is just a `git clone` and `rm -r` away, and updating them is just an issue of `git pull`ing the latest releases! Thanks [Bran](https://en.wikipedia.org/wiki/Bram_Moolenaar)! You can learn more about this awesome new feature using `:h packages`. 
 
+After finishing up the installations of your chosen plugins make sure to run `:helptags ALL` to automatically generate help tags for each one of them.
+
 
 
 ## vim-go
@@ -68,7 +70,7 @@ In many cases, the commands might open up a *"quickfix window"* as to raise erro
 
 ### Installing / Removing vim-go
 
-The easiest way to install `vim-go` if you're using Vim >=8, is to directly clone the repo on your home folder, like   
+The easiest way to install `vim-go` if you're using Vim >=8, is to directly clone the repo on your home directory, like   
 `git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go`   
 
 To remove the `vim-go` plugin, you can just   
@@ -99,8 +101,8 @@ K               # also has the same effect
 :GoTest         # run every *_test.go file and report results   
 :GoTestFunc     # or just test the function under your cursor   
 :GoCoverage     # check your test coverage   
-:GoAlternate	# switch to the test case if you’re in the implementation and vice versa
-   
+:GoAlternate	# switch bewteen your test case and implementation   
+
 :GoImport       # manage and name your imports   
 :GoImportAs   
 :GoDrop   
@@ -137,7 +139,7 @@ au filetype go inoremap <buffer> . .<C-x><C-o>
 ```
 
 ### Documentation 
-The complete documentation is available on the [repo](https://github.com/fatih/vim-go/blob/master/doc/vim-go.txt), and also right there on your editor, accessible by `:help vim-go`.
+The complete documentation is available on the [repo](https://github.com/fatih/vim-go/blob/master/doc/vim-go.txt), and also right there on your editor, accessible by `:help vim-go`. There are various other shortcuts and utilities you can put to use, so make sure to check it out.
 
 
 
@@ -208,7 +210,7 @@ If the issue persists, the next step would be to download a custom font that con
 
 ## vim-fugitive
 
-Well, one final little thing, the cherry on top. To get that sweet information about your Version Control, you need [vim-fugitive](https://github.com/tpope/vim-fugitive). 
+Well, one final little thing, the cherry on top. To get that sweet information about your version control system, you need [vim-fugitive](https://github.com/tpope/vim-fugitive). 
 
 <center>
 <img src="/images/vim-golang-ide/vim-fugitive.png" style='height: 50%; width: 50%; object-fit: contain'/>
@@ -387,7 +389,7 @@ Not bad at all!
 ### Parting words
 I hope you have enjoyed this post as much as I did creating it! Feel free to share and discuss, send me an email or a Twitter DM for any suggestions, insights or corrections.
 
-If you indeed try to use this setup exlusively, you *might* need an afternoon or so of tinkering, but it's up to you to decide if it's worth your time. For me, personally, it's both fun and provides immense utility, make of that what you will.
+If you indeed decide to use this setup exlusively, you *might* need an afternoon or so of tinkering, but it's up to you to decide if it's worth your time. For me, personally, it's both fun and provides immense utility, make of that what you will.
 
 Finally, if you want to try some more advanced stuff, feel free to check out [ale](https://github.com/w0rp/ale) as an "ascynchronous lint engine" to provide on-the-fly syntax checking, warnings about semantic erros and other goodies, [vim-delve](https://github.com/sebdah/vim-delve) to tie delve support into vim for debugging your Go application as well as any of the numerous plugins that provide snippet support.
 
