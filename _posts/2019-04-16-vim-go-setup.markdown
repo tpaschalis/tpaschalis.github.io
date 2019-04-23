@@ -387,7 +387,7 @@ I tested the following cases, and present the results in a table below.
 Not bad at all!
 
 ### Parting words
-I hope you have enjoyed this post as much as I did creating it! Feel free to share and discuss, send me an email or a Twitter DM for any suggestions, insights or corrections.
+I hope you have enjoyed this post as much as I did creating it! Feel free to discuss [on Reddit](https://www.reddit.com/r/golang/comments/bgcsey/setting_up_vim_as_a_go_ide/), send me an email or a Twitter DM for any suggestions, insights or corrections.
 
 If you indeed decide to use this setup exlusively, you *might* need an afternoon or so of tinkering, but it's up to you to decide if it's worth your time. For me, personally, it's both fun and provides immense utility, make of that what you will.
 
