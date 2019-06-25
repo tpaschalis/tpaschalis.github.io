@@ -84,7 +84,7 @@ If you come accross a *multi-adapter compatibility setting*, leave it unchecked 
 ## That's all!
 Press "Start Recording", and the current active scene will start recording. Come back and press "Stop Recording" when you're done. A "Pause" feature is on the table, but not available right now. The default save location can be altered from the following menu
 
-<img src="/images/obs_save_loc.png" style="height: 50%; width: 50%; object-fit: contain" />
+<center> <img src="/images/obs_save_loc.png" style="height: 50%; width: 50%; object-fit: contain" /> </center>
 
 Keep an eye on the lower right-hand side corner for the CPU utilization and FPS your recording will run at, as they can both impact the quality of your recording. 
 
