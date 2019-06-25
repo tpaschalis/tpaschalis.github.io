@@ -31,7 +31,7 @@ Windows 10 does have native screen recording (XBox Game Bar/XBox DVR or somethin
 
 It's available for Windows, Mac and Linux, and the C/C++ GPL codebase is [available on GitHub](https://github.com/obsproject/obs-studio). Personally, I am more than happy with the performance, the stability, the clean and unobtrusive UI.
 
-I had used OBS way back in 2015 to livestream CS:GO Tournaments on Twitch when I was working as a Systems Engineer for [TheWeb.gr](https://theweb.gr/), but I don't even remember the layout, so I came in with a fresh outlook.
+I had used OBS way back in 2015 to livestream CS:GO Tournaments on Twitch when I younger, but I don't even remember the layout, so I came in with a fresh outlook.
 
 
 
