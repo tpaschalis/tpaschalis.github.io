@@ -51,7 +51,7 @@ For example, in my case, I set the *Dock* profile to capture from a Base Canvas 
 
 <center> <img src="/images/obs_video_settings.png" style="height: 80%; width: 80%; object-fit: contain" /> </center>
 
-On the other hand, the *Meeting* profile will both record and output in 1920x10e80, but will require higher audio fidelity, as well as continuous sound recording. I want each profile to record screencasts with different filenames, so I can distinguish them at a glance.
+On the other hand, the *Meeting* profile will both record and output in 1920x1080, but will require higher audio fidelity, as well as continuous sound recording. I want each profile to record screencasts with different filenames, so I can distinguish them at a glance, and 60fps is not a priority.
 
 <center> <img src="/images/obs_filenames.png" style="height: 50%; width: 50%; object-fit: contain" /> </center>
 
