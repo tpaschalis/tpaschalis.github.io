@@ -84,15 +84,15 @@ If you come accross a *multi-adapter compatibility setting*, leave it unchecked 
 ## That's all!
 Press "Start Recording", and the current active scene will start recording. Come back and press "Stop Recording" when you're done. A "Pause" feature is on the table, but not available right now. The default save location can be altered from the following menu
 
-<center> <img src="/images/obs_save_loc.png" style="height: 50%; width: 50%; object-fit: contain" /> </center>
+<center> <img src="/images/obs_save_loc.png" style="height: 70%; width: 70%; object-fit: contain" /> </center>
 
-Keep an eye on the lower right-hand side corner for the CPU utilization and FPS your recording will run at, as they can both impact the quality of your recording. 
+Keep an eye on the lower right-hand side corner for the CPU utilization and FPS you're recording at, as they can both impact the final quality. 
 
 ## Other features
 
 After the first setup, one can use OBS by [launching it from the command line](https://obsproject.com/wiki/Launch-Parameters) and using the [keyboard shortcuts](https://obsproject.com/wiki/Keyboard-Shortcuts).
 
-Other useful features include captioning, the use of timers, automatic switching between scenes, *Studio Mode* to preview scene changes. There's also a Python/Lua script API, to programatically do stuff such as [posting stuff on Twitch chat](https://github.com/dmadison/OBS-ChatSpam), or if you're an artistic type, various [filters](https://obsproject.com/wiki/Filters-Guide) are supported.
+Other useful features include captioning, the use of timers, automatic switching between scenes and *Studio Mode* to preview scene changes. There's also a Python/Lua script API, to programatically do stuff such as [post stuff on Twitch chat](https://github.com/dmadison/OBS-ChatSpam), or if you're an artistic type, you can have fun with [filters](https://obsproject.com/wiki/Filters-Guide).
 
 Let me know the setups *you* have come with, cool things you've seen other people do, or any problems you encounter.
 
