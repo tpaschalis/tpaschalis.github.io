@@ -94,7 +94,7 @@ After the first setup, one can use OBS by [launching it from the command line](h
 
 Other useful features include captioning, the use of timers, automatic switching between scenes, *Studio Mode* to preview scene changes. There's also a Python/Lua script API, to programatically do stuff such as [posting stuff on Twitch chat](https://github.com/dmadison/OBS-ChatSpam), or if you're an artistic type, various [filters](https://obsproject.com/wiki/Filters-Guide) are supported.
 
-Let me know the setups *you* have come with, cool things you've seen other people do, or any problems you've encountered.
+Let me know the setups *you* have come with, cool things you've seen other people do, or any problems you encounter.
 
 Until next time, see ya!
 
