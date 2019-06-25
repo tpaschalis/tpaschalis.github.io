@@ -92,7 +92,7 @@ Keep an eye on the lower right-hand side corner for the CPU utilization and FPS 
 
 After the first setup, one can use OBS by [launching it from the command line](https://obsproject.com/wiki/Launch-Parameters) and using the [keyboard shortcuts](https://obsproject.com/wiki/Keyboard-Shortcuts).
 
-Other useful features include captioning, the use of timers, automatic switching between scenes and *Studio Mode* to preview scene changes. There's also a Python/Lua script API, to programatically do stuff such as [post stuff on Twitch chat](https://github.com/dmadison/OBS-ChatSpam), or if you're an artistic type, you can have fun with [filters](https://obsproject.com/wiki/Filters-Guide).
+Other useful features include captioning, the use of timers, automatic switching between scenes and *Studio Mode* to preview scene changes. There's also a Python/Lua script API in case you want to simultaneously [participate in the Twitch chat](https://github.com/dmadison/OBS-ChatSpam), or if you're an artistic type, you can have fun with [filters](https://obsproject.com/wiki/Filters-Guide).
 
 Let me know the setups *you* have come with, cool things you've seen other people do, or any problems you encounter.
 
