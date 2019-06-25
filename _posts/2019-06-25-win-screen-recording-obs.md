@@ -43,17 +43,17 @@ I have two basic setups I'd want to acommodate
 
 For this reason, I created two different [profiles](https://jp9000.github.io/OBS/features/profiles.html), *Dock* and *Meetings*. 
 
-<img src="/images/obs_profiles.png" style="height: 50%; width: 50%; object-fit: contain" />
+<center><img src="/images/obs_profiles.png" style="height: 60%; width: 60%; object-fit: contain" /> </center>
 
 OBS *Profiles* do not include information about capture *sources* or *scenes* (more on that in five minutes), but group all your basic settings (rendering and recording options, hotkeys, filetypes, filenames etc) into distinct groups.
 
 For example, in my case, I set the *Dock* profile to capture from a Base Canvas of 3840x2160, and enabled Push-to-Talk functionality. 
 
-<img src="/images/obs_video_settings.png" style="height: 50%; width: 50%; object-fit: contain" />
+<center> <img src="/images/obs_video_settings.png" style="height: 80%; width: 80%; object-fit: contain" /> </center>
 
 On the other hand, the *Meeting* profile will both record and output in 1920x10e80, but will require higher audio fidelity, as well as continuous sound recording. I want each profile to record screencasts with different filenames, so I can distinguish them at a glance.
 
-<img src="/images/obs_filenames.png" style="height: 50%; width: 50%; object-fit: contain" />
+<center> <img src="/images/obs_filenames.png" style="height: 50%; width: 50%; object-fit: contain" /> </center>
 
 Finally, I checked the "Automatically remux to mp4" option, so that files are converted from flv to mp4 directly after finishing the recording.
 
@@ -65,7 +65,7 @@ Finally, I checked the "Automatically remux to mp4" option, so that files are co
 
 Scenes allow you to group sources and then manipulate their layout by easily dragging, dropping and resizing them for the desired effect. For example, if I want to setup a training video, where I will have two windows side by side, and the company logo overlayed on top, this will be configured as a Scene.
 
-<img src="/images/obs_scene_layout.png" style="height: 50%; width: 50%; object-fit: contain" />
+ <center> <img src="/images/obs_scene_layout.png" style="height: 100%; width: 100%; object-fit: contain" /> </center>
 
 
 Scenes can be saved, imported and exported from the *Scene Collections* option at the top menu, to be accessed at a later time.
@@ -75,7 +75,7 @@ A source can be your whole screen (Display Capture), a specific Window (Window C
 
 Souces can be re-aligned using drag-and-drop or the keyboard arrows, and sources higher in the list will overlap and appear *on top* of other sources. The eye and lock icon can be used to easily to show/hide sources and freeze/unfreeze their size and position.
 
-<img src="/images/obs_scenes_sources.png" style="height: 50%; width: 50%; object-fit: contain" />
+<center> <img src="/images/obs_scenes_sources.png" style="height: 100%; width: 100%; object-fit: contain" /> </center>
 
 The easiest way to work is with a "Display Capture", but I'd recommend against it, since you might record/stream things you didn't mean to by accident, and also you might ruin your layout and have to adjust it on the fly. Just take 5 minutes and set up a couple of scenes with their separate sources, and you're done!
 
