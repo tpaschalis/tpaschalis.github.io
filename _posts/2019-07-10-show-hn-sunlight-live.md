@@ -11,7 +11,7 @@ description: "Hey ma, I'm on the frontpage!."
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 
 
-**This blogpost was written on 2019-07-03, and all data referenced are up to this date. The post itself might be posted on a later date**.
+**This blogpost was written on 2019-07-03, and all data referenced are up to this date. The post itself might be published on a later date**.
 <br>
 
 It feels so good showing other people your work. You can gauge reactions, get useful feedback when people give kudos for working with X or that you're dumb for doing Y (especially the latter). The excitement is multiplied when the `$thing` you built can actually help people in their daily life, or when you put new skills to the test, in the real world.
@@ -111,11 +111,11 @@ Wikipedia states : *"A terminator is defined as the locus of points on a planet 
 
 
 ### On a high-level, (just so you can impress your friends during the next trivia party): 
-This "line*, is a circle on the earth's circumference, and passes through any point on Earth twice a day; at sunrise and sunset (except for the poles). The path of the terminator varies by time of day due to the earth's rotation around its axis, *but the shape of the curve also changes with the seasons* due to the earth's orbit around the sun. During solstice, the terminator line is at its greatest angle with respect to the axis of the Earth, which is approximately 23.5 degrees. 
+This *line*, is a circle on the earth's circumference, and passes through any point on Earth twice a day; at sunrise and sunset (except for the poles). The path of the terminator varies by time of day due to the earth's rotation around its axis, *but the shape of the curve also changes with the seasons* due to the earth's orbit around the sun. During solstice, the terminator line is at its greatest angle with respect to the axis of the Earth, which is approximately 23.5 degrees. 
 
 While one would think that each half of earth is covered in either light or darkness, the bending of the sunlight and the atmosphere scattering results in the sunlit surface being larger than the surface covered by darkness.
 
-The terminator moves at about 1'688 kilometers per hour; while this is *extremely* fast, some jet fighters can overtake the maximum speed of the terminator at the equator! This means that a plane could takeoff somewhere where it's night, speed through, and land somewhere there's daylight. 
+The terminator moves at about 1'688 kilometers per hour; while this is *extremely* fast, some jet fighters can overtake the maximum speed of the terminator at the equator! This means that theoretically, a plane could takeoff somewhere where the sun is rising, speed through, and land somewhere it's still dark.
 
 HackerNews users ([sciurus](https://news.ycombinator.com/user?id=sciurus), [teraflop](https://news.ycombinator.com/user?id=teraflop) and more) pointed out that such illustrations are often found in ham radio websites, since skywave propagation between two points can vary based on the amount of sunlight. Some amateur radio operators can take advantage of the conditions of the ionosphere along the terminator, to send and receive messages at higher frequencies and much larger distances. Wikipedia also states that *"Under good conditions, radio waves can travel along the terminator to antipodal points (diametrically opposite points of the earth!!)"*. Just HOW cool is that.
 
@@ -128,7 +128,7 @@ Some low-earth orbit (LEO) satellites take advantage of the fact that when flyin
 
 While the math involved is simple additions and multiplications, calculating the sun's position involves multiple steps, and understanding some concepts such as the ecliptic coordinate system, the sun's declination, hour angles etc.
 
-I was lucky to have some good teachers in my Physics years, so tracing back to my textbooks was easier than I expected. There's an awesome course in Greek about celestial mechanics, available by [https://mathesis.cup.gr/]  the University of Crete as a MOOC.
+I was lucky to have some good teachers in my Physics years, so tracing back to my textbooks was easier than I expected. There's an awesome course in Greek about celestial mechanics, available by [the University of Crete as a MOOC](https://mathesis.cup.gr/).
 
 Wikipedia, as always, has [some](https://en.wikipedia.org/wiki/Position_of_the_Sun) [excellent](https://en.wikipedia.org/wiki/Sunrise_equation) [information](https://en.wikipedia.org/wiki/Twilight), along with examples to get one started.
 
@@ -138,8 +138,8 @@ His website provides a [straightforward way](https://www.aa.quae.nl/en/antwoorde
 
 In short :
 - Calculate the sun's *mean anomaly*, M
-- Calculate an approximation of the sun's *ecliptic longitude*, lambda - λ
-- Calculate the sun's *declination*, delta - δ
+- Calculate an approximation of the sun's *ecliptic longitude*, lambda - *λ*
+- Calculate the sun's *declination*, delta - *δ*
 - Then, at t hours UTC, the sun is on its zenith (fancy word for 'straight up'), from :
   + a location of latitude *b*, equal to the declination *δ* and 
   + a longitude equal to *l = 180 - 15 * t degrees*.
@@ -148,7 +148,7 @@ In short :
   + x = -cos(l)sin(b)sin(ψ) - sin(l)cos(ψ)
   + y = -sin(l)sin(b)sin(ψ) + cos(l)cos(ψ)
   + L = arctan(y, x)
-- That's all! L and B are the points of the terminator!
+- That's all! L and B are the points of the terminator, so run *ψ* from 0 to 360 degrees!
 
 
 
@@ -174,17 +174,17 @@ What's a `canvas`? Is it the same as a `figure`? How about adding a `subplot`, w
 Here's the simple case used in the repo. I'm not an expert by any means, and I'm just now starting to wrap my head around how all these things get tied together to build more complex and beautiful graphs, but I'd say the result is pretty clean, easy to understand and modify. My rule of thumb is to just start with the figure, define and *name* your objects procedurally, and then *just use methods consistently*.
 
 
-```Python
+```python
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
 ...
 
-matplotlib.use('Agg')			    # Use a backend that doesn't display to the user, so the code can run in the background batch. 
+matplotlib.use('Agg')		 	# Use a backend that doesn't display to the user, so the code can run in the background batch. 
 fig = plt.figure()
 fig.set_size_inches(24,12)		# World map will be drawn on a (20,10) inch grid, w/ (2,1) margin on each side
-fig.set_dpi(300)				      # Setting the DPI too low results in render artifacts between dots
+fig.set_dpi(300)			# Setting the DPI too low results in render artifacts between dots
 fig.set_tight_layout(True)
 
 canvas = fig.add_subplot(111)
@@ -241,7 +241,7 @@ The resulting Geopandas object is a `geopandas.geodataframe.GeoDataFrame` which 
 
 Here's the simple code I used to gather all the points on earth that fall on land, in a 1 degree resolution.
 
-```Python
+```python
 import os
 import geopandas as gpd
 import matplotlib.pyplot as plt
