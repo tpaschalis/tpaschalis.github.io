@@ -22,7 +22,7 @@ Well, this is *not* one of these grandiose success stories, but just [a little "
 Needless to say, I felt giddy for this weekend idea. This post will detail both what happened during the HN "spike" as well as some takeaways and lessons learnt from actually building it.
 
 <center>
-<img src="images/sunlight-hn.png" style="height: 75%; width: 75%; object-fit: contain" />
+<img src="/images/sunlight-hn.png" style="height: 75%; width: 75%; object-fit: contain" />
 </center>
 
 ## Performance and metrics.
@@ -301,7 +301,7 @@ Using these simple steps, the original template size was reduced in about 1/30 o
 The internet community can be nice when they want to! I had strangers sharing ideas on how to improve the project, posting their own projects and code, raising issues, and even opening [Pull Requests](https://github.com/tpaschalis/sunlight.live/commit/c1e52d4747e5c8687d85b8002925c51363d9021c) (ty Jacek!).
 
 <center>
-<img src="images/sunlight-gh.png" style="height: 100%; width: 100%; object-fit: contain" />
+<img src="/images/sunlight-gh.png" style="height: 100%; width: 100%; object-fit: contain" />
 </center>
 
 I'm still getting twitter replies and emails from people who liked and shared [sunlight.live](https://sunlight.live) on their own blogs, so I'm extra happy they took the time to spread the word.
