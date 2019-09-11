@@ -8,20 +8,19 @@ mathjax: false
 description: "Something something."  
 ---
 
-# Introduction
 
-Github Actions is the new CI/CD toy from GitHub to automate deployments, and try to move into the Travic/CircleCi/Gitlab CICD space.
+Github Actions is the newest entry into the Travic/CircleCi/Gitlab CI/CD/Jenkins space.
 
 In a [recent HN post](https://christine.website/blog/the-cult-of-kubernetes-2019-09-07) I saw Christine Dodrill using it and as I'm kinda attracted to shiny new things, I wanted to check out what the fuss is about
 
-I hope this post is not too eager and doesn't come off as an advertisement. I'm merely jotting down my first impressions and will reserve judgement after having used the system for a while.. 
+I hope this post is not too eager and doesn't come off as an advertisement. I'm merely jotting down my first impressions and will reserve judgement after having used the system for a while.
 
 I'm a little preoccupied with vendor lock-in and think that you should roll your own core infrastructure, but that's a rather philosophical discussion for another time.
 
 
 ## Introduction
 
-"GitHub Actions" is the new tool in the GitHub suite. It provides a way to combine individual tasks, called *Actions* to create custom *Workflows*. 
+Again, "GitHub Actions" is a new tool in the GitHub suite. It provides a way to combine individual tasks, called *Actions* to create custom *Workflows*. 
 
 *Actions* are the smallest portable building block of a workflow. They are open-source snippets of code, individual tasks, that are used as *lego bricks* to create and monitor more elaborate processes. The *lego bricks* right now come in two colors; Docker Images and Javascript/npm code. It's easy to build your own, as we'll see in this post.
 
@@ -36,13 +35,13 @@ If you only got two minutes, you can just check the following ~~three~~ four lin
 - Start reading the official documentation [here](https://help.github.com/en/articles/about-github-actions).
 
 
-But if you'd like to see a real-world case of using GitHub Actions in a Go project, keep on reading!
+But if you'd like to see a semi-realistic case of using GitHub Actions in a Go project, keep on reading!
 
 After a brief tour of most features, we'll use a toy Go repo to build an example.   
 We'll fetch the code, download dependencies, build, test, benchmark, and upload our binary to an S3 bucket.
 
 ## The features
-If you've used any CI/CD tool, all will seem quite familiar; but since GitHub might be using some different terminology, let's have a run through the main features..
+If you've used any CI/CD tool, all will seem quite familiar; but since GitHub might be using some different terminology, let's run through the main features.
 
 ### Jobs
 Each defined workflow is made up of one or more *jobs*, that run in parallel by default.
@@ -75,7 +74,7 @@ Our jobs that make up the workflows might need access to a secret, a token, or a
 
 
 ### Matrix Builds
-One selling point of CI/CD processes is running your pipeline for different configurations; using the same process to build against multiple language versions or operating systems.
+One selling point of CI/CD is running your pipeline for different configurations; using the same process to build against multiple language versions or operating systems.
 
 In GitHub Actions, this is achieved using [Matrix Builds](https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix)
 
@@ -155,9 +154,9 @@ Running an empty workflow (compilation of a "hello world" go program) was timed 
 
 As you'll see it's a two-step process.
 
-We have defined a pipleine with the human-recognizeable name "My Simple Pipeline to S3" that will be triggered on every `push` or `pull_request` (to the master branch, by default).
+We have a workflow with the human-recognizeable name *"My Simple Pipeline to S3"* that will be triggered on every `push` or `pull_request` (to the master branch, by default).
 
-Inside, there are two *jobs* are `build` and `deploy`. By default, jobs run in parallel, but we have specified a dependency of `deploy` to the `build`
+Inside, there are two *jobs* `build` and `deploy`. By default, jobs run in parallel, but we have specified a dependency of `deploy` to the `build`
 ```yaml
 name: My Simple Pipeline to S3
 on: [push, pull_request]
@@ -169,7 +168,7 @@ jobs:
     needs: build
 ```
 
-A *job* needs to have defined the environment where it will run eg. `runs-on: ubuntu-latest`, and the actual steps it is composed of.
+We need to set the environment where each *job* will execute eg. `runs-on: ubuntu-latest`, and the actual steps it is composed of.
 
 Every *step* can either `run` a command, or `use` a predefined Action
 
@@ -187,16 +186,16 @@ steps :
 In human language, a successful run of the workflow will 
 
 1. *"Test, Benchmark and Build"* 
-   - Sets up Go 1.13, and checks out the source
-   - Downloads dependencies
-   - Builds and Tests the binary
-   - Runs the benchmarks, directing it to both the `stdout` and a file
-   - Uploads the benchmark report to be accessed later on
+   - Set up Go 1.13, and checks out the source
+   - Download dependencies
+   - Build and Test the package
+   - Run the benchmarks, directing the result to both the `stdout` and a file
+   - Upload the benchmark report to be accessed later on
 2. If no errors were reported, *"Clean Build and Deploy"* to the S3 bucket
-   - Sets up Go 1.13, and checks out the source
-   - Downloads dependencies
-   - Builds in a clean environment
-   - Deploys the resulting binary to an S3 bucket
+   - Set up Go 1.13, and checks out the source
+   - Download dependencies
+   - Build in a clean environment
+   - Deploy the binary to an S3 bucket
 
 Without further ado, here's the complete YAML workflow!
 
@@ -328,6 +327,7 @@ aws s3 cp ${FILE} s3://${AWS_S3_BUCKET} \
 rm -rf ~/.aws
 ```
 
+And that's it! I haven't tried, but there's a bunch of images on the Docker Hub to fit most requirements.
 
 
 # Final Notes
@@ -335,12 +335,13 @@ rm -rf ~/.aws
 Hope you learned something (I certainly did), and that now you have a quick overview of what GitHub Actions can and cannot do for you.
 
 Some notes :
-- As of September 10, 2019, Github Actions is in Private beta, but you can easily request and be granted access. There was already a [breaking change](https://help.github.com/en/articles/migrating-github-actions-from-hcl-syntax-to-yaml-syntax), when the HCL definitions were replaced by YAML, so don't rush it. The release date should be around late November 2019.
+- As of September 10, 2019, Github Actions is in Private beta, but you can easily request and be granted access. There has already been a [breaking change](https://help.github.com/en/articles/migrating-github-actions-from-hcl-syntax-to-yaml-syntax), when the HCL definitions were replaced by YAML, so don't rush it. The release date should be around late November 2019.
 - While some [usage limits](https://help.github.com/en/articles/about-github-actions#usage-limits) exist, they're quite generous, and more than enough for hobby or mid-sized projects.
-- I personally like the scope of the whole project as it is now. Pretty barebones, simple and understandable, but with the ability to be extended. If it keeps going that way and doesn't succumb to bloat I might start using it even more in the future.
-- After a couple of days, I believe that if things go smoothly, it could the chance to seriously move into the Travis/CircleCI/Gitlab CI space. Keeping the all documentation simple and up-to-date will ease of adoption; but vendor lock-in is always a concern.
-- I don't see a *compelling* reason to immediately drop everything else and switch to GitHub Actions, except if your whole development process is tightly coupled to the GitHub environment. Yes, it's quite nice, but even then I'd suggest some patience, wait for the official release, check out some success/failure stories, and learn from other people's mistakes.
+- I personally like the scope of the whole project as it is now. Pretty barebones, simple and understandable, but with the ability to be extended.
+- After a couple of days, I believe that if things go smoothly in the following months, it could have the chance to seriously make a move for territory in the CI/CD space. Keeping the all documentation simple and up-to-date will ease of adoption; but vendor lock-in is always a concern.
+- Nevertheless, I don't see a *compelling* reason to immediately drop everything else and switch to GitHub Actions, except if your whole development process is tightly coupled to the GitHub environment. Yes, it's quite nice, but even then I'd suggest some patience, wait for the official release, check out some success/failure stories, and learn from other people's mistakes.
 
+Until next time, bye!
 
 # Resources
 
