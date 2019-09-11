@@ -9,7 +9,7 @@ description: "Something something."
 ---
 
 
-Github Actions is the newest entry into the Travic/CircleCi/Gitlab CI/CD/Jenkins space.
+GitHub Actions is the newest entry into the Travic/CircleCi/Gitlab CI/CD/Jenkins space.
 
 In a [recent HN post](https://christine.website/blog/the-cult-of-kubernetes-2019-09-07) I saw Christine Dodrill using it and as I'm kinda attracted to shiny new things, I wanted to check out what the fuss is about
 
@@ -26,7 +26,7 @@ Again, "GitHub Actions" is a new tool in the GitHub suite. It provides a way to 
 
 These *Workflows* are automated processes that can be set up in a GitHub repository, to run your test suite, build a package, deploy a website or release a new version of your library. These workflows can be triggered in various ways, and run for specific parts of the repo.
 
-Workflows can be used for classic CI/CD test-build-deploy cycles, but also for other tasks, such as providing instructions to new contributors, to label Pull Requests based on the files that are changed, or check for stale and abandoned issues.
+Workflows can be used for classic CI/CD test-build-deploy cycles, but also for other tasks, such as to provide instructions to new contributors, to label Pull Requests based on the files that are changed or check for stale and abandoned issues.
 
 If you only got two minutes, you can just check the following ~~three~~ four links and go on with your day:
 - A small preview of what it looks like in action is available [here](https://github.com/actions/toolkit/actions). 
@@ -119,7 +119,7 @@ Each job has access to the filesystem; one should prefer to use the two pre-defi
 
 ### Artifacts
 
-During the run, any number of files (logfiles, packages, binaries, reports etc) can be created. These are called *artifacts*, and are associated with the workflow run where they were created. When the workflow run exits, the virtual environment is destroyed, along with any created artifacts. To preserve them, you can use the built-in [`upload-artifact`](https://github.com/actions/upload-artifact) action; preserved files will be available from the GitHub UI.
+During the run, any number of files (logfiles, packages, binaries, reports etc) can be created. These are called *artifacts* and are associated with the workflow run where they were created. When the workflow run exits, the virtual environment is destroyed, along with any created artifacts. To preserve them, you can use the built-in [`upload-artifact`](https://github.com/actions/upload-artifact) action; preserved files will be available from the GitHub UI.
 
 ```yaml
 - name: Upload bencmark artifacts
@@ -147,14 +147,14 @@ For each of your workflows, you can set up one or more of these triggers to kick
 - `on: repository_dispatch` when you want to schedule a workflow by a custom webhook, sending a POST request from an external address.
 
 
-### Examples
+## Let's get to it!
 I'm using [a toy repo](https://github.com/tpaschalis/gh-actions-golang) to run these experiments; you can see all my silly failures and small successes right there.
 
 Running an empty workflow (compilation of a "hello world" go program) was timed at 29 seconds. Running the full workflow below takes around two minutes.
 
 As you'll see it's a two-step process.
 
-We have a workflow with the human-recognizeable name *"My Simple Pipeline to S3"* that will be triggered on every `push` or `pull_request` (to the master branch, by default).
+We have a workflow with the human-recognizable name *"My Simple Pipeline to S3"* that will be triggered on every `push` or `pull_request` (to the master branch, by default).
 
 Inside, there are two *jobs* `build` and `deploy`. By default, jobs run in parallel, but we have specified a dependency of `deploy` to the `build`
 ```yaml
@@ -186,13 +186,13 @@ steps :
 In human language, a successful run of the workflow will 
 
 1. *"Test, Benchmark and Build"* 
-   - Set up Go 1.13, and checks out the source
+   - Set up Go 1.13, and check out the source
    - Download dependencies
    - Build and Test the package
    - Run the benchmarks, directing the result to both the `stdout` and a file
    - Upload the benchmark report to be accessed later on
 2. If no errors were reported, *"Clean Build and Deploy"* to the S3 bucket
-   - Set up Go 1.13, and checks out the source
+   - Set up Go 1.13, and check out the source
    - Download dependencies
    - Build in a clean environment
    - Deploy the binary to an S3 bucket
@@ -277,7 +277,7 @@ jobs:
  {% endraw %}
 
 ## The magic sauce
-In most simple cases, chaining together shell scripts that manipulate the temporary environment in which the workflow runs is enough. For example, you could have a script that reads the `latest-benchmarks.txt` file, and aborts the deployment process if a change makes a core function too slow.
+In most simple cases, chaining together shell scripts that manipulate the temporary environment in which the workflow runs is enough. For example, you could have a script that reads the `latest-benchmarks.txt` file and aborts the deployment process if a change makes a core function too slow.
 
 But even for more complicated operations, building your own Actions is very simple. Above, we've already used a custom Action `tpaschalis/s3-cp-action`. The source is available [here](https://github.com/tpaschalis/s3-cp-action), as a fork of [jakejarvis/s3-sync-action](https://github.com/jakejarvis/s3-sync-action) and consists only of a Dockerfile and an `entrypoint.sh` script.
 
@@ -335,7 +335,7 @@ And that's it! I haven't tried, but there's a bunch of images on the Docker Hub 
 Hope you learned something (I certainly did), and that now you have a quick overview of what GitHub Actions can and cannot do for you.
 
 Some notes :
-- As of September 10, 2019, Github Actions is in Private beta, but you can easily request and be granted access. There has already been a [breaking change](https://help.github.com/en/articles/migrating-github-actions-from-hcl-syntax-to-yaml-syntax), when the HCL definitions were replaced by YAML, so don't rush it. The release date should be around late November 2019.
+- As of September 10, 2019, GitHub Actions is in Private beta, but you can easily request and be granted access. There has already been a [breaking change](https://help.github.com/en/articles/migrating-github-actions-from-hcl-syntax-to-yaml-syntax), when the HCL definitions were replaced by YAML, so don't rush it. The release date should be around late November 2019.
 - While some [usage limits](https://help.github.com/en/articles/about-github-actions#usage-limits) exist, they're quite generous, and more than enough for hobby or mid-sized projects.
 - I personally like the scope of the whole project as it is now. Pretty barebones, simple and understandable, but with the ability to be extended.
 - After a couple of days, I believe that if things go smoothly in the following months, it could have the chance to seriously make a move for territory in the CI/CD space. Keeping the all documentation simple and up-to-date will ease of adoption; but vendor lock-in is always a concern.
