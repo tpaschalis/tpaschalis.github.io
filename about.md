@@ -5,7 +5,7 @@ permalink: /about/
 ---
 
 
-Hey! I'm Paschalis a 25 y/o Sysadmin/SWE from Greece.
+Hey! I'm Paschalis a 26 y/o SWE from Greece.
 
 I'm a Physics graduate, with experience in various roles, in both academia and the industry.    
 I have experimented with a wide array of modern and not-so-modern technologies, am a `vi` person, prefer to work with Python and Go, and generally try to adhere to the KISS principle. <sup><sub>most problems can be easily solved using grep/sed/awk/pipes, cmv</sub></sup>
