@@ -15,8 +15,7 @@ In a [recent HN post](https://christine.website/blog/the-cult-of-kubernetes-2019
 
 I hope this post is not too eager and doesn't come off as an advertisement. I'm merely jotting down my first impressions and will reserve judgement after having used the system for a while.
 
-I'm a little preoccupied with vendor lock-in and think that you should roll your own core infrastructure, but that's a rather philosophical discussion for another time.
-
+I'm a little preoccupied with vendor lock-in and think that you should roll your own core infrastructure, and that version control should have a separation layer from CI -- but that's a rather philosophical discussion for another time.
 
 ## Introduction
 
@@ -334,12 +333,19 @@ And that's it! I haven't tried, but there should bunch of images on the Docker H
 
 Hope you learned something (I certainly did), and that now you have a quick overview of what GitHub Actions can and cannot do for you.
 
-Some notes :
+In short, after some playing-around my remarks would be :
+
+**The Good** : Running arbitrary code and your CI/CD in a serverless-like environment? *Niiice*. Good integration with the rest of GitHub features. Has good-enough documentation. Is a slim base, that can be used to gradually build complexity. Can be used for things other than classic CI/CD tasks. Workflows can be version controlled and easily transferred.
+
+**The Bad** : Single people maintaining and documenting core Actions, might lead to an npm-like situation. Container start-up is slow-ish, and there's no caching (understandable). No streaming logs; you can see logs *after* a step has run. 
+
+Some other notes :
 - As of September 10, 2019, GitHub Actions is in Private beta, but you can easily request and be granted access. There has already been a [breaking change](https://help.github.com/en/articles/migrating-github-actions-from-hcl-syntax-to-yaml-syntax), when the HCL definitions were replaced by YAML, so don't rush it. The release date should be around late November 2019.
 - While some [usage limits](https://help.github.com/en/articles/about-github-actions#usage-limits) exist, they're quite generous, and more than enough for hobby or mid-sized projects.
 - I personally like the scope of the whole project as it is now. Pretty barebones, simple and understandable, but with the ability to be extended.
 - After a couple of days, I believe that if things go smoothly in the following months, it could have the chance to seriously make a move for territory in the CI/CD space. Keeping the all documentation simple and up-to-date will ease adoption; no one wants *another* undocumented, unwieldy, huge mess for their CI/CD...
 - Nevertheless, I don't see a *compelling* reason to immediately drop everything else and switch to GitHub Actions, except if your whole development process is tightly coupled to the GitHub environment. Yes, it's quite nice, but even then I'd suggest some patience, wait for the official release, check out some success/failure stories, and learn from other people's mistakes.
+
 
 Until next time, bye!
 
@@ -351,9 +357,14 @@ https://jasonet.co/posts/scheduled-actions/
 
 https://sosedoff.com/2019/02/12/go-github-actions.html
 
-https://github.com/actions
-
 https://github.com/jakejarvis
 
-https://jarv.is/
+https://blog.mgattozzi.dev/github-actions-an-introductory-look-and-first-impressions/
 
+https://news.ycombinator.com/item?id=20646350
+
+https://news.ycombinator.com/item?id=18231097
+
+https://about.gitlab.com/2020/08/08/built-in-ci-cd-version-control-secret/
+
+https://github.com/actions
