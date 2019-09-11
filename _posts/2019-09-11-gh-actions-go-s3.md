@@ -327,7 +327,7 @@ aws s3 cp ${FILE} s3://${AWS_S3_BUCKET} \
 rm -rf ~/.aws
 ```
 
-And that's it! I haven't tried, but there's a bunch of images on the Docker Hub to fit most requirements.
+And that's it! I haven't tried, but there should bunch of images on the Docker Hub to fit most requirements.
 
 
 # Final Notes
@@ -338,7 +338,7 @@ Some notes :
 - As of September 10, 2019, GitHub Actions is in Private beta, but you can easily request and be granted access. There has already been a [breaking change](https://help.github.com/en/articles/migrating-github-actions-from-hcl-syntax-to-yaml-syntax), when the HCL definitions were replaced by YAML, so don't rush it. The release date should be around late November 2019.
 - While some [usage limits](https://help.github.com/en/articles/about-github-actions#usage-limits) exist, they're quite generous, and more than enough for hobby or mid-sized projects.
 - I personally like the scope of the whole project as it is now. Pretty barebones, simple and understandable, but with the ability to be extended.
-- After a couple of days, I believe that if things go smoothly in the following months, it could have the chance to seriously make a move for territory in the CI/CD space. Keeping the all documentation simple and up-to-date will ease of adoption; but vendor lock-in is always a concern.
+- After a couple of days, I believe that if things go smoothly in the following months, it could have the chance to seriously make a move for territory in the CI/CD space. Keeping the all documentation simple and up-to-date will ease adoption; no one wants *another* undocumented, unwieldy, huge mess for their CI/CD...
 - Nevertheless, I don't see a *compelling* reason to immediately drop everything else and switch to GitHub Actions, except if your whole development process is tightly coupled to the GitHub environment. Yes, it's quite nice, but even then I'd suggest some patience, wait for the official release, check out some success/failure stories, and learn from other people's mistakes.
 
 Until next time, bye!
@@ -353,7 +353,7 @@ https://sosedoff.com/2019/02/12/go-github-actions.html
 
 https://github.com/actions
 
-https://jarv.is/
-
 https://github.com/jakejarvis
+
+https://jarv.is/
 
