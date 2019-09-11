@@ -58,7 +58,7 @@ Our jobs that make up the workflows might need access to a secret, a token, or a
 <img src="/images/gh-actions-secrets.png" style="height: 75%; width: 75%; object-fit: contain" />
 </center>
 
-<!-- {% raw %} -->
+ {% raw %}
 ```yaml
 - name: Upload to S3 bucket
       uses: tpaschalis/s3-cp-action@master
@@ -71,7 +71,7 @@ Our jobs that make up the workflows might need access to a secret, a token, or a
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
 ```
-<!-- {% endraw %} -->
+ {% endraw %}
 
 
 ### Matrix Builds
@@ -79,19 +79,19 @@ One selling point of CI/CD processes is running your pipeline for different conf
 
 In GitHub Actions, this is achieved using [Matrix Builds](https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix)
 
-<!-- {% raw %} -->
+ {% raw %}
 ```yaml
 runs-on: ${{ matrix.os }}
 strategy:
   matrix:
     os: [ubuntu-latest, windows-latest, macos-latest]
 ```
-<!-- {% endraw %} -->
+ {% endraw %}
 
 There's some limited flexibility in including or excluding additional configuration, based on specific values.
 For example, this setup will *exclude* Go 1.11 when building for Windows
 
-<!-- {% raw %} -->
+ {% raw %}
 ```yaml
 runs-on: ${{ matrix.os }}
 strategy:
@@ -103,7 +103,7 @@ strategy:
       - os: windows-latest
         goVer: 1.11
 ```
-<!-- {% endraw %} -->
+ {% endraw %}
 
 Each resulting configuration is a copy of the job that runs, and reports a separate status. So, a build for two operating systems and three Go versions will run a total of 2x3=6 times.
 
@@ -200,7 +200,7 @@ In human language, a successful run of the workflow will
 
 Without further ado, here's the complete YAML workflow!
 
-<!-- {% raw %} -->
+ {% raw %}
 ```yaml
 # .github/workflows/tpas.yaml
 
@@ -275,7 +275,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
 ```
-<!-- {% endraw %} -->
+ {% endraw %}
 
 ## The magic sauce
 In most simple cases, chaining together shell scripts that manipulate the temporary environment in which the workflow runs is enough. For example, you could have a script that reads the `latest-benchmarks.txt` file, and aborts the deployment process if a change makes a core function too slow.
@@ -305,6 +305,8 @@ RUN pip install --quiet --no-cache-dir awscli==${AWSCLI_VERSION}
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 ```
+
+And the simple shell script.
 
 ```bash
 #entrypoint.sh
