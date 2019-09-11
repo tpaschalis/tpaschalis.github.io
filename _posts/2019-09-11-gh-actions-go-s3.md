@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  Using GitHub Actions.
-date:   2019-09-10
+date:   2019-09-11
 author: Paschalis Ts
-tags:   [ci, cd, github, actions, go]
+tags:   [ci, cd, github, actions]
 mathjax: false
 description: "Something something."  
 ---
