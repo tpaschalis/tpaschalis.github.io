@@ -19,7 +19,7 @@ I'm a little preoccupied with vendor lock-in and think that you should roll your
 
 ## Introduction
 
-Again, "GitHub Actions" is a new tool in the GitHub suite. It provides a way to combine individual tasks, called *Actions* to create custom *Workflows*. 
+Again, "GitHub Actions" is a new tool in the GitHub suite. It provides a way to combine individual tasks, called *Actions* to create custom *Workflows*, in a serverless-like environment. 
 
 *Actions* are the smallest portable building block of a workflow. They are open-source snippets of code, individual tasks, that are used as *lego bricks* to create and monitor more elaborate processes. The *lego bricks* right now come in two colors; Docker Images and Javascript/npm code. It's easy to build your own, as we'll see in this post.
 
@@ -281,13 +281,11 @@ In most simple cases, chaining together shell scripts that manipulate the tempor
 But even for more complicated operations, building your own Actions is very simple. Above, we've already used a custom Action `tpaschalis/s3-cp-action`. The source is available [here](https://github.com/tpaschalis/s3-cp-action), as a fork of [jakejarvis/s3-sync-action](https://github.com/jakejarvis/s3-sync-action) and consists only of a Dockerfile and an `entrypoint.sh` script.
 
 ```Dockerfile
-# Dockerfile
-
 FROM python:3.7-alpine
 
 LABEL "com.github.actions.name"="S3 CopyPaste"
-LABEL "com.github.actions.description"="Sync a file to an AWS S3 repository"
-LABEL "com.github.actions.icon"="refresh-cw"
+LABEL "com.github.actions.description"="Copy Paste a file to an AWS S3 bucket - Fork of jakejarvis/s3-sync-action"
+LABEL "com.github.actions.icon"="copy"
 LABEL "com.github.actions.color"="green"
 
 LABEL version="0.2.0"
@@ -335,13 +333,13 @@ Hope you learned something (I certainly did), and that now you have a quick over
 
 In short, after some playing-around my remarks would be :
 
-**The Good** : Running arbitrary code and your CI/CD in a serverless-like environment? *Niiice*. Good integration with the rest of GitHub features. Has good-enough documentation. Is a slim base, that can be used to gradually build complexity. Can be used for things other than classic CI/CD tasks. Workflows can be version controlled and easily transferred.
+**The Good** : Running custom code and your CI/CD in a serverless-like environment? *Niiice*. There's some integration with the rest of GitHub features, and some good-enough documentation to get your feet wet. It's a slim base, that can be used to gradually build complexity, and can be used for things other than classic CI/CD tasks. Workflows can be version controlled and easily transferred.
 
-**The Bad** : Single people maintaining and documenting core Actions, might lead to an npm-like situation. Container start-up is slow-ish, and there's no caching (understandable). No streaming logs; you can see logs *after* a step has run. 
+**The Bad** : Single people maintaining and documenting core Actions, might lead to an npm-like security situation. Container start-up is slow-ish, and there's no caching (understandable). No streaming logs; you can see logs *after* a step has run. 
 
 Some other notes :
 - As of September 10, 2019, GitHub Actions is in Private beta, but you can easily request and be granted access. There has already been a [breaking change](https://help.github.com/en/articles/migrating-github-actions-from-hcl-syntax-to-yaml-syntax), when the HCL definitions were replaced by YAML, so don't rush it. The release date should be around late November 2019.
-- While some [usage limits](https://help.github.com/en/articles/about-github-actions#usage-limits) exist, they're quite generous, and more than enough for hobby or mid-sized projects.
+- While some [usage limits](https://help.github.com/en/articles/about-github-actions#usage-limits) exist, they should be more than enough for hobby or mid-sized projects.
 - I personally like the scope of the whole project as it is now. Pretty barebones, simple and understandable, but with the ability to be extended.
 - After a couple of days, I believe that if things go smoothly in the following months, it could have the chance to seriously make a move for territory in the CI/CD space. Keeping the all documentation simple and up-to-date will ease adoption; no one wants *another* undocumented, unwieldy, huge mess for their CI/CD...
 - Nevertheless, I don't see a *compelling* reason to immediately drop everything else and switch to GitHub Actions, except if your whole development process is tightly coupled to the GitHub environment. Yes, it's quite nice, but even then I'd suggest some patience, wait for the official release, check out some success/failure stories, and learn from other people's mistakes.
@@ -353,13 +351,13 @@ Until next time, bye!
 
 https://presstige.io/p/Using-GitHub-Actions-with-Go-2ca9744b531f4f21bdae9976d1ccbb58
 
+https://blog.mgattozzi.dev/github-actions-an-introductory-look-and-first-impressions/
+
 https://jasonet.co/posts/scheduled-actions/
 
 https://sosedoff.com/2019/02/12/go-github-actions.html
 
 https://github.com/jakejarvis
-
-https://blog.mgattozzi.dev/github-actions-an-introductory-look-and-first-impressions/
 
 https://news.ycombinator.com/item?id=20646350
 
