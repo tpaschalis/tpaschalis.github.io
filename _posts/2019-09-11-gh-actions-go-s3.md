@@ -15,7 +15,7 @@ In a [recent HN post](https://christine.website/blog/the-cult-of-kubernetes-2019
 
 I hope this post is not too eager and doesn't come off as an advertisement. I'm merely jotting down my first impressions and will reserve judgement after having used the system for a while.
 
-I'm a little preoccupied with vendor lock-in and think that you should roll your own core infrastructure, and that version control should have a separation layer from CI -- but that's a rather philosophical discussion for another time.
+I'm a little preoccupied with vendor lock-in, think that you should roll your own core infrastructure, and that version control should have a separation layer from CI -- but that's a rather philosophical discussion for another time.
 
 ## Introduction
 
@@ -25,7 +25,7 @@ Again, "GitHub Actions" is a new tool in the GitHub suite. It provides a way to 
 
 These *Workflows* are automated processes that can be set up in a GitHub repository, to run your test suite, build a package, deploy a website or release a new version of your library. These workflows can be triggered in various ways, and run for specific parts of the repo.
 
-Workflows can be used for classic CI/CD test-build-deploy cycles, but also for other tasks, such as to provide instructions to new contributors, to label Pull Requests based on the files that are changed or check for stale and abandoned issues.
+Workflows can be used for classic CI/CD test-build-deploy cycles, but also for other tasks, to provide instructions to new contributors, to label Pull Requests based on the files that are changed or check for stale and abandoned issues.
 
 If you only got two minutes, you can just check the following ~~three~~ four links and go on with your day:
 - A small preview of what it looks like in action is available [here](https://github.com/actions/toolkit/actions). 
@@ -134,7 +134,7 @@ During the run, any number of files (logfiles, packages, binaries, reports etc) 
 
 ### Triggers
 
-There's a number of [events that can trigger a workflow](https://help.github.com/en/articles/events-that-trigger-workflows).
+Workflows can be triggered in [different ways](https://help.github.com/en/articles/events-that-trigger-workflows).
 
 For each of your workflows, you can set up one or more of these triggers to kickstart the whole thing.
 
