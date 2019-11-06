@@ -36,7 +36,7 @@ I've lost count of how many times I've seen people recommend "The Mythical Man-M
 If possible, go through it without being spoiled (don't even read the back cover). I enjoyed the original translation as it was able to maintain a lot of exotic elements of the author's native chinese and didn't read like "just a book in English".
 
 * [So Good They Can't Ignore You](https://www.amazon.com/Good-They-Cant-Ignore-You/dp/1455509124) by Cal Newport   
-This book changed the way I see my career, and software engineering in general. It helped me create a mental path of who I want to become, and set a goal in becoming an *expert software engineer* (it's a long conversation). 
+This book changed the way I see my career, and software engineering in general. It helped me create a mental path of who I want to become, and how to achieve the goal to hone my craft and become an *expert software engineer* (it's a long conversation). 
 
 * [Powerful: Building a Culture of Freedom and Responsibility](https://www.amazon.com/Powerful-Building-Culture-Freedom-Responsibility/dp/1939714095) by Patty McCord  
 
