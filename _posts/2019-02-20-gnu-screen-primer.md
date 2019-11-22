@@ -75,7 +75,7 @@ If it's your first time going over `screen`, here are a couple of beginner pitfa
 
 ### Closing words
 
-There are peoiple who have been doing [*absolutely*](http://www.softpanorama.org/Utilities/Screen/screenrc_examples.shtml) [***crazy***](https://bbs.archlinux.org/viewtopic.php?id=55618) things with their `~/.screenrc` and customized setups. As a fellow nerd I understand and have myself indulged in that. But when you're ssh-ing to multiple machines per day, don't get ahead of yourself, it's maybe better to start by keeping things simple, and customize when needed.   
+There are people who have been doing [*absolutely*](http://www.softpanorama.org/Utilities/Screen/screenrc_examples.shtml) [***crazy***](https://bbs.archlinux.org/viewtopic.php?id=55618) things with their `~/.screenrc` and customized setups. As a fellow nerd I understand and have myself indulged in that. But when you're ssh-ing to multiple machines per day, don't get ahead of yourself, it's maybe better to start by keeping things simple, and customize when needed.   
 Also many people swear by [tmux](https://dominik.honnef.co/posts/2010/10/why_you_should_try_tmux_instead_of_screen/) (not me personally), so that's another cool thing to look at.
 
 You can stop reading at this point, as this is enough information for everyday usage. If you want some extra juice though, feel free to continue.
