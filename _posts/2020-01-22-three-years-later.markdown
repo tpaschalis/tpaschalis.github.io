@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Three years later.
-date:   2019-01-22
+date:   2020-01-22
 author: Paschalis Ts
 tags:   [meta, blog, jekyll]
 mathjax: false
