@@ -38,7 +38,7 @@ Blog-related housekeeping tasks again were scrapped; I never implemented the fir
 
 I *did* dive down to some subjects, mainly Go, Linux and Algorithms. I'm still trying to find a better way to organize my knowledge and my learning process, but I cannot resist new obsessions.
 
-Finally, I feel sad to admit that the final bullet fell of the radar. I *did* read and code some raytracing/rendering/gamedev and had some good ideas, but ultimately they all fell apart.
+Finally, I feel sad to admit that the final bullet fell off the radar. I *did* read and code some raytracing/rendering/gamedev and had some good ideas, but ultimately they all fell apart.
 
 ### What's this year goal?
 
