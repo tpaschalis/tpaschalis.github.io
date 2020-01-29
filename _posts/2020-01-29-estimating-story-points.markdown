@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Story
+title:  Story Points
 date:   2020-01-29
 author: Paschalis Ts
 tags:   [agile, scrum, personal]
@@ -14,13 +14,9 @@ We can all agree that estimation is *hard*; that's why Agile teams use this abst
 
 The idea is that you use *Story Points* to score a task, using a simple formula
 > Story Points
-
 > \=
-
 > Amount of Work +
-
 > Complexity of Work +
-
 > Risk or Uncertainty
 
 In many cases, the Fibonacci sequence is used to provide these scores since it's a good way to grasp changes in magnitudes; smaller tasks can be better understood and broken up, while larger tasks are usually more vague and should be broken down to more, smaller ones. That means that a task can have a score of 1, 2, 3, 5, 8, 13, 21, 34, 55, or ∞ (cannot be scored).
