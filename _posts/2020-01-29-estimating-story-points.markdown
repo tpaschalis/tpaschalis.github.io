@@ -10,16 +10,16 @@ description: "Drink *that* kool-aid"
 
 Whether you start working with an Agile squad, your company forces you to use Atlassian products, or you're looking for better ways to estimate software-related tasks, you'll probably hear about *Story Points*. Since this blog is all over the place, why not give my 2c?
 
-We can all agree that estimation is *hard*; that's why Agile teams use this abstract metric to represent the effort required to complete an objective (either you call it user-story, feature, task or whatever). The exact measure is not important, and cannot be used to compare performance between teams or be translated into man-hours, weeks or sprints.
+We can all agree that estimation is *hard*; that's why Agile teams use Story Points as an abstract metric that represents the effort required to complete an objective (either you call it user-story, feature, task or whatever). The exact measure is not important, and cannot be used to compare performance between teams or be translated into man-hours, weeks or sprints.
 
 The idea is that you use *Story Points* to score a task, using a simple formula
-> Story Points
+> SP
 > \=
 > Amount of Work +
 > Complexity of Work +
 > Risk or Uncertainty
 
-In many cases, the Fibonacci sequence is used to provide these scores since it's a good way to grasp changes in magnitudes; smaller tasks can be better understood and broken up, while larger tasks are usually more vague and should be broken down to more, smaller ones. That means that a task can have a score of 1, 2, 3, 5, 8, 13, 21, 34, 55, or ∞ (cannot be scored).
+In many cases, the Fibonacci sequence is used to provide these scores since it's a good way to grasp changes in magnitudes; smaller tasks can be easier to understand and handle, while larger tasks are usually more vague and should be broken down to more, smaller ones. That means that a task can have a score of 1, 2, 3, 5, 8, 13, 21, 34, 55, or ∞ (cannot be scored).
 
 I've seen this work wonderfully in a team setting; following this mindset when estimating a task, has helped both me personally and the whole team to understand different factors that can speed up or delay a piece of work.
 
@@ -56,21 +56,21 @@ You can assign a task that is often encountered as this characteristic value. Eg
 
 All tasks during the first three or four sprints should be scored compared to this characteristic value. After the team has completed tickets of various scores, they can revisit and re-establish a characteristic value for their cards. The team should have baseline 1, 2, 3, 5, 8, 13 tasks and so on.
 
-Scoring your tasks should be rapid activity, that doesn't derail the team and encourage hour-long meetings.
+Scoring your tasks should be a rapid activity, that doesn't derail the team and encourage hour-long meetings.
 
-The PO/team lead explains the feature that is going to be scored, and answers any questions that the team may have. Each member makes up their mind, and selects a card which reflects their estimate. Everyone reveals their cards their cards simultaneously. If there's consensus, or near-consensus, the team moves on to the next task. If no, a brief debate takes place, with the larger and smaller estimates kicking the discussion off, and another hour of voting takes place.
+The PO/team lead explains the feature that is going to be scored, and answers any questions that the team may have. Each member makes up their mind, and selects a card which reflects their estimate. Everyone reveals their cards their cards simultaneously and if there's consensus, or near-consensus, the team moves on to the next task. If no, a brief debate takes place, with the larger and smaller estimates kicking the discussion off, and another round of voting takes place.
 
 ## But
-This meeting should not be a deep-dive into the technical aspects of *how* the development will take place, or be used to to plan and estimate things far in the future, but describe everyone's gut feeling. An hour should be enough to score a whole sprint's worth backlog.
+This meeting should not be a deep-dive into the technical aspects of *how* the development will take place, or be used to to plan and estimate things far in the future. An hour should be enough to score a whole sprint's worth backlog.
 
 Again, this metric is not comparable between teams; a team that finishes a 100-story-point sprint, is not more productive than a team whose sprint was composed of 60 story points. It's rather a tool for estimating the workload of a team, track progress, growth, and maturity. It will allow you to calculate and track *this team's velocity*, to take into account sick days, or holidays, and in the long run, allow you to score and handle larger-scale objectives with more confidence.
 
-Finally, when a task seems to be too big eg. approaching half your team's velocity, or is on the upper half of your deck, it's a good indication that it should be broken down, or it will be awkward to handle in an Agile way. Don't be afraid to break tasks down, it's not an exact science, and broken-down tasks might be score a little higher, but
+Finally, when a task seems to be too big eg. approaching half your team's velocity, or is on the upper half of your deck, it's a good indication that it should be broken down, or it will be awkward to handle in an Agile way. Don't be afraid to break tasks down, it's not an exact science, and broken-down tasks might be score a little higher.
 
 
 
 ## Further reading
-I'm by no means well-versed in Agile; I've been lucky enough to work in great teams, with leadership who knew to use Agile as a tool to *get things done* in a sustainable way. If your coffee is still warm and you're procrastinating, you can read some more at :
+I'm by no means well-versed in Agile, so take all this with a grain of salt; I've been lucky enough to work in great teams, with leadership who knew to use Agile as a tool to *get things done* in a sustainable way. If your coffee is still warm and you're procrastinating, you can read some more at :
 
 - https://martinfowler.com/bliki/StoryPoint.html
 - https://www.atlassian.com/agile/project-management/estimation

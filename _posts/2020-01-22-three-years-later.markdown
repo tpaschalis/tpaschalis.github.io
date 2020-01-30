@@ -45,7 +45,7 @@ Finally, I feel sad to admit that the final bullet fell off the radar. I *did* r
 - I'd love to write a lot more. I initially set of a goal of 52 posts (~one per week), but I already feel slacking off.
 Now that I've written this in public, I hope I can gather the courage to do it.
 - I'd love to improve quality.
-- Up to past year, I was pretty confident about my English skills. Having to work daily with people in english, revealed to me that there's room for improvement. So a goal is both to proofread and fix past posts, and improve on new ones.
+- Until recently, I was pretty confident about my English skills. Working with english-speaking people on a day-to-day basis, made me understand that there's room for improvement. So a goal is both to proofread and fix past posts, and improve on new ones.
 - I'm thinking about switching to Hugo, and/or switching to another, personal domain. I don't want to break any links, and if this happens, it will probably need to be early during 2020.
 - *vol 2* I will either publish a small game, or a small 'book'-like thingy
 
@@ -58,6 +58,6 @@ Also, last year, I posted about some half-baked projects (eg. `woof`). While the
 
 
 ### Parting words
-I want to sincerely thank any of you for taking the time to be here.
+I wish a happy new year to all of you, and your families. May 2020 bring health, happiness, and smiles to all. Thank any of you for taking the time to be here. :)
 
-See you around
+See you around, Paschalis
