@@ -3,7 +3,7 @@ layout: post
 title:  LaTeX + Vim + MacOS.
 date:   2020-02-07
 author: Paschalis Ts
-tags:   []
+tags:   [latex, macos, vim]
 mathjax: false
 description: "Ez pz"
 ---
