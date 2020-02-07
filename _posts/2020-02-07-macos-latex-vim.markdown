@@ -9,11 +9,11 @@ description: "Ez pz"
 ---
 
 
-It's no secret that I absolutely love LaTeX; and since I've started using a Mac for work, I wanted a setup for writing LaTeX.
+I absolutely love LaTeX; and since I've started using a Mac for work, I wanted a setup for writing with it.
 
-I settled with installing [MacTex](http://www.tug.org/mactex/), which is a free re-distribution of TeX Live, which also includes Ghostcript and some mac-specific GUI applications. (Don't judge for not building from source ^^)
+I settled with installing [MacTex](http://www.tug.org/mactex/), a free re-distribution of TeX Live which also includes Ghostcript and some mac-specific GUI applications. (Don't judge for not building from source ^^)
 
-However, the goal was to keep using Vim; there's a bunch of plugins for that like [vimtex](https://github.com/lervag/vimtex) or [vim-latex](https://github.com/vim-latex/vim-latex), but a) I'm not going to use all of the features, since I'm not writing on a day-to-day basis, and b) I didn't want to slow down my Vim for no reason. I will concede that vimtex looks very cool though, and I'll be checking it out in the near future.
+However, the goal was to keep using Vim; there's a bunch of plugins for that like [vimtex](https://github.com/lervag/vimtex) or [vim-latex](https://github.com/vim-latex/vim-latex), but a) I'm not going to learn or use all of their features, since I'm not writing on a day-to-day basis, and b) I didn't want to slow down my Vim for no reason. I will concede that vimtex looks very cool though, and I'll be checking it out in the near future.
 
 So, thinking the Unix way, I thought what's my LaTeX workflow? I keep editor and document side-by-side and
 
@@ -22,7 +22,7 @@ b) Compile
 c) See PDF change
 d) GOTO a
 
-This is easily doable with Vim commands and a nice PDF viewer, which will support auto-reloading. *Preview*, the default PDF viwer in MacOS, *does* support auto-reloading;
+This is easily doable with Vim commands and a nice PDF viewer, which will support auto-reloading (eg. [evince](https://wiki.gnome.org/Apps/Evince)) *Preview*, the default PDF viwer in MacOS, *does* support auto-reloading;
 
 ### Version 1
 ```vim
@@ -43,6 +43,7 @@ So, let's wrap this up in a proper way; introduce a new command, *Silent*, which
 
 ### Version 3
 ```vim
+" Custom Silent command that will call redraw
 command! -nargs=+ Silent
 \   execute 'silent ! <args>'
 \ | redraw!
@@ -51,4 +52,4 @@ command! -nargs=+ Silent
 ```
 
 
-And voila, 90% my day-to-day workflow was covered like that!
+And adding these to my .vimrc, voila, 90% my day-to-day workflow was covered like that. How I wish all software was simple to use and modify this way!
