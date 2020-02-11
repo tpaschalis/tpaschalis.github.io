@@ -48,7 +48,7 @@ My commits now look like *this*, so I can keep track of what step I'm currently 
 <img src="/images/tdd-experiment-commits.png" style='height: 40%; width: 40%; object-fit: contain'/>
 </center>
 
-After a couple of days, I can admit it's hard to keep up (for now) and I'm continuously switching between
+After a couple of days, I can admit it's hard to keep up (for now) and I'm continuously switching between   
 a) jesus, I'm wasting so much time, wth   
 b) okay, *that* came out nice   
 
