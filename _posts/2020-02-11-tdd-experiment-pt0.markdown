@@ -8,11 +8,11 @@ mathjax: false
 description: ""
 ---
 
-There's no better moment than a quiet weekend for a small side-project to begin. This time, the focus was not on the code itself, but on a challenge, and a small experiment. This post describes the experiment's first phase, the setup.
+There's no better moment than a quiet weekend for a small side-project to begin. This time, the focus was not on the code itself, but on a small experiment. This post describes the experiment's first phase, the setup.
 
 I've been supposedly doing *some* TDD, but a friend suggested completing a project using proper, dogmatic, hardcore TDD, just to see how it goes. That means no cutting corners, no cheating with writing a method or two and testing later, and *absolutely no* early refactors.
 
-I decided to use Uncle Bob's rule verbtim:
+I decided to use Uncle Bob's rules verbtim:
 ```
 - You are not allowed to write any production code unless it is to make a failing unit test pass.
 
