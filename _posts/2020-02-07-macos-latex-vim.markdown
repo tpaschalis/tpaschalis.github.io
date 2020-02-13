@@ -22,21 +22,23 @@ b) Compile
 c) See PDF change  
 d) GOTO a  
 
-This is easily doable with Vim commands and a nice PDF viewer, which will support auto-reloading (eg. [evince](https://wiki.gnome.org/Apps/Evince)) *Preview*, the default PDF viwer in MacOS, *does* support auto-reloading;
+This is easily doable with Vim commands and a nice PDF viewer which will support auto-reloading (eg. [evince](https://wiki.gnome.org/Apps/Evince)).  
+*Preview*, the default PDF viewer in MacOS, *does* support auto-reloading;
 
 ### Version 1
 ```vim
 :! pdflatex %
 ```
 
-The problem is that *Preview* will auto-reload the pdf only if you switch focus to the PDF, which had me alt-tab twice for every change. This is easily solved with the following command, where MacOS' `open -a` will open or focus the instance an application.
+The problem is that *Preview* will auto-reload the pdf only when you switch focus to the it, which had me alt-tab twice for every change.    
+This is easily solved with the following command, where MacOS' `open -a` will open or focus the instance an application.
 
 ### Version 2
 ```vim
 :! pdflatex % && open -a Preview && open -a iTerm
 ```
 
-This way we get the compilation output, but have to press an extra enter key to return. We can solve this by using Vim's [silent](https://vimhelp.org/various.txt.html) option, which will supress the message box that pops up and reports the result. The problem is that when you run something *silently*, if it outputs, you'll have to either use ^L or [redraw!](https://vimhelp.org/various.txt.html#CTRL-L), as your screen might be messed up.
+This way we get the compilation output, but have to press an extra enter key to return. We can solve this by using Vim's [silent](https://vimhelp.org/various.txt.html) option, which will suppress the message box that pops up and reports the result. The problem is that when you run something *silently*, if it outputs, you'll have to either use ^L or [redraw!](https://vimhelp.org/various.txt.html#CTRL-L), as your screen might be messed up.
 
 So, let's wrap this up in a proper way; introduce a new command, *Silent*, which will silently call your arguments and then re-draw the screen; then map this to F5.
 (Thanks to [this](https://vim.fandom.com/wiki/Avoiding_the_%22Hit_ENTER_to_continue%22_prompts) vim wiki article.)

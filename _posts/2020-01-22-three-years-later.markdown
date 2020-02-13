@@ -8,7 +8,7 @@ mathjax: false
 description: "Three times three-hundred sixty five."
 ---
 
-Well, like last year, I'm still procrastinating about writing this post, so a certain bilionnaire would put it *"Screw it, let's do it"*.
+Well, like last year, I'm still procrastinating about writing this post, so a certain billionaire would put it *"Screw it, let's do it"*.
 
 
 ## Year Three!
@@ -20,7 +20,7 @@ I can copy-paste my [previous-year entry line](https://tpaschalis.github.io/two-
 ### What happened here, during the past 365 days?
 
 - A total of 8 posted were created.
-- My highlight was [this](https://tpaschalis.github.io/vim-go-setup/) one; a great converstation-starter during my latest interview.
+- My highlight was [this](https://tpaschalis.github.io/vim-go-setup/) one; a great conversation-starter during my latest interview.
 - I got more confident sharing [code](https://tpaschalis.github.io/golang-amb-operator/). Looking back, I feel *how did I even share this crap*. But I'm leaving it there, so that I can see that I've grown, and I've got to grow even more in 2020.
 - I heard from Reddit, HN, Twitter *and* kind stranger emails!
 

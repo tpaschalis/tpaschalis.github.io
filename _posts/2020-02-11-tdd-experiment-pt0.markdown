@@ -12,7 +12,7 @@ There's no better moment than a quiet weekend for a small side-project to begin.
 
 I've been supposedly doing *some* TDD, but a friend suggested completing a project using proper, dogmatic, hardcore TDD, just to see how it goes. That means no cutting corners, no cheating with writing a method or two and testing later, and *absolutely no* early refactors.
 
-I decided to use Uncle Bob's rules verbtim:
+I decided to use Uncle Bob's rules verbatim:
 ```
 - You are not allowed to write any production code unless it is to make a failing unit test pass.
 
@@ -23,7 +23,7 @@ I decided to use Uncle Bob's rules verbtim:
 
 And so, the *2020 TDD experiment* has begun. This is the first post, where the experiment is set up.
 
-In a next post, I'll release the project (a CLI app, nothing groundbreaking), and gather some feedaback, while later I will hopefully write down my experience and observations. I don't believe in panaceas and silver bullets, but spending time with a tool in *deliberate practice* is in my opinion the best way to improve one's craft.
+In a next post, I'll release the project (a CLI app, nothing groundbreaking), and gather some feedback, while later I will hopefully write down my experience and observations. I don't believe in panaceas and silver bullets, but spending time with a tool in *deliberate practice* is in my opinion the best way to improve one's craft.
 
 
 So, for this project, which is going to be a small-ish CLI application, *all commits will strictly correspond to TDD steps*.
