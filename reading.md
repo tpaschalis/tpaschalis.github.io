@@ -17,6 +17,10 @@ Hope you can find something interesting here as well!
 * [**The Design of Everyday Things: Revised and Expanded Edition**](https://www.amazon.com/Design-Everyday-Things-Revised-Expanded/dp/0465050654/) by Don Norman.  
 The first book I finished this year, and *it was awesome*. I've never claimed to be a designer; but I gained even more respect for these professionals. Whether you need to design better smartphones, APIs, cooking utensils, or just vent about difficult-to-use stovetops, this is for you.
 
+### Non-Technical
+* [Radical Candor](https://www.amazon.com/Radical-Candor-Revised-Kick-Ass-Humanity/dp/1250235375) by Kim Scott.
+
+
 ## 2019
 
 ### Technical
@@ -39,7 +43,7 @@ It's one of the books I wish I had read a few years earlier. I crunched through 
 
 * [Sprint: How to Solve Big Problems and Test New Ideas in Just Five Days](https://www.amazon.com/Sprint-Solve-Problems-Test-Ideas-ebook/dp/B010MH1DAQ)   
 
-### Non-Technical Books
+### Non-Technical
 * [The Three-Body Problem](https://www.amazon.com/Three-Body-Problem-Cixin-Liu/dp/0765382032) by Cixin Liu  
 If possible, go through it without being spoiled (don't even read the back cover). I enjoyed the original translation as it was able to maintain a lot of exotic elements of the author's native chinese and didn't read like "just a book in English".
 
