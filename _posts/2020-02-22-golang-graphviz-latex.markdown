@@ -8,17 +8,17 @@ mathjax: false
 description: "KISS"
 ---
 
-Preparing for my latest interview this past summet, had me working with graphs again. I'm also trying to make some time to toy around with [dgraph](https://dgraph.io/); I kind of enjoy dealing with that type of problems, mainly for those breakthrough *a-ha!* moments that come around once every while.
+Preparing for my latest interview this past summer, had me working with graphs again. I'm also trying to make some time to toy around with [dgraph](https://dgraph.io/); I kind of enjoy dealing with that type of problems, mainly for those breakthrough *a-ha!* moments that come around once every while.
 
-Building a simple graph in Go, is straightforward, but a visual representation is immensely helpful in investigating edge-cases (no pun intended), and getting a birds-eye overview. 
+Building a simple graph in Go, is straightforward, but a visual representation is immensely helpful to get a quick overview and investigate edge-cases (no pun intended). 
 
-Unfortunately, many of the solutions I found were a little cumbersome, but why not use the magic of [Graphviz](https://www.graphviz.org/)? Let's go through an example of our own, without no external packages required! We're going to recreate [this](https://graphviz.gitlab.io/_pages/Gallery/directed/fsm.html) graph from the Graphviz example.
+Unfortunately, many of the solutions I found were a little cumbersome, but why not use the magic of [Graphviz](https://www.graphviz.org/)? Let's go through a demonstration of our own, without no external packages required! We're going to recreate [this](https://graphviz.gitlab.io/_pages/Gallery/directed/fsm.html) example.
 
-First off, we define the graph properties, the edges, the nodes, and a couple of helpers to add to the graph and/or get the edges of a specific node.
+First off, we define the graph properties, the edges, the nodes, and a couple of helpers function.
 
-Afterwards, we'll define a simple [Stringer](https://godoc.org/golang.org/x/tools/cmd/stringer) interface for our edge and graph, which we can then pipe to graphviz.
+Afterwards, we'll define a simple [Stringer](https://godoc.org/golang.org/x/tools/cmd/stringer) interface for our graph and its edges, which we can then pipe to Graphviz.
 
-Hope this doesn't contain any glaring errors, as it was whipped up in a couple of minutes, but works for basic things.
+Hope this doesn't contain any glaring errors, as it was whipped up in a couple of minutes, seems to be working for most basic cases.
 ```go
 package main
 
@@ -87,13 +87,13 @@ We now can do something like
 
 ```bash
 $ go run main.go > mygraph.dot
-$ dot -Tpng mygraph.dot > mygraph.png
+$ dot -Tpng -Gdpi=300 mygraph.dot > mygraph.png
 ```
 
 The result is a beautiful vector image that looks like 
 
 <center>
-<img src="/images/dgraph-example-output.ps" style='height: 40%; width: 40%; object-fit: contain'/>
+<img src="/images/dgraph-example-output.png" style='height: 80%; width: 80%; object-fit: contain'/>
 </center>
 
 That's all for now!
