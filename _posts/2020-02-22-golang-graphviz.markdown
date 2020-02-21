@@ -25,7 +25,8 @@ package main
 import "fmt"
 
 type edge struct {
-	node string
+	node  string
+	label string
 }
 type graph struct {
 	nodes map[string][]edge
@@ -35,8 +36,8 @@ func newGraph() *graph {
 	return &graph{nodes: make(map[string][]edge)}
 }
 
-func (g *graph) addEdge(from, to string) {
-	g.nodes[from] = append(g.nodes[from], edge{node: to})
+func (g *graph) addEdge(from, to, label string) {
+	g.nodes[from] = append(g.nodes[from], edge{node: to, label: label})
 }
 
 func (g *graph) getEdges(node string) []edge {
@@ -54,7 +55,7 @@ func (g *graph) String() string {
 		node [shape = circle];`
 	for k := range g.nodes {
 		for _, v := range g.getEdges(k) {
-			out += fmt.Sprintf("\t%s -> %s;\n", k, v.node)
+			out += fmt.Sprintf("\t%s -> %s\t[ label = \"%s\" ];\n", k, v.node, v.label)
 		}
 	}
 	out += "}"
@@ -64,23 +65,25 @@ func (g *graph) String() string {
 func main() {
 	g := newGraph()
 	// https://graphviz.gitlab.io/_pages/Gallery/directed/fsm.html
-	g.addEdge("LR_0", "LR_2")
-	g.addEdge("LR_0", "LR_1")
-	g.addEdge("LR_1", "LR_3")
-	g.addEdge("LR_2", "LR_6")
-	g.addEdge("LR_2", "LR_5")
-	g.addEdge("LR_2", "LR_4")
-	g.addEdge("LR_5", "LR_7")
-	g.addEdge("LR_5", "LR_5")
-	g.addEdge("LR_6", "LR_6")
-	g.addEdge("LR_6", "LR_5")
-	g.addEdge("LR_7", "LR_8")
-	g.addEdge("LR_7", "LR_5")
-	g.addEdge("LR_8", "LR_6")
-	g.addEdge("LR_8", "LR_5")
+
+	g.addEdge("LR_0", "LR_2", "SS(B)")
+	g.addEdge("LR_0", "LR_1", "SS(S)")
+	g.addEdge("LR_1", "LR_3", "S($end)")
+	g.addEdge("LR_2", "LR_6", "SS(b)")
+	g.addEdge("LR_2", "LR_5", "SS(a)")
+	g.addEdge("LR_2", "LR_4", "S(A)")
+	g.addEdge("LR_5", "LR_7", "S(b)")
+	g.addEdge("LR_5", "LR_5", "S(a)")
+	g.addEdge("LR_6", "LR_6", "S(b)")
+	g.addEdge("LR_6", "LR_5", "S(a)")
+	g.addEdge("LR_7", "LR_8", "S(b)")
+	g.addEdge("LR_7", "LR_5", "S(a)")
+	g.addEdge("LR_8", "LR_6", "S(b)")
+	g.addEdge("LR_8", "LR_5", "S(a)")
 
 	fmt.Println(g)
 }
+
 ```
 
 We now can do something like
@@ -96,5 +99,10 @@ The result is a beautiful vector image that looks like
 <center>
 <img src="/images/dgraph-example-output.png" style='height: 80%; width: 80%; object-fit: contain'/>
 </center>
+
+<center>
+<img src="/images/dgraph-example-labelled-output.png" style='height: 80%; width: 80%; object-fit: contain'/>
+</center>
+
 
 That's all for now!
