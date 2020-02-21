@@ -87,6 +87,7 @@ We now can do something like
 
 ```bash
 $ go run main.go > mygraph.dot
+$ dot -Tps mygraph.dot -o mygraph.ps
 $ dot -Tpng -Gdpi=300 mygraph.dot > mygraph.png
 ```
 
