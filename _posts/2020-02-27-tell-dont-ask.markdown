@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  Tell Don't Ask.
+title:  Tell Don't Ask
 date:   2020-02-27
 author: Paschalis Ts
-tags:   []
+tags:   [code, pattern, go]
 mathjax: false
 description: ""
 ---
