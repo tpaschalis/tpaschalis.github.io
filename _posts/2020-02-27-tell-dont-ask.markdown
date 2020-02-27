@@ -8,7 +8,7 @@ mathjax: false
 description: ""
 ---
 
-Today I'd like to showcase some uses of the *Tell Don't Ask* principle. Feel free to read [this](https://pragprog.com/articles/tell-dont-ask) and [this](https://martinfowler.com/bliki/TellDontAsk.html) articles for some high-quality commentary.
+Today I'd like to showcase some uses of the *Tell Don't Ask* principle. Feel free to read [these](https://pragprog.com/articles/tell-dont-ask) [two](https://martinfowler.com/bliki/TellDontAsk.html) articles for some high-quality commentary.
 
 ## What's Tell Don't Ask?
 
@@ -19,9 +19,11 @@ Alec Sharp offers some bite-sized wisdom.
 
 Tell Don't Ask is an OOP pattern, trying to increase co-location of data and behavior.
 
-In essence rather than examine objects and then call different methods based on their state, acting on their behalf, we should prefer to *tell objects what we want to achieve*.
+In essence rather than examining objects and then calling different methods based on their state, acting on their behalf, we should prefer to *tell objects what we want to achieve*.
+
 As such, decisions based on the state of the object should not take place on the caller level as making decisions and altering the state of an object outside of its own scope violates its encapsulation.
-Moving behavior logic inside the object itself and keeping the actual usage of code as lean also simplifies testing with Mocks, as we can mock the *tell* method, and not all the intermediate *ask* steps.
+
+Moving behavior logic inside the object itself and keeping the actual usage of code as lean also simplifies testing, as we can mock the *tell* method, and not all the intermediate *ask* steps.
 
 As for all patterns, there are cons to balance out.
 - Overzealous developers might try to get rid of all Getters method, making object collaboration difficult.
@@ -56,7 +58,7 @@ Instead of
 ```go
 func checkMemoryUsage(c component) {
     ...
-    
+
     if c.MemUsg > c.Limit {
         c.EvictLRU()
     }
