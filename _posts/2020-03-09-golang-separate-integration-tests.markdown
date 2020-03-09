@@ -18,9 +18,9 @@ On the other hand, they're usually more resource-hungry, need a specific environ
 ### With build constraints
 A good first step is to separate integration tests into different `XYZ_integration_test.go` files.
 
-Separating your tests like this also enables selection by using [tags to constrain builds](https://golang.org/pkg/go/build/#hdr-Build_Constraints).
+Separating your tests like this enables selection by using [tags to constrain builds](https://golang.org/pkg/go/build/#hdr-Build_Constraints).
 
-If you include a `// +build integration` as the top-line of your test files, they will only be compiled and run with `go ./... test -v -tags integration`.
+If you include a `// +build integration` as the top-line of your test files, they will only be compiled when passing the appropriate tag as `go ./... test -v -tags integration`.
 
 These build constraints can be more complex, including full boolean formulas.
 You can do more complex stuff such as 
@@ -46,7 +46,7 @@ func TestXYZIntegration(t *testing.T) {
     ...
 }
 ```
-Then, you would run your test suite with either `go test -v ./... -short` to run only the unit tests, or `go test ./...` to run the full suite.
+Then, you'd either use `go test -v ./... -short` to only run the unit tests, or `go test ./...` to run the full suite.
 
 
 ### With a CLI flag 
@@ -68,13 +68,14 @@ func TestXYZIntegration(t *testing.T) {
 Another option is to use an environment variable. This will allow you to use
 ```go
 func skipIntegration(t *testing.T) {
-  if os.Getenv("GO_RUN_INTEGRATION") != "" {
-    t.Skip("skipping integration tests")
-  }
+    if os.Getenv("GO_RUN_INTEGRATION") != "" {
+        t.Skip("skipping integration tests")
+    }
 }
 
 func TestXYZ(t *testing.T) {
-  skipIntegration(t)
+    skipIntegration(t)
+    ...
 }
 ```
 
@@ -84,7 +85,7 @@ and run your test suite using `GO_RUN_INTEGRATION=true go test ./...`.
 ### Regex Based matching (but please, don't)
 Finally, while possible, I'd recommend avoiding regex-base matching to run or exclude specific tests.
 
-The drawback is that it imposes a specific naming convention for our tests, and makes running these tests manually a bit harder, even if you're using a Makefile.
+The drawback is that it imposes specific naming conventions, and makes running tests manually a bit harder, even if you're using a Makefile.
 
 So, if you name your tests `TestUnitXYZ` or `TestIntegrationXYZ`, you can then run `go test ./... -run=Unit` or `go test ./... -run=Integration` to run tests whose names match. 
 
@@ -93,7 +94,7 @@ Another drawback is that you cannot easily *exclude* test functions without reso
 
 
 ### Include a timeout 
-Finally, don't forget to [include a timeout](https://golang.org/cmd/go/#hdr-Testing_flags). The default value, 10 minutes, is in my opinion too large, we should strive to fail fast, and if any of our tests *do* need to run for larger periods of time, they should be separated as soon as possible.
+Finally, don't forget to [include a timeout](https://golang.org/cmd/go/#hdr-Testing_flags). The default value, 10 minutes, is in my opinion too large; just fail fast and if any of your tests *do* need to run for larger periods of time, they should be separated as soon as possible.
 
 Got anything to add? Spotted any mistakes or got any cool stories? Feel free to reach out using email or ping me on Twitter [@tpaschalis_](https://twitter.com/tpaschalis_)!
 
