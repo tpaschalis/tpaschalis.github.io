@@ -22,8 +22,8 @@ Separating your tests like this enables selection by using [tags to constrain bu
 
 If you include a `// +build integration` as the top-line of your test files, they will only be compiled when passing the appropriate tag as `go ./... test -v -tags integration`.
 
-These build constraints can be more complex, including full boolean formulas.
-You can do more complex stuff such as 
+These build constraints can be more complex, including full boolean formulas.    
+You can define things as 
 ```go
 // +build go1.15 
 // +build darwin linux,!aws
@@ -31,7 +31,7 @@ You can do more complex stuff such as
 package myawesomepackage
 ```
 
-This file will be built only if Go version is 1.15 or higher, and if the platform is either Darwin or is Linux and the `aws` tag has *not* been passed.
+This file will be built only if Go version is 1.15 or higher, and if either the platform is Darwin or is the platform is Linux and the `aws` tag has *not* been passed.
 
 
 ### By using the -short flag
