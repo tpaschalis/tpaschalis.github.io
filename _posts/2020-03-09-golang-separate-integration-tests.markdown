@@ -20,7 +20,8 @@ A good first step is to separate integration tests into different `XYZ_integrati
 
 Separating your tests like this enables selection by using [tags to constrain builds](https://golang.org/pkg/go/build/#hdr-Build_Constraints).
 
-If you include a `// +build integration` as the top-line of your test files, they will only be compiled when passing the appropriate tag as `go ./... test -v -tags integration`.
+If you include a `// +build integration` as the top-line of your test files, they will only be compiled when passing the appropriate tag as    
+`go ./... test -v -tags integration`
 
 These build constraints can be more complex, including full boolean formulas.    
 You can define things as 
@@ -31,7 +32,7 @@ You can define things as
 package myawesomepackage
 ```
 
-This file will be built only if Go version is 1.15 or higher, and if either the platform is Darwin or is the platform is Linux and the `aws` tag has *not* been passed.
+This file will be built only if Go version is 1.15 or higher, and if either the platform is Darwin or is the platform is Linux and the aws tag has *not* been passed.
 
 
 ### By using the -short flag
@@ -83,9 +84,9 @@ and run your test suite using `GO_RUN_INTEGRATION=true go test ./...`.
 
 
 ### Regex Based matching (but please, don't)
-Finally, while possible, I'd recommend avoiding regex-base matching to run or exclude specific tests.
+While possible, I'd recommend avoiding regex-base matching.
 
-The drawback is that it imposes specific naming conventions, and makes running tests manually a bit harder, even if you're using a Makefile.
+It imposes specific naming conventions, and makes running tests manually harder, even if you're using a Makefile.
 
 So, if you name your tests `TestUnitXYZ` or `TestIntegrationXYZ`, you can then run `go test ./... -run=Unit` or `go test ./... -run=Integration` to run tests whose names match. 
 
