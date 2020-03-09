@@ -13,9 +13,9 @@ Integration tests are *great*. They allow you to test your system in more realis
 On the other hand, they're usually more resource-hungry, need a specific environment setup to run, and are prone to flakiness, so it makes sense to be able to run them selectively.
 
 
-### Let's go!
+## Let's go!
 
-**With build constraints**
+### With build constraints
 A good first step is to separate integration tests into different `XYZ_integration_test.go` files.
 
 Separating your tests like this also enables selection by using [tags to constrain builds](https://golang.org/pkg/go/build/#hdr-Build_Constraints).
@@ -34,8 +34,7 @@ package myawesomepackage
 This file will be built only if Go version is 1.15 or higher, and if the platform is either Darwin or is Linux and the `aws` tag has *not* been passed.
 
 
-**By using the -short flag**.
-
+### By using the -short flag
 The `testing` package features a [`-short` flag](https://golang.org/pkg/testing/#Short).
 
 This allows to tag and disable your integration tests like this
@@ -50,7 +49,7 @@ func TestXYZIntegration(t *testing.T) {
 Then, you would run your test suite with either `go test -v ./... -short` to run only the unit tests, or `go test ./...` to run the full suite.
 
 
-**With a CLI flag**
+### With a CLI flag 
 The opposite can happen as well, by defining a custom flag which will *enable* integration tests.
 
 ```go
@@ -65,7 +64,7 @@ func TestXYZIntegration(t *testing.T) {
 }
 ```
 
-**Use an $ENV var**
+### With an $ENV var
 Another option is to use an environment variable. This will allow you to use
 ```go
 func skipIntegration(t *testing.T) {
@@ -82,7 +81,7 @@ func TestXYZ(t *testing.T) {
 and run your test suite using `GO_RUN_INTEGRATION=true go test ./...`.
 
 
-**Regex Based matching**
+### Regex Based matching (but please, don't)
 Finally, while possible, I'd recommend avoiding regex-base matching to run or exclude specific tests.
 
 The drawback is that it imposes a specific naming convention for our tests, and makes running these tests manually a bit harder, even if you're using a Makefile.
@@ -93,7 +92,7 @@ Another drawback is that you cannot easily *exclude* test functions without reso
 
 
 
-**Include a timeout**
+### Include a timeout 
 Finally, don't forget to [include a timeout](https://golang.org/cmd/go/#hdr-Testing_flags). The default value, 10 minutes, is in my opinion too large, we should strive to fail fast, and if any of our tests *do* need to run for larger periods of time, they should be separated as soon as possible.
 
 Got anything to add? Spotted any mistakes or got any cool stories? Feel free to reach out using email or ping me on Twitter [@tpaschalis_](https://twitter.com/tpaschalis_)!
