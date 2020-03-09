@@ -14,8 +14,10 @@ Hope you can find something interesting here as well!
 ## 2020
 
 ### Technical
-* [**The Design of Everyday Things: Revised and Expanded Edition**](https://www.amazon.com/Design-Everyday-Things-Revised-Expanded/dp/0465050654/) by Don Norman.  
+* [**The Design of Everyday Things: Revised and Expanded Edition**](https://www.amazon.com/Design-Everyday-Things-Revised-Expanded/dp/0465050654/) by Don Norman   
 The first book I finished this year, and *it was awesome*. I've never claimed to be a designer; but I gained even more respect for these professionals. Whether you need to design better smartphones, APIs, cooking utensils, or just vent about difficult-to-use stovetops, this is for you.
+
+* [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) by Robert C. Martin    
 
 ### Non-Technical
 * [Radical Candor](https://www.amazon.com/Radical-Candor-Revised-Kick-Ass-Humanity/dp/1250235375) by Kim Scott.
@@ -52,14 +54,14 @@ This book changed the way I see my career, and software engineering in general. 
 
 * [Powerful: Building a Culture of Freedom and Responsibility](https://www.amazon.com/Powerful-Building-Culture-Freedom-Responsibility/dp/1939714095) by Patty McCord  
 
-* [L’Étranger (The Stranger)](https://www.amazon.com/Stranger-Albert-Camus/dp/0679720200) by Albert Camus.   
+* [L’Étranger (The Stranger)](https://www.amazon.com/Stranger-Albert-Camus/dp/0679720200) by Albert Camus        
 A small book I read during a car trip. It put me in thoughts and provided hours of conversations. What more could I ask for?
 
-* [ADP 6-22 Army Leadership and the Profession](https://www.amazon.com/Army-Doctrine-Publication-Leadership-Profession/dp/1689088931) by United States Government US Army.   
+* [ADP 6-22 Army Leadership and the Profession](https://www.amazon.com/Army-Doctrine-Publication-Leadership-Profession/dp/1689088931) by United States Government US Army       
 A little too militaristic at times, but it was actually *very well written*, and with minimal-to-none self-help crap. I was impressed that I could relate to both good and bad leadership examples that I've encountered in the real world. I would definitely re-read it.
 
-* [Soft Skills: The software developer's life manual](https://www.amazon.com/Soft-Skills-software-developers-manual/dp/1617292397/) by John Sonmez.   
+* [Soft Skills: The software developer's life manual](https://www.amazon.com/Soft-Skills-software-developers-manual/dp/1617292397/) by John Sonmez   
 A little more self-help-y than I'd like; I will admit I gave up on the last chapters about hitting the gym etc. But as far as building a career, and a name for yourself, I'm glad I read it soon, and wish I had read it even sooner.
 
-* [How to Win Friends and Influence People](https://www.amazon.com/How-Win-Friends-Influence-People/dp/0671027034) by by Dale Carnegie.   
+* [How to Win Friends and Influence People](https://www.amazon.com/How-Win-Friends-Influence-People/dp/0671027034) by by Dale Carnegie   
 I had avoided reading this book, solely due to its title. I still cringe a little when I see it on my bookcase, or when recommending it to people; but I'm actually recommending it! After all these years, it continues being relevant, although many times I thought to myself "this could be summed as be a good person". Don't feel guilty about skimming over some of the example the author poses to strengthen their advice.
