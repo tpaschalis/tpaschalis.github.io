@@ -106,14 +106,13 @@ int main(){
 
 ## Parting Words
 
-I hope I could explain the concept I had in mind, without any glaring errors! Feel free to reach out for comments and ways to improve this post!
+I hope I could explain the concept I had in mind, without any glaring errors. Feel free to reach out for comments and ways to improve this post!
 
 I also recommend watching [MIT's 6.824 class](https://www.youtube.com/watch?v=gA4YXUJX7t8) on distributed systems where this issue was mentioned, if you're into this kind of stuff.
 
 ## Resources
 - https://www.modernescpp.com/index.php/garbage-collectio-no-thanks
 - https://www.modernescpp.com/index.php/c-core-guidelines-sharing-data-between-threads
-
 - https://www.modernescpp.com/index.php/c-core-guidelines-concurrency-and-lock-free-programming
 - https://codereview.stackexchange.com/questions/212101/automatic-raii-wrapper-for-concurrent-access
 - https://stackoverflow.com/questions/22842579/best-way-to-handle-multi-thread-cleanup
