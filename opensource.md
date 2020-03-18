@@ -10,7 +10,7 @@ permalink: /opensource/
 
 ### hashicorp
 * [ hashicorp/consul Expose Envoy's /stats for statsd agents (#7173) ](https://github.com/hashicorp/consul/commit/a335aa57c54ffd19283815db23581765f93d588e)
-* [ hashicorp/packer Add packer.ExpandUser() function to support tilde in usage of config.ValidationKeyPath (#8657) ] (https://github.com/hashicorp/packer/commit/beca6de71ba2c87c981cf12a997eb6008984c801)
+* [ hashicorp/packer Add packer.ExpandUser() function to support tilde in usage of config.ValidationKeyPath (#8657) ](https://github.com/hashicorp/packer/commit/beca6de71ba2c87c981cf12a997eb6008984c801)
 
 ### beatlabs/patron
 * [ Parse DSN to populate Connection Information (#116) ](https://github.com/beatlabs/patron/commit/39e1de9f59b69236a8a3c2597fd7bc6a9e8c1dd3)
