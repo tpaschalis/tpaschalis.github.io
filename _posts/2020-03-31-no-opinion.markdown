@@ -22,8 +22,10 @@ The [Merriam-Webster](https://www.merriam-webster.com/dictionary/opinion) dictio
 
 > 1a: a view, judgment, or appraisal formed in the mind about a particular matter
 > b : approval, esteem 
+
 > 2a : belief stronger than impression and less strong than positive knowledge
 > b : a generally held view
+
 > 3a : a formal expression of judgment or advice by an expert
 > b : the formal expression (as by a judge, court, or referee) of the legal reasons and principles upon which a legal decision is based
 
@@ -39,11 +41,10 @@ It takes a certain amount of egoism to form a strong opinion after reading a soc
 On the contrary, what I'm personally trying to achieve is 
 
 * Keep few beliefs. 
-* Get multiple sources.
+* Get multiple sources, fact-check.
 * Obtain first-hand experience where applicable.
 * Make notes my own prejudices.
 * Make notes of the prejudices of the source.
 * Keep an open mind. 
-* Fact-check
 
 So, just keep calm, stay safe, and enjoy life!
