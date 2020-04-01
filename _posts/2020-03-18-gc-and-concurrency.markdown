@@ -12,11 +12,11 @@ description: ""
 
 It was not always obvious to me, but Concurrency and Garbage Collection are like PB+J, or french fries and ketchup; they make a kick-ass pair!
 
-In Non-GC languages and a concurrent piece of code, it's not really straightforward when the last thread has finished using some resource so it can be released; this might mean performing manual book-keeping, or using specific data-structures and patterns which ensure proper cleanup.
+In non-GC languages and a concurrent piece of code, it's not really straightforward when the last thread has finished using some resource so it can be released; this might mean performing manual book-keeping, or using specific data-structures and patterns which ensure proper cleanup.
 
 On the other hand, GC languages are able to circumvent this whole class of bugs abstracting it from the programmer's view. Even the trivial case of using some background thread to perform a periodic action is simplified.
 
-Of course, both Non-GC languages have been keeping up, with innovations like [smart pointers](https://www.modernescpp.com/index.php/atomic-smart-pointers), and GC languages try to innovate with [simpler and faster collectors](https://blog.golang.org/ismmkeynote), but the point still stands! 
+Of course, both non-GC languages have been keeping up, with innovations like [smart pointers](https://www.modernescpp.com/index.php/atomic-smart-pointers), and GC languages try to innovate with [simpler and faster collectors](https://blog.golang.org/ismmkeynote), but the point still stands! 
 
 Writing correct concurrency in Go can be easier, than for example in C++ where you'd have to think about things such as [RAII](https://en.cppreference.com/w/cpp/language/raii).
 
