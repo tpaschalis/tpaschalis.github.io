@@ -16,9 +16,9 @@ In Non-GC languages and a concurrent piece of code, it's not really straightforw
 
 On the other hand, GC languages are able to circumvent this whole class of bugs abstracting it from the programmer's view. Even the trivial case of using some background thread to perform a periodic action is simplified.
 
-Of course, both Non-GC languages have been keeping up, with things such as [smart pointers](https://www.modernescpp.com/index.php/atomic-smart-pointers), and GC languages try to innovate with [simpler and faster collectors](https://blog.golang.org/ismmkeynote), but the point still stands! 
+Of course, both Non-GC languages have been keeping up, with innovations like [smart pointers](https://www.modernescpp.com/index.php/atomic-smart-pointers), and GC languages try to innovate with [simpler and faster collectors](https://blog.golang.org/ismmkeynote), but the point still stands! 
 
-Writing correct concurrency in Go is easier, than for example in C++ where you'd have to think about [RAII](https://en.cppreference.com/w/cpp/language/raii) for example.
+Writing correct concurrency in Go can be easier, than for example in C++ where you'd have to think about things such as [RAII](https://en.cppreference.com/w/cpp/language/raii).
 
 
 *Disclaimer : My C++ knowledge is sketchy at best. I've only used it for academic work narrowly centered around a framework, either [Fluka](http://www.fluka.org/fluka.php), [OpenMP](https://www.openmp.org/) or [Mad-X](http://madx.web.cern.ch/madx/).This post included some examples to showcase this issue, but they were not up to par, so they were removed, until I find some time to practice my C++ and write some new ones.*
