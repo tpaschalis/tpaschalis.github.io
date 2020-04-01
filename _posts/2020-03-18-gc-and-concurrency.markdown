@@ -8,7 +8,6 @@ mathjax: false
 description: ""
 ---
 
-*Disclaimer : My C++ knowledge is sketchy at best. I've only used it for academic work narrowly centered around a framework, either [Fluka](http://www.fluka.org/fluka.php), [OpenMP](https://www.openmp.org/) or [Mad-X](http://madx.web.cern.ch/madx/). So, in case you think any examples might be outdated, or that there's a better way to express the point, don't hesitate to reach out!*
 
 
 It was not always obvious to me, but Concurrency and Garbage Collection are like PB+J, or french fries and ketchup; they make a kick-ass pair!
@@ -17,9 +16,14 @@ In Non-GC languages and a concurrent piece of code, it's not really straightforw
 
 On the other hand, GC languages are able to circumvent this whole class of bugs abstracting it from the programmer's view. Even the trivial case of using some background thread to perform a periodic action is simplified.
 
-Of course, both Non-GC languages have been keeping up, with things such as [smart pointers](https://www.modernescpp.com/index.php/atomic-smart-pointers), and GC languages try to innovate with [simpler and faster collectors](https://blog.golang.org/ismmkeynote), but the point still stands!
+Of course, both Non-GC languages have been keeping up, with things such as [smart pointers](https://www.modernescpp.com/index.php/atomic-smart-pointers), and GC languages try to innovate with [simpler and faster collectors](https://blog.golang.org/ismmkeynote), but the point still stands! 
+
+Writing correct concurrency in Go is easier, than for example in C++ where you'd have to think about [RAII](https://en.cppreference.com/w/cpp/language/raii) for example.
 
 
+*Disclaimer : My C++ knowledge is sketchy at best. I've only used it for academic work narrowly centered around a framework, either [Fluka](http://www.fluka.org/fluka.php), [OpenMP](https://www.openmp.org/) or [Mad-X](http://madx.web.cern.ch/madx/).This post included some examples to showcase this issue, but they were not up to par, so they were removed, until I find some time to practice my C++ and write some new ones.*
+
+<!--
 Here's a couple of examples, in C++ and Go to demonstrate this.
 
 ## Go
@@ -66,13 +70,12 @@ void good()
     f();                               // if f() throws an exception, the mutex is released
     if(!everything_ok()) return;       // early return, the mutex is released
 }                                      // if good() returns normally, the mutex is released
-```
 
 Many C++ standard library classes, such as `std::string` and `std::vector` use their constructor and destructors to acquire and release their resources and the standard library also contains various wrappers, such as `std::shared_ptr` and `std::shared_lock` to manage shared memory or mutexes.
 
+
 Here's another example C++ code, lifted from [this](https://www.modernescpp.com/index.php/c-core-guidelines-concurrency-and-lock-free-programming) page, which includes a *correct* usage of a mutex. You can see that we'd have to manually take care of the mutex in the object's destructor.
 
-```cpp
 // myGuard.cpp
 
 #include <mutex>
@@ -84,7 +87,7 @@ class MyGuard{
   public:
     MyGuard(T& m):myMutex(m){
       myMutex.lock();
-	  std::cout << "lock" << std::endl;
+	  std::cout  "lock"  std::endl;
     }
     ~MyGuard(){
 	  myMutex.unlock();
@@ -97,20 +100,21 @@ int main(){
 
     std::mutex m;
     MyGuard<std::mutex> {m};
-    std::cout << "CRITICAL SECTION" << std::endl;
+    std::cout  "CRITICAL SECTION"  std::endl;
 
-    std::cout << std::endl;
+    std::cout  std::endl;
 }
 ```
+-->
 
 
 ## Parting Words
 
-I hope I could explain the concept I had in mind, without any glaring errors. Feel free to reach out for comments and ways to improve this post!
+I'm still looking for a better way to explain this concept with an example. Feel free to reach out if you have any good ideas!
 
 I also recommend watching [MIT's 6.824 class](https://www.youtube.com/watch?v=gA4YXUJX7t8) on distributed systems where this issue was mentioned, if you're into this kind of stuff.
 
-## Resources
+## Some Resources
 - https://www.modernescpp.com/index.php/garbage-collectio-no-thanks
 - https://www.modernescpp.com/index.php/c-core-guidelines-sharing-data-between-threads
 - https://www.modernescpp.com/index.php/c-core-guidelines-concurrency-and-lock-free-programming
