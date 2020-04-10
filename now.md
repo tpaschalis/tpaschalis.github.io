@@ -6,7 +6,7 @@ permalink: /now
 
 This is a [now](https://nownownow.com/about) page, inspired by [Derek Sivers](https://sivers.org/nowff).
 
-It's a simple page, serving as a publiv declaration of priorities, helping me keep focus on what's important for me right now.
+It's a simple page, serving as a public declaration of priorities, helping me keep focus on what's important for me right now.
 
 You can browse some great now pages and blogs from [nownownow.com](https://nownownow.com/)
 
