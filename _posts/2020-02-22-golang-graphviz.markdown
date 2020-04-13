@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Go Graphs and Graphviz
+title:  Go, Graphs and Graphviz
 date:   2020-02-22
 author: Paschalis Ts
 tags:   [go, graphviz]
