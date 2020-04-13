@@ -9,7 +9,7 @@ description: ""
 ---
 
 
-I must admit that I've used a debugger for Go only a couple of times; up until now, all debugging involved writing a new test, or multiple `fmt.Printf` statements. This past weekend I decided to finally learn how to use Delve. 
+I admit that had only I used a debugger for Go only a couple of times; up until now all my debugging involved writing a new test, or multiple `fmt.Printf` statements. This past weekend I decided to finally learn how to use Delve. 
 
 I hope by the time you're done reading this post, you'll be convinced to do the same!
 
@@ -32,7 +32,7 @@ Build: $Id: 67422e6f7148fa1efa0eac1423ab5594b223d93b $
 
 and you're now ready to get your hands dirty!
 
-If you're working on a MacOS you might need the Xcode toolchain; you can also enable developer mode using the following line, so that you don't get pestered whenever `dlv` takes over the execution of another process
+If you're working on a MacOS you might need the Xcode toolchain; you can also enable developer mode using the following line, so that you don't get pestered whenever `dlv` takes over the execution of another process.
 ```
 sudo /usr/sbin/DevToolsSecurity -enable
 ```
@@ -95,17 +95,16 @@ Process 57754 has exited with status 0
 
 
 ## Let's start at the beginning. 
-The dlv command can either start an interactive debugging session or a headless session when one or more clients can connect on to.
+The dlv command can either start an interactive debugging session or a headless one where one or more clients can connect to.
 
 You can launch a session using one of
 - `dlv debug` works like `go run`; it will build and run a Go package
 - `dlv exec` will start a session with a precompiled binary
-- `dlv attach` will attach to a running PID
+- `dlv attach` will attach to a PID of a running Go binary
 
-The `--log` will start dlv in verbose mode, offering much more information. 
 In order to properly debug a binary, it should be compiled with optimizations disabled, eg. with `-gcflags="all=-N -l"`
 
-There are more advanced options such as `dlv core`, `dlv trace` or `dlv dap`, but these three should should cover most uses.
+The `--log` will start dlv in verbose mode, offering much more information. There are some more advanced options such as `dlv core`, `dlv trace` or `dlv dap`, but these three should should cover most use-cases.
 
 Here's an example session launch
 ```
@@ -126,7 +125,7 @@ Would you like to kill the headless instance? [Y/n]
 ## Delve commands
 So what are some of the commands that can be used in a debugging session?
 
-This isn't meant to be an exhaustive list, but a short getting-started guide, or a cheatsheet.
+This isn't meant to be an exhaustive list, but a cheatsheet or a quick reference
 
 - `print` will evaluate an expression
 - `whatis` will print the datatype of an expression
@@ -138,7 +137,7 @@ This isn't meant to be an exhaustive list, but a short getting-started guide, or
 
 With the exception of `print` and `whatis`, all other commands can be used with a regex appended, to quickly filter through larger result fields.
 
-The `list` command will display the code around the current execution point or at a specific [linespec](https://github.com/go-delve/delve/blob/master/Documentation/cli/locspec.md). This can be used for example to easily fly around function definitions
+The `list` command will display the code around the current execution step or at a specific [linespec](https://github.com/go-delve/delve/blob/master/Documentation/cli/locspec.md). This can be used to easily fly around function definitions; for example
 ```
 (dlv) funcs
 (dlv) list main.spawnGoroutines
@@ -210,7 +209,7 @@ So, after setting your breakpoints, conditions and tracepoints, how do you move 
 Which is pretty much what you'd expect from a debugger. Let's move on to the more interesting stuff!
 
 ## Goroutines and Threads
-This is one of the flagship features of Delve, setting it apart from GDB. Delve allows interactive debugging of complex, concurrent code and emergent properties.
+This is one of the flagship features of Delve, setting it apart from GDB. Delve allows interactive debugging of complex, concurrent code and its emergent properties.
 
 The `goroutine(s)` and `thread(s)` and commands can be used to see all available goroutines and threads, note where they launched from, display their stack, or the deferred function calls for each frame. The `stack` command will print a detailed stack trace, with all the steps that were taken for the application to reach the current state.
 
@@ -311,7 +310,7 @@ Until next time!
 
 ## Resources
 Some more great resources
-- https://github.com/go-delve/delve/tree/master/Documentation
-- https://github.com/go-delve/delve/tree/master/Documentation/cli
-- https://app.pluralsight.com/course-player?clipId=213439cc-d263-4c49-8f43-fb4ccdb22559
-- https://www.slideshare.net/ssuserb92f8d/advanced-debugging-techniques-in-different-environments
+- [Delve documentation portal](https://github.com/go-delve/delve/tree/master/Documentation)
+- [Delve commands list](https://github.com/go-delve/delve/tree/master/Documentation/cli)
+- [Pluralsight's Debugging Go Applications with Delve course](https://app.pluralsight.com/course-player?clipId=213439cc-d263-4c49-8f43-fb4ccdb22559)
+- [Advanced Go debugging techniques](https://www.slideshare.net/ssuserb92f8d/advanced-debugging-techniques-in-different-environments)
