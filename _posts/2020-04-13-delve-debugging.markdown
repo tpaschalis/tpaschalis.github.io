@@ -15,7 +15,7 @@ I hope by the time you're done reading this post, you'll be convinced to do the 
 
 
 ## Why not GDB?
-GDB is an awesome utility that every programmer should add to their arsenal. The thing is, there's a tool for every job, and Delve can understand the Go runtime, data structures and expressions better than GDB. Furthermore, GDB isn't as easy to work with concurrent code; while Delve makes switching between different execution contexts a breeze. Finally, Delve is not a complex tool, but can be learned over the course of an afternoon, so it's a low risk-high-reward scenario
+GDB is an awesome utility that every programmer should add to their arsenal. The thing is, there's a tool for every job, and Delve can understand the Go runtime, data structures and expressions better than GDB. Furthermore, GDB isn't as easy to work with concurrent code; while Delve makes switching between different execution contexts a breeze.
 
 So, want to get started?
 
@@ -30,9 +30,9 @@ Version: 1.4.0
 Build: $Id: 67422e6f7148fa1efa0eac1423ab5594b223d93b $
 ```
 
-and we're ready to get our hands dirty!
+and you're now ready to get your hands dirty!
 
-If you're working on a MacOS you might need the xcode toolchain; you can also enable developer mode for this session using the following line, so that you don't get pestered whenever `dlv` takes over the execution of another process
+If you're working on a MacOS you might need the Xcode toolchain; you can also enable developer mode using the following line, so that you don't get pestered whenever `dlv` takes over the execution of another process
 ```
 sudo /usr/sbin/DevToolsSecurity -enable
 ```
@@ -169,25 +169,49 @@ The `break` command can be used to insert a breakpoint according to a [linespec]
 - At a relative point in a file `break +5` or `break -12`
 - Whenever a function is called or defined, as `break main.myfunc`
 
-The `breakpoints` command will display all breakpoints along with their IDs.  There's a default delve breakpoint to catch application panicking, so that you don't get tossed out of the debugging session. The `clear` and `clearall` commands can be used to clear a specific or all breakpoints; finally the `on` command can be used to run a specific delve command every time a breakpoint is hit.
+The `breakpoints` command will display all breakpoints along with their IDs. You'll notice a default delve breakpoint, used to catch any application panics so that you don't get tossed out of the debugging session. The `clear` and `clearall` commands can be used to clear a specific or all breakpoints; finally the `on` command can be used to run a specific delve command every time a breakpoint is hit.
 
 The `condition` command can be used to set smarter stop conditions, and not halt execution in a specific line, but whenever a given condition is met.
+
+```
+(dlv) break main.go:15
+Breakpoint 1 set at 0x10c0701 for main.spawnGoroutines() ./main.go:15
+(dlv) condition 1 cc==3
+(dlv) continue
+0
+1
+2
+3
+> main.spawnGoroutines() ./main.go:15 (hits goroutine(1):1 total:1) (PC: 0x10c0701)
+    10:			spawnGoroutines(i)
+    11:		}
+    12:	}
+    13:
+    14:	func spawnGoroutines(i int) {
+=>  15:		cc := i
+    16:		delay := 1 * time.Second
+    17:		time.Sleep(delay)
+    18:		if i%2 == 0 {
+    19:			go spawnMoreGoroutines()
+    20:		}
+(dlv)
+```
 
 Finally, a delve feature that I especially liked is `trace`, a breakpoint that doesn't halt execution, but prints a message whenever the execution passes through that point.
 
 ## Move the world, one step at a time!
 
-So, after setting your breakpoints, conditions and tracepoints, how do we move around?
+So, after setting your breakpoints, conditions and tracepoints, how do you move around?
 - `continue` runs until the next breakpoint or program termination
 - `next N` steps over N source lines, staying in the same function
 - `step` performs a single step forward in the application. If the next step is another function, it will descent to its call
 - `stepout` steps out of the current function
-- `restart` restarts the whole debugging session, but keeps the same breakpoints and conditions
+- `restart` restarts the debugging session, but keeps breakpoints and conditions
 
 Which is pretty much what you'd expect from a debugger. Let's move on to the more interesting stuff!
 
 ## Goroutines and Threads
-This is one of the flagship features of Delve, setting it apart from `gdb`. Delve allows interactive debugging of complex, concurrent code and emergent properties.
+This is one of the flagship features of Delve, setting it apart from GDB. Delve allows interactive debugging of complex, concurrent code and emergent properties.
 
 The `goroutine(s)` and `thread(s)` and commands can be used to see all available goroutines and threads, note where they launched from, display their stack, or the deferred function calls for each frame. The `stack` command will print a detailed stack trace, with all the steps that were taken for the application to reach the current state.
 
@@ -269,20 +293,19 @@ You can do this by either sourcing a file line-by-line using the `source` comman
 
 ## Going hardcore
 In desperate times, you may want to dive into CPU-level debugging.
+
 Useful commands include
 - `step-instruction` to step into the next CPU instruction
 - `disassemble` will display the  actual assembler instructions behind the code currently executing
 - `regs` will pull values from the cpu registers
-- `threads` will show the different CPU threads and what they're currently executing, allowing to resume a specific one.
-
-The `examinemem` command will display the contents of a memory address
-
+- `threads` will show the different CPU threads and what they're currently executing, allowing to resume a specific one
+- `examinemem` will display the contents of a memory address
 
 ## Parting words
 
 What do y'all think? For me, one advantage is that I'm now using `fmt.Printf` a lot less, and don't have to clean up my code after debugging. Moreover, I enjoyed peeking under the hood of concurrent code, and gained better understanding of how goroutines work.
 
-I enjoy reading comments from readers, so don't hesitate to reach out for any comments, war stories or new perspectives!
+I enjoy reading comments from readers, so don't hesitate to reach out for any war stories or new perspectives!
 
 Until next time!
 
