@@ -9,7 +9,7 @@ description: ""
 ---
 
 
-I admit that had only I used a debugger for Go only a couple of times; up until now all my debugging involved writing a new test, or multiple `fmt.Printf` statements. This past weekend I decided to finally learn how to use Delve. 
+I admit that I only had used a debugger for Go a couple of times; up until now all my debugging involved writing a new test, or multiple `fmt.Printf` statements. This past weekend I decided to finally learn how to use Delve. 
 
 I hope by the time you're done reading this post, you'll be convinced to do the same!
 
@@ -342,3 +342,4 @@ Some more great resources
 - [Pluralsight's Debugging Go Applications with Delve course](https://app.pluralsight.com/course-player?clipId=213439cc-d263-4c49-8f43-fb4ccdb22559)
 - [Advanced Go debugging techniques](https://www.slideshare.net/ssuserb92f8d/advanced-debugging-techniques-in-different-environments)
 - [Advanced Go debugging with Delve](https://www.youtube.com/watch?v=VBiFiguj52I)
+- [Postmortem debugging Go services with Delve](https://blog.gopheracademy.com/advent-2018/postmortem-debugging-delve/)
