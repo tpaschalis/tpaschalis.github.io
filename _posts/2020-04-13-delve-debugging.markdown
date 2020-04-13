@@ -137,6 +137,33 @@ This isn't meant to be an exhaustive list, but a cheatsheet or a quick reference
 
 With the exception of `print` and `whatis`, all other commands can be used with a regex appended, to quickly filter through larger result fields.
 
+```
+...
+(dlv) funcs main
+main.main
+main.spawnGoroutines
+main.spawnMoreGoroutines
+runtime.main
+
+(dlv) vars -v time
+time.atoiError = error(*errors.errorString) *{
+	s: "time: invalid number",}
+time.daysBefore = [13]int32 [0,31,59,90,120,151,181,212,243,273,304,334,365]
+time.errLeadingInt = error(*errors.errorString) *{
+	s: "time: bad [0-9]*",}
+time.unitMap = map[string]int64 [
+	"ns": 1,
+	"us": 1000,
+	"µs": 1000,
+	"μs": 1000,
+	"ms": 1000000,
+	"s": 1000000000,
+	"m": 60000000000,
+	"h": 3600000000000,
+]
+...
+```
+
 The `list` command will display the code around the current execution step or at a specific [linespec](https://github.com/go-delve/delve/blob/master/Documentation/cli/locspec.md). This can be used to easily fly around function definitions; for example
 ```
 (dlv) funcs
@@ -160,7 +187,7 @@ The `set` command can be used to alter the value held in a numerical or pointer 
 
 ## Stop the world!
 
-One of the main features of any debuggers, is, well, to stop execution so we can debug! 
+One of the main features of any debugger, is, well, to stop execution so you can debug.
 
 The `break` command can be used to insert a breakpoint according to a [linespec](https://github.com/go-delve/delve/blob/master/Documentation/cli/locspec.md)
 - At a specific line, such as `break main.go:15`
@@ -211,7 +238,7 @@ Which is pretty much what you'd expect from a debugger. Let's move on to the mor
 ## Goroutines and Threads
 This is one of the flagship features of Delve, setting it apart from GDB. Delve allows interactive debugging of complex, concurrent code and its emergent properties.
 
-The `goroutine(s)` and `thread(s)` and commands can be used to see all available goroutines and threads, note where they launched from, display their stack, or the deferred function calls for each frame. The `stack` command will print a detailed stack trace, with all the steps that were taken for the application to reach the current state.
+The `goroutine(s)` and `thread(s)` commands can be used to see all available goroutines and threads, note where they launched from, display their stack, or the deferred function calls for each frame. The `stack` command will print a detailed stack trace, with all the steps that were taken for the application to reach the current state.
 
 The debugger allows interactive switching between execution contexts, as you can choose to step forward in a specific goroutine or thread. Most of the commands mentioned above can be prefixed with a `goroutine N` statement, so that they get executed in that context only.
 
