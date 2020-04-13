@@ -9,7 +9,7 @@ description: ""
 ---
 
 
-I admit that I only had used a debugger for Go a couple of times; up until now all my debugging involved writing a new test, or multiple `fmt.Printf` statements. This past weekend I decided to finally learn how to use Delve. 
+I admit that I'd only used a debugger for Go a couple of times; up until now all my debugging involved writing a new test, or multiple `fmt.Printf` statements. This past weekend I decided to finally learn how to use Delve. 
 
 I hope by the time you're done reading this post, you'll be convinced to do the same!
 
