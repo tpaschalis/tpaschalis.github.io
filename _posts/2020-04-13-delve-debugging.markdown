@@ -98,15 +98,14 @@ Process 57754 has exited with status 0
 The dlv command can either start an interactive debugging session or a headless session when one or more clients can connect on to.
 
 You can launch a session using one of
-- `dlv debug` works like `go run`; it will build and run a Go binary
+- `dlv debug` works like `go run`; it will build and run a Go package
 - `dlv exec` will start a session with a precompiled binary
 - `dlv attach` will attach to a running PID
-- `dlv trace` will start debugging the tests present in a 
 
 The `--log` will start dlv in verbose mode, offering much more information. 
 In order to properly debug a binary, it should be compiled with optimizations disabled, eg. with `-gcflags="all=-N -l"`
 
-There are more advanced options such as `dlv core`, `dlv trace` or `dlv dap`, but the four basic should suffice for most uses.
+There are more advanced options such as `dlv core`, `dlv trace` or `dlv dap`, but these three should should cover most uses.
 
 Here's an example session launch
 ```
