@@ -301,9 +301,9 @@ Useful commands include
 
 ## Parting words
 
-What do y'all think? For me, one advantage is that I'm now using `fmt.Printf` a lot less, and don't have to clean up my code after debugging. Moreover, I enjoyed peeking under the hood of concurrent code, and gained better understanding of how goroutines work.
+What do y'all think? For me, one advantage is that I'm now using `fmt.Printf` a lot less, and don't have to clean up my code after debugging. Moreover, I gained a better understanding of how goroutines work by peeking under the hood of concurrent bits and pieces.
 
-I enjoy reading comments from readers, so don't hesitate to reach out for any war stories or new perspectives!
+I enjoy reading comments, so don't hesitate to reach out for any war stories or new perspectives!
 
 Until next time!
 
