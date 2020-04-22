@@ -15,9 +15,15 @@ Hope you can find something interesting here as well!
 
 ### Technical
 * [**The Design of Everyday Things: Revised and Expanded Edition**](https://www.amazon.com/Design-Everyday-Things-Revised-Expanded/dp/0465050654/) by Don Norman   
-The first book I finished this year, and *it was awesome*. I've never claimed to be a designer; but I gained even more respect for these professionals. Whether you need to design better smartphones, APIs, cooking utensils, or just vent about difficult-to-use stovetops, this is for you.
+The first book I finished this year, and *it was awesome*. I found new respect for professional designers. Whether you need to design better smartphones, APIs, cooking utensils, or just vent about difficult-to-use elevators or stovetops, this is for you.
 
 * [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) by Robert C. Martin    
+
+* [Domain-Driven Design Distilled](https://www.amazon.co.uk/Domain-Driven-Design-Distilled-Vaughn-Vernon-ebook/dp/B01JJSGE5S) by Vaughn Vernon   
+Unfortunately, not what I was looking for. Maybe the material was *too* distilled, and needed that extra context and depth
+
+* [Cloud Native Patterns: Designing change-tolerant software](https://www.amazon.co.uk/Cloud-Native-Designing-change-tolerant-software/dp/1617294292) by Cornelia Davis   
+Overall a solid book, and it picked up the pace as it went on. Even though it doesn't cover any greenfield advances, it succintly describes most of the things I've learned by practice when working with distributed software and not in a shallow way. Huge +1 for the hands-on examples that exist.
 
 * [MapReduce: Simplied Data Processing on Large Clusters](http://static.googleusercontent.com/media/research.google.com/es/us/archive/mapreduce-osdi04.pdf)
 
