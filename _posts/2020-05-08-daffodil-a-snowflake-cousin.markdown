@@ -34,16 +34,16 @@ You don't want to give this information to your end-users and competitors? You c
 ## Alternatives
 So what are some of your other options?
 
-- Autoincrements / Ticket Servers
+- Autoincrements / Ticket Servers  
 I've seen auto-increments be greatly (ab)-used, but the reason is simple. They *just work*, and you're probably underestimating how far they can bring you. On the other hand, it takes some work to run in a distributed fashion, and you might write-bottleneck your system just to generate IDs, which is less than ideal.
 
-- UUIDs
+- UUIDs  
 I personally love the idea of UUIDs, both server and client-side. They are standardized, they can mostly just plug-and-play, and can contain information about time and the node they were created in. Most complaints about UUIDs are about a) their bulkiness b) people treat them as string in their databases, degrading performance c) harder for manual debugging.
 
-- Use hashes
+- Use hashes  
 In many cases, hashing some content plus metadata can be used for IDs. They are easy to produce both server and client side, but most grievances are the same as UUIDs.
 
-- Use specific tools
+- Use specific tools  
     - [MongoDB’s ObjectId](https://docs.mongodb.com/manual/reference/method/ObjectId/)
     - [Cassandra Counters](https://docs.datastax.com/en/cql-oss/3.3/cql/cql_using/useCountersConcept.html)
     - [Apache Ignite](https://apacheignite.readme.io/v1.0/docs/atomic-types) using java.util.concurrent.atomic.AtomicLong
