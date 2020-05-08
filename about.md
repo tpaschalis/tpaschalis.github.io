@@ -23,6 +23,7 @@ I'm pretty sure I'm forgetting things, but here are some weekend projects I've w
 
 * [sunlight.live](https://sunlight.live) is a real-time visual map of sunlight on earth.   
 * [geohash.world](http://geohash.world) is an API to encode and decode coordinates using the [Geohash](https://www.youtube.com/watch?v=UaMzra18TD8) geocode system.  
+* [daffodil](https://github.com/tpaschalis/daffodil) is a distributed ID generator à la snowflake.
 * [goof](https://github.com/tpaschalis/goof) is *the easiest* way to send and receive files over a network.  
 * [tweetstream.space](http://tweetstream.space/) allows indexing tweets in specific timeframes.  
 * [go-tinyraytracer](https://github.com/tpaschalis/go-tinyraytracer) is a ray tracer in Go.    
