@@ -8,7 +8,7 @@ mathjax: false
 description: "Look at them Go!"
 ---
 
-I'm pretty sure that anyone starting to work with Go has heard that *"Goroutines are like lightweight threads"* and that *"It's okay to launch hundreds, thousands of goroutines"*. Some people learn that "a goroutine takes up around 2 kilobytes", most likely referencing [the Go 1.4 release notes](https://golang.org/doc/go1.4#runtime), and even fewer that this represents its initial stack size; but usually nothing more.
+I'm pretty sure that anyone starting to work with Go has heard that *"Goroutines are like lightweight threads"* and that *"It's okay to launch hundreds, thousands of goroutines"*. Some people learn that *"a goroutine takes up around 2 kilobytes"*, most likely referencing [the Go 1.4 release notes](https://golang.org/doc/go1.4#runtime), and even fewer learn that this represents its initial stack size.
 
 And while all those statements are true, I'd like to show *why* these things are true, explore what is a goroutine, how much space it takes, and provide starting points for anyone to poke around the Go internals.
 
@@ -18,15 +18,15 @@ I recommend a quick skim over [src/runtime/HACKING.md](https://github.com/golang
 
 ## The Goroutine scheduler
 
-The [Goroutine scheduler](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L19) is a work-stealing scheduler introduced back in Go 1.1 by Dmitry Vyukov and the Go team. There's a lot of [great](https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part1.html) [resources](https://rakyll.org/scheduler/) to grok how it works in depth, but the main thing to understand is that it tries to manage **G's**, **M's** and **P's** (goroutines, machine threads and processors).
+The [Goroutine scheduler](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L19) is a work-stealing scheduler introduced back in Go 1.1 by Dmitry Vyukov and the Go team. Its design document is available [here](https://golang.org/s/go11sched) and discusses possible future improvements.There's a lot of [great](https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part1.html) [resources](https://rakyll.org/scheduler/) to grok how it works in depth, but the main thing to understand is that it tries to manage **G's**, **M's** and **P's** (goroutines, machine threads and processors).
 
 A "G"  is simply a Golang goroutine.
 An "M" is an OS thread that can be either executing something or idle.
 A "P" can be thought as a CPU in the OS' scheduler; it represents the resources required to execute our Go code, such as a scheduler, or a memory allocator state.
 
-These are represented in the runtime code as simple structs of [`type g`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L395), [`type m`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L473), or [`type p`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L552).
+These are represented in the runtime as structs of [`type g`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L395), [`type m`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L473), or [`type p`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L552).
 
-The scheduler's main responsibility is to match up each G (the code we want to execute) to an M (where to execute it) and a P (the rights and resources to execute it). The design document is available [here](https://golang.org/s/go11sched) and discusses possible future improvements.
+The scheduler's main responsibility is to match up each G (the code we want to execute) to an M (where to execute it) and a P (the rights and resources to execute it). 
 
 When an M stops executing our code, it returns its P to the idle P pool, and to resume executing Go code, it must re-acquire it. Similarly, when a goroutine exits, the G object is returned to a pool of free Gs, and can later be reused for some other goroutine.
 
@@ -71,7 +71,7 @@ func newproc1(fn *funcval, argp unsafe.Pointer, narg int32, callergp *g, callerp
 	_p_ := _g_.m.p.ptr()
 	newg := gfget(_p_)
 	if newg == nil {
-		newg = malg(_StackMin)              // <---- this is where the magic happens
+		newg = malg(_StackMin) // !!! <-- this is where the magic happens
 		casgstatus(newg, _Gidle, _Gdead)
 		allgadd(newg) // publishes with a g->status of Gdead so GC scanner doesn't look at uninitialized stack.
 	}
@@ -91,52 +91,52 @@ The goroutine object is about 70 lines long. Let me remove the comments and clea
 
 ```go
 type g struct {
-	stack       stack   
-	stackguard0 uintptr 
-	stackguard1 uintptr 
-	_panic       *_panic 
-	_defer       *_defer 
-	m            *m      
-	sched        gobuf
-	syscallsp    uintptr        
-	syscallpc    uintptr        
-	stktopsp     uintptr        
-	param        unsafe.Pointer 
-	atomicstatus uint32
-	stackLock    uint32 
-	goid         int64
-	schedlink    guintptr
-	waitsince    int64      
-	waitreason   waitReason
-	preempt       bool 
-	preemptStop   bool 
-	preemptShrink bool 
-	asyncSafePoint bool
-	paniconfault bool 
-	gcscandone   bool 
-	throwsplit   bool 
-	activeStackChans bool
-	raceignore     int8     
-	sysblocktraced bool     
-	sysexitticks   int64   
-	traceseq       uint64   
-	tracelastp     puintptr 
-	lockedm        muintptr
-	sig            uint32
-	writebuf       []byte
-	sigcode0       uintptr
-	sigcode1       uintptr
-	sigpc          uintptr
-	gopc           uintptr         
-	ancestors      *[]ancestorInfo 
-	startpc        uintptr         
-	racectx        uintptr
-	waiting        *sudog        
-	cgoCtxt        []uintptr     
-	labels         unsafe.Pointer
-	timer          *timer        
+    stack       stack   
+    stackguard0 uintptr 
+    stackguard1 uintptr 
+    _panic       *_panic 
+    _defer       *_defer 
+    m            *m      
+    sched        gobuf
+    syscallsp    uintptr        
+    syscallpc    uintptr        
+    stktopsp     uintptr        
+    param        unsafe.Pointer 
+    atomicstatus uint32
+    stackLock    uint32 
+    goid         int64
+    schedlink    guintptr
+    waitsince    int64      
+    waitreason   waitReason
+    preempt       bool 
+    preemptStop   bool 
+    preemptShrink bool 
+    asyncSafePoint bool
+    paniconfault bool 
+    gcscandone   bool 
+    throwsplit   bool 
+    activeStackChans bool
+    raceignore     int8     
+    sysblocktraced bool     
+    sysexitticks   int64   
+    traceseq       uint64   
+    tracelastp     puintptr 
+    lockedm        muintptr
+    sig            uint32
+    writebuf       []byte
+    sigcode0       uintptr
+    sigcode1       uintptr
+    sigpc          uintptr
+    gopc           uintptr         
+    ancestors      *[]ancestorInfo 
+    startpc        uintptr         
+    racectx        uintptr
+    waiting        *sudog        
+    cgoCtxt        []uintptr     
+    labels         unsafe.Pointer
+    timer          *timer        
     selectDone     uint32        
-	gcAssistBytes int64
+    gcAssistBytes int64
 }
 ```
 
@@ -144,7 +144,7 @@ And that's all there really is to it!
 
 Let's try adding these numbers up; a `uintptr` is 64-bits, so 8 bytes in our architecture, same as an `int64`. Booleans are 1 byte long and a slice is just a pointer plus two integers. 
 
-There are some more complex type such as `*timer` (~70 bytes), `_panic` (~40 bytes), or `_defer` (~100 bytes), but in total I'm getting around ~600 bytes in total.
+There are some more complex type such as `timer` (~70 bytes), `_panic` (~40 bytes), or `_defer` (~100 bytes), but in total I'm getting around ~600 bytes in total.
 
 Hmm, seems a little fishy, as where does the famous "2 kb" value come from?
 
@@ -177,11 +177,11 @@ type stack struct {
 
 By this time, you're either probably wondering *Hmm, so what is the size of this stack?*, or you've already guessed that the 2 kilobytes refer exactly to this stack size!
 
-*A goroutine [starts](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L3410) with a [2-kilobyte](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/stack.go#L72) minimum stack size which grows and shrinks as needed without the risk of ever running out.*
+***A goroutine [starts](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L3410) with a [2-kilobyte](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/stack.go#L72) minimum stack size which grows and shrinks as needed without the risk of ever running out.***
 
 [This](https://dave.cheney.net/2013/06/02/why-is-a-goroutines-stack-infinite) excellent post by Dave Cheney explains how this works in more detail. Essentially, before executing any function Go checks whether the amount of stack required for the function it's about to execute is available; if not a call is made to [`runtime.morestack`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L407) which allocates a new page and only then the function is executed. Finally, when that function exits, its return arguments are copied back to the original stack frame, and any unneeded stack space is released.
 
-While the minimum stack size is defined as 2048 bytes, the Go runtime does also not allow goroutines to exceed [a maximum stack size](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/stack.go#L1031); this maximum depends on the architecture and is [1 GB for 64-bit and 250MB on 32-bit](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L120) systems. If this limit is reached a call to [`runtime.abort`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L450) will take place.
+While the minimum stack size is defined as 2048 bytes, the Go runtime does also not allow goroutines to exceed [a maximum stack size](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/stack.go#L1031); this maximum depends on the architecture and is [1 GB for 64-bit and 250MB for 32-bit](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L120) systems. If this limit is reached a call to [`runtime.abort`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L450) will take place.
 
 Exceeding this stack size is *very* easy with a recursive function; all you have to do is
 
