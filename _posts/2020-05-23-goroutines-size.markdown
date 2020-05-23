@@ -144,9 +144,9 @@ And that's all there really is to it!
 
 Let's try adding these numbers up; a `uintptr` is 64-bits, so 8 bytes in our architecture, same as an `int64`. Booleans are 1 byte long and a slice is just a pointer plus two integers. 
 
-There are some more complex type such as `timer` (~70 bytes), `_panic` (~40 bytes), or `_defer` (~100 bytes), but in total I'm getting around ~600 bytes in total.
+There are some more complex type such as `timer` (~70 bytes), `_panic` (~40 bytes), or `_defer` (~100 bytes), but I'm getting around ~600 bytes in total.
 
-Hmm, seems a little fishy, as where does the famous "2 kb" value come from?
+Hmm, seems a little fishy.. Where does the famous "2 kb" value come from?
 
 Let's take a closer look to the first struct field and explore ...
 
@@ -276,7 +276,7 @@ Per goroutine:
 
 
 
-## Conclusions
+## Outro
 
 So more or less, that's all! 
 
