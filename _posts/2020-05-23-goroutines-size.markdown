@@ -8,17 +8,15 @@ mathjax: false
 description: "Look at them Go!"
 ---
 
-I'm pretty sure that anyone starting to work with Go has heard that *"Goroutines are like lightweight threads"* and that *"It's okay to launch hundreds, thousands of goroutines"*. Some people learn that *"a goroutine takes up around 2 kilobytes"*, most likely referencing [the Go 1.4 release notes](https://golang.org/doc/go1.4#runtime), and even fewer learn that this represents its initial stack size.
+I'm pretty sure that anyone learning Go has heard that *"goroutines are like lightweight threads"* and that *"it's okay to launch hundreds, thousands of goroutines"*. Some people learn that *"a goroutine takes up around 2 kilobytes"*, most likely referencing [the Go 1.4 release notes](https://golang.org/doc/go1.4#runtime), and even fewer learn that this represents its initial stack size.
 
-And while all those statements are true, I'd like to show *why* these things are true, explore what is a goroutine, how much space it takes, and provide starting points for anyone to poke around the Go internals.
+And while all those statements are true, I'd like to show *why* is that, explore what exactly is a goroutine, how much space it takes, and provide starting points for anyone to poke around the Go internals.
 
-For this exploration I'll be using the [Go 1.14 release branch](https://github.com/golang/go/tree/release-branch.go1.14), so all code snippets and commits will point to that.
-
-I recommend a quick skim over [src/runtime/HACKING.md](https://github.com/golang/go/blob/release-branch.go1.14/src/runtime/HACKING.md) where many of the concepts and conventions of the code in the Golang runtime are explained.
+For this exploration I'll be using the [Go 1.14 release branch](https://github.com/golang/go/tree/release-branch.go1.14), so all code snippets will point there.
 
 ## The Goroutine scheduler
 
-The [Goroutine scheduler](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L19) is a work-stealing scheduler introduced back in Go 1.1 by Dmitry Vyukov and the Go team. Its design document is available [here](https://golang.org/s/go11sched) and discusses possible future improvements.There's a lot of [great](https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part1.html) [resources](https://rakyll.org/scheduler/) to grok how it works in depth, but the main thing to understand is that it tries to manage **G's**, **M's** and **P's** (goroutines, machine threads and processors).
+The [Goroutine scheduler](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L19) is a work-stealing scheduler introduced back in Go 1.1 by Dmitry Vyukov and the Go team. Its design document is available [here](https://golang.org/s/go11sched) and discusses possible future improvements. There are lots of [great](https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part1.html) [resources](https://rakyll.org/scheduler/) to grok how it works in depth, but the main thing to understand is that it tries to manage **G's**, **M's** and **P's** ; goroutines, machine threads and processors.
 
 A "G"  is simply a Golang goroutine.
 An "M" is an OS thread that can be either executing something or idle.
@@ -26,17 +24,17 @@ A "P" can be thought as a CPU in the OS' scheduler; it represents the resources 
 
 These are represented in the runtime as structs of [`type g`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L395), [`type m`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L473), or [`type p`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L552).
 
-The scheduler's main responsibility is to match up each G (the code we want to execute) to an M (where to execute it) and a P (the rights and resources to execute it). 
+***The scheduler's main responsibility is to match up each G (the code we want to execute) to an M (where to execute it) and a P (the rights and resources to execute it).***
 
-When an M stops executing our code, it returns its P to the idle P pool, and to resume executing Go code, it must re-acquire it. Similarly, when a goroutine exits, the G object is returned to a pool of free Gs, and can later be reused for some other goroutine.
+When an M stops executing our code, it returns its P to the idle P pool. To resume executing Go code, it must re-acquire it. Similarly, when a goroutine exits, the G object is returned to a pool of free Gs, and can later be reused for some other goroutine.
 
-So, when starting a new Goroutine, either for [main()](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L216) or [in our code](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L777), a `g` struct is initialized.
+When starting a Goroutine, either firing up [main](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L216) or [in code](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L777), a `g` struct is initialized.
 
 A new goroutine, i.e. an object of type `g` is created via the [`malg`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L3353) function, 
 ```go
 // Allocate a new g, with a stack big enough for stacksize bytes.
 func malg(stacksize int32) *g {
-	newg := new(g)
+	newg := new(g)      // <--- this is where it all starts 
 	if stacksize >= 0 {
 		stacksize = round2(_StackSystem + stacksize)
 		systemstack(func() {
@@ -58,27 +56,19 @@ which is called from [newproc](https://github.com/golang/go/blob/f296b7a6f045325
 // at argp. callerpc is the address of the go statement that created
 // this. The new g is put on the queue of g's waiting to run.
 func newproc1(fn *funcval, argp unsafe.Pointer, narg int32, callergp *g, callerpc uintptr) {
-	_g_ := getg()
-
-	if fn == nil {
-		_g_.m.throwing = -1 // do not dump full stacks
-		throw("go of nil func value")
-	}
-	acquirem() // disable preemption because it can be holding p in a local var
+  ...
+    acquirem() // disable preemption because it can be holding p in a local var
 	siz := narg
-	siz = (siz + 7) &^ 7
-    ...
+    siz = (siz + 7) &^ 7
+  ...
 	_p_ := _g_.m.p.ptr()
 	newg := gfget(_p_)
 	if newg == nil {
-		newg = malg(_StackMin) // !!! <-- this is where the magic happens
+		newg = malg(_StackMin) // !!! <-- magic happens here
 		casgstatus(newg, _Gidle, _Gdead)
-		allgadd(newg) // publishes with a g->status of Gdead so GC scanner doesn't look at uninitialized stack.
+		allgadd(newg) 
 	}
-	if newg.stack.hi == 0 {
-		throw("newproc1: newg missing stack")
-    }
-    ...
+  ...
 }        
 
 ```
@@ -181,7 +171,8 @@ By this time, you're either probably wondering *Hmm, so what is the size of this
 
 [This](https://dave.cheney.net/2013/06/02/why-is-a-goroutines-stack-infinite) excellent post by Dave Cheney explains how this works in more detail. Essentially, before executing any function Go checks whether the amount of stack required for the function it's about to execute is available; if not a call is made to [`runtime.morestack`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L407) which allocates a new page and only then the function is executed. Finally, when that function exits, its return arguments are copied back to the original stack frame, and any unneeded stack space is released.
 
-While the minimum stack size is defined as 2048 bytes, the Go runtime does also not allow goroutines to exceed [a maximum stack size](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/stack.go#L1031); this maximum depends on the architecture and is [1 GB for 64-bit and 250MB for 32-bit](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L120) systems. If this limit is reached a call to [`runtime.abort`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L450) will take place.
+While the minimum stack size is defined as 2048 bytes, the Go runtime does also not allow goroutines to exceed [a maximum stack size](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/stack.go#L1031); this maximum depends on the architecture and is [1 GB for 64-bit and 250MB for 32-bit](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L120) systems.   
+If this limit is reached a call to [`runtime.abort`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L450) will take place.
 
 Exceeding this stack size is *very* easy with a recursive function; all you have to do is
 
@@ -192,7 +183,6 @@ func foo(i int) int {
 	if i < 1e8 {
 		return foo(i + 1)
 	}
-
 	return -1
 }
 
@@ -226,9 +216,10 @@ main.foo(0xffffdf, 0x0)
 
 I'm using the script in the Appendix, which was copied from [here](https://stackoverflow.com/a/8534711). 
 
-On a middle-end laptop, I'm able to launch *50 million* goroutines. As the number grows, there are two main concerns: memory usage, where you start swapping, and slower garbage collection.
+On a mid-end laptop, I'm able to launch *50 million* goroutines.   
+As the number grows, there are two main concerns: memory usage (and you start swapping), and slower garbage collection.
 
-```
+```bash
 $ ~ go run poc-goroutines-sizing.go
 
 # 10 Thousand goroutines
@@ -280,7 +271,9 @@ Per goroutine:
 
 So more or less, that's all! 
 
-There's the Goroutine scheduler which is the way that Go code is scheduled to run in the host system. Then there are the Goroutines themselves, is the way that Go code is actually executed, and there's each goroutine's stack which grows and shrinks to acommodate the code execution.
+There's the Goroutine scheduler which is how Go code is scheduled to run on the host. Then there are the Goroutines themselves, is the way that Go code is actually executed, and there's each goroutine's stack which grows and shrinks to accommodate the code execution.
+
+I recommend skimming over [src/runtime/HACKING.md](https://github.com/golang/go/blob/release-branch.go1.14/src/runtime/HACKING.md) where many of the concepts and conventions of the code in the Golang runtime are explained in more detail.
 
 I hope you learned something new, and have some waypoints in order to poke into the code of the Go language itself.
 
