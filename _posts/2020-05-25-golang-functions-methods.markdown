@@ -9,15 +9,15 @@ description: "What's the difference"
 ---
 
 ## Appetizer
-If you've wondered whether a certain piece of Go code should be declared as a function or as a method on a type, you've probably ended up reading the either [this](https://dave.cheney.net/2016/03/19/should-methods-be-declared-on-t-or-t) excellent post by Dave Cheney or the [Go spec](https://golang.org/ref/spec#Method_declarations) which states that :
+If you've wondered whether a certain piece of Go code should be declared as a function or as a method on a type, you've probably ended up reading either [this](https://dave.cheney.net/2016/03/19/should-methods-be-declared-on-t-or-t) excellent post by Dave Cheney or the [Go spec](https://golang.org/ref/spec#Method_declarations) which states that :
 
 *The type of a method is the type of a function with the receiver as first argument.*
 
-So Go handles methods as functions where the first formal parameter is the receiver. Let's see how this is implemented under the hood in the [Go 1.14 release branch](https://github.com/golang/go/tree/release-branch.go1.14).
+So Go handles methods as functions where the first formal parameter is the receiver. Let's see where this is implemented under the hood in the [Go 1.14 release branch](https://github.com/golang/go/tree/release-branch.go1.14).
 
 ## Main Course
 
-The `types` package is responsible for declaring the data types and implements the algorithms for type-checking of Go packages.
+The [`types` package](https://golang.org/pkg/go/types/) is responsible for declaring the data types and implements the algorithm for type-checking Go packages.
 
 If we dive in [`src/go/types/call.go`](https://github.com/golang/go/blob/f758dabf52d38333985e24762f9b53a29e2e7da0/src/go/types/call.go), we can find all the typechecking code of function call and selector expressions along with the following two methods
 ```go 
@@ -55,7 +55,7 @@ You might have noticed that this selector method is unexported and thus internal
 Then where, is it used? As it currently stands, in two places. 
 
 The first of these is in the [`exprInternal`](https://github.com/golang/go/blob/f758dabf52d38333985e24762f9b53a29e2e7da0/src/go/types/expr.go#L1267) method which contains the core logic for type checking all expressions
-```
+```go
 func (check *Checker) exprInternal(x *operand, e ast.Expr, hint Type) exprKind {
  ...
     switch e := e.(type) {
