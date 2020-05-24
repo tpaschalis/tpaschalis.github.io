@@ -24,7 +24,7 @@ A "P" can be thought as a CPU in the OS' scheduler; it represents the resources 
 
 These are represented in the runtime as structs of [`type g`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L395), [`type m`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L473), or [`type p`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L552).
 
-***The scheduler's main responsibility is to match each G (the code we want to execute) to an M (where to execute it) and a P (the rights and resources to execute it)***
+***The scheduler's main responsibility is to match each G (the code we want to execute) to an M (where to execute it) and a P (the rights and resources to execute)***
 
 When an M stops executing our code, it returns its P to the idle P pool. To resume executing Go code, it must re-acquire it. Similarly, when a goroutine exits, the G object is returned to a pool of free Gs, and can later be reused for some other goroutine.
 
