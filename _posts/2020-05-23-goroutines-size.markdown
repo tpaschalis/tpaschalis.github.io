@@ -18,9 +18,9 @@ For this exploration I'll be using the [Go 1.14 release branch](https://github.c
 
 The [Goroutine scheduler](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L19) is a work-stealing scheduler introduced back in Go 1.1 by Dmitry Vyukov and the Go team. Its design document is available [here](https://golang.org/s/go11sched) and discusses possible future improvements. There are lots of [great](https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part1.html) [resources](https://rakyll.org/scheduler/) to grok how it works in depth, but the main thing to understand is that it tries to manage **G's**, **M's** and **P's** ; goroutines, machine threads and processors.
 
-A "G"  is simply a Golang goroutine.
-An "M" is an OS thread that can be either executing something or idle.
-A "P" can be thought as a CPU in the OS' scheduler; it represents the resources required to execute our Go code, such as a scheduler, or a memory allocator state.
+A "G"  is simply a Golang goroutine.  
+An "M" is an OS thread that can be either executing something or idle.  
+A "P" can be thought as a CPU in the OS' scheduler; it represents the resources required to execute our Go code, such as a scheduler, or a memory allocator state.  
 
 These are represented in the runtime as structs of [`type g`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L395), [`type m`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L473), or [`type p`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/runtime2.go#L552).
 
