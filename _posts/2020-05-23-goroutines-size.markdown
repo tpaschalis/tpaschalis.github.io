@@ -28,9 +28,7 @@ These are represented in the runtime as structs of [`type g`](https://github.com
 
 When an M stops executing our code, it returns its P to the idle P pool. To resume executing Go code, it must re-acquire it. Similarly, when a goroutine exits, the G object is returned to a pool of free Gs, and can later be reused for some other goroutine.
 
-When starting a Goroutine, either firing up [main](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L216) or [in code](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L777), a `g` struct is initialized.
-
-A new goroutine, i.e. an object of type `g` is created via the [`malg`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L3353) function, 
+To start a Goroutine, either firing up [main](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L216) or [in code](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L777), a `g` struct is initialized via the [`malg`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L3353) function  
 ```go
 // Allocate a new g, with a stack big enough for stacksize bytes.
 func malg(stacksize int32) *g {
@@ -171,10 +169,9 @@ By this time, you're either probably wondering *Hmm, so what is the size of this
 
 [This](https://dave.cheney.net/2013/06/02/why-is-a-goroutines-stack-infinite) excellent post by Dave Cheney explains how this works in more detail. Essentially, before executing any function Go checks whether the amount of stack required for the function it's about to execute is available; if not a call is made to [`runtime.morestack`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L407) which allocates a new page and only then the function is executed. Finally, when that function exits, its return arguments are copied back to the original stack frame, and any unneeded stack space is released.
 
-While the minimum stack size is defined as 2048 bytes, the Go runtime does also not allow goroutines to exceed [a maximum stack size](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/stack.go#L1031); this maximum depends on the architecture and is [1 GB for 64-bit and 250MB for 32-bit](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L120) systems.   
-If this limit is reached a call to [`runtime.abort`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L450) will take place.
+While the minimum stack size is defined as 2048 bytes, the Go runtime does also not allow goroutines to exceed [a maximum stack size](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/stack.go#L1031); this maximum depends on the architecture and is [1 GB for 64-bit and 250MB for 32-bit](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/proc.go#L120) systems. 
 
-Exceeding this stack size is *very* easy with a recursive function; all you have to do is
+If this limit is reached a call to [`runtime.abort`](https://github.com/golang/go/blob/f296b7a6f045325a230f77e9bda1470b1270f817/src/runtime/asm_amd64.s#L450) will take place. Exceeding this stack size is *very* easy with a recursive function; all you have to do is
 
 ```go
 package main
