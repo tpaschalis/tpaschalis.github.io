@@ -268,7 +268,7 @@ Per goroutine:
 
 So more or less, that's all! 
 
-There's the Goroutine scheduler which is how Go code is scheduled to run on the host. Then there are the Goroutines themselves, is the way that Go code is actually executed, and there's each goroutine's stack which grows and shrinks to accommodate the code execution.
+There's the Goroutine scheduler which is how Go code is scheduled to run on the host. Then there are the Goroutines themselves, where Go code is actually executed, and there's each goroutine's stack which grows and shrinks to accommodate the code execution.
 
 I recommend skimming over [src/runtime/HACKING.md](https://github.com/golang/go/blob/release-branch.go1.14/src/runtime/HACKING.md) where many of the concepts and conventions of the code in the Golang runtime are explained in more detail.
 
