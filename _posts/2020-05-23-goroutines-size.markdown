@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  What's in a goroutine and how large is one?
+title:  What is a goroutine? And what is their size?
 date:   2020-05-23
 author: Paschalis Ts
 tags:   [golang, internals]
