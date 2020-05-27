@@ -12,6 +12,6 @@ You can browse some great now pages and blogs from [nownownow.com](https://nowno
 
 ## What I'm doing right now
 - I'm working as a Backend Engineer for [Beat](https://thebeat.co)
-- I'm currently locked up due to the pandemic, working from home, and trying to take care of people around me
 - I'm working on becoming a better software engineer, practicing my Go and [Distributed Systems skills](https://www.youtube.com/watch?v=cQP8WApzIQQ&list=PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB)
 - I'm trying to stay the course and reach 52 [blog posts](https://tpaschalis.github.io) for 2020
+- I'm studying the Golang internals and preparing for an upcoming talk at the [GoWayFest](https://goway.io/)
