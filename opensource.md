@@ -8,6 +8,7 @@ permalink: /opensource/
 ### Go
 * [ time: fix time.Before to reuse t.sec(), u.sec() ](https://github.com/golang/go/commit/ff1eb428654b7815a8fc825f1cc29d6cf72cc2f7)
 * [ cmd/go: clean -cache -n should not delete cache ](https://github.com/golang/go/commit/c0e8e405c02388fb8e7d3bea092f5aa8b19b2ad9)
+* [ net/http: reject HTTP/1.1 Content-Length with sign in response ](https://github.com/golang/go/commit/8da78625b1fe2a6141d331f54248913936dc49c7)
 
 ### hashicorp
 * [ hashicorp/consul Expose Envoy's /stats for statsd agents (#7173) ](https://github.com/hashicorp/consul/commit/a335aa57c54ffd19283815db23581765f93d588e)
