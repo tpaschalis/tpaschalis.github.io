@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  What is a defer?<br>How are they implemented and how many can you run?
+title:  What is a defer? And how many can you run?
 date:   2020-06-15
 author: Paschalis Ts
 tags:   [golang, internals]
