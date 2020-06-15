@@ -103,7 +103,7 @@ if Curfn.Func.numDefers > maxOpenDefers {
 
 ### Creation and Execution of a defer
 
-So what happens when we call `defer` from our code?
+What happens when we call `defer` from our code?
 
 When the compiler encounters a defer statement, it will turn it into a [`deferproc`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/panic.go#L218) or [`deferprocStack`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/panic.go#L271) call at that specific point, as well as a [`deferreturn`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/panic.go#L528) at the return point of the function.
 
@@ -344,7 +344,7 @@ Exiting...
 go run main.go  0.90s user 2.02s system 107% cpu 2.715 total
 ```
 
-So I hope you agree with me in saying that the defers themselves are *preetty cheap*.
+I hope you agree with me in saying that the defers themselves are *preetty cheap*.
 
 ## Outro 
 
