@@ -286,7 +286,7 @@ Many of the operations that you'll encounter in your daily work are constrained 
 
 For example, the Linux kernel will limit the max file descriptors, you can check on this limit by `cat /proc/sys/fs/file-max`.
 
-The limit is enforced [here](https://github.com/torvalds/linux/blob/cb8e59cc87201af93dfbb6c3dccc8fcad72a09c2/fs/file_table.c#L134) and should work out to about n × 10^5.
+The limit is enforced [here](https://github.com/torvalds/linux/blob/cb8e59cc87201af93dfbb6c3dccc8fcad72a09c2/fs/file_table.c#L134) and should work out to about ~10^5.
 ```c
 void __init files_maxfiles_init(void)
 {
