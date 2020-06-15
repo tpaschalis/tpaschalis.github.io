@@ -18,7 +18,7 @@ In this post, all code will point to the [Go 1.14 release branch](https://github
 
 
 ## Intro -- TL;DR
-Tour of Go defines that *A defer statement defers the execution of a function until the surrounding function returns*.
+Quoting Tour of Go *a defer statement defers the execution of a function until the surrounding function returns*.
 
 In the Go runtime, defers are handled like [goroutines](https://tpaschalis.github.io/goroutines-size/) or channels -- as constructs of the language itself. Multiple defers are stacked on the *defer chain*, and executed in LIFO order, as seen here.
 
