@@ -80,7 +80,7 @@ Cost of defer statement  [ go test -run NONE -bench BenchmarkDefer$ runtime ]
 ```
 
 
-Here's a short example from `defer_test.go` showing of an open-coded and a non-open-coded defer.
+Here's a short example from `defer_test.go` showing an open-coded defer and a non-open-coded one.
 ```go
 func TestOpenAndNonOpenDefers(t *testing.T) {
     // f() is a more complicated function that is recover()'ed  
@@ -91,7 +91,7 @@ func TestOpenAndNonOpenDefers(t *testing.T) {
 }
 ```
 
-Currently, there's a limit of 8 open-coded defers in a function (defined in [`maxOpenDefers`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/cmd/compile/internal/gc/ssa.go#L34)) as this optimization is meant for smaller functions; after this point, inlined defers are disallowed and the older implementation is used.
+Currently, there's a limit of 8 open-coded defers in a function (defined in [`maxOpenDefers`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/cmd/compile/internal/gc/ssa.go#L34)) as this optimization is meant for smaller functions; after this point, inlining is disallowed and the older implementation is used.
 
 ```go
 if Curfn.Func.numDefers > maxOpenDefers {
