@@ -10,7 +10,7 @@ description: "Look at them Go; in a few minutes!"
 
 Defers are one of my favorite Go features.
 
-They offer *predictability* and routinely simplify the way that our code interacts with the host system.
+They offer *predictability* and routinely simplify the way that we interact with the host system.
 
 So, naturally I got curious and attempted look under the hood to find out how they're implemented. Grab some coffee and let's go!
 
@@ -18,9 +18,7 @@ For this exploration I'll be using the [Go 1.14 release branch](https://github.c
 
 
 ## Intro -- TL;DR
-In the Go runtime, defers are handled like [goroutines](https://tpaschalis.github.io/goroutines-size/) or channels -- as constructs of the language itself.
-
-Multiple defers are stacked on the *defer chain*, and executed them in LIFO order, as in this example below.
+In the Go runtime, defers are handled like [goroutines](https://tpaschalis.github.io/goroutines-size/) or channels -- as constructs of the language itself. Multiple defers are stacked on the *defer chain*, and executed in LIFO order, as seen here.
 
 ```go
 func main() {
@@ -61,9 +59,6 @@ type _defer struct {
 
 	fd   unsafe.Pointer // funcdata for the function associated with the frame
 	varp uintptr        // value of varp for the stack frame
-    // framepc is the current program counter associated with the stack frame. 
-    // Together, with sp above (the stack pointer associated with the frame),
-	// framepc/sp can be used to continue a stack trace via gentraceback().
 	framepc uintptr
 }
 ```
@@ -73,9 +68,10 @@ type _defer struct {
 As we explore the `_defer` struct, we come across the `openDefer` field, which specifies whether a defer is *open-coded*.
 
 This concept was introduced in Go just this year (February 2020) in [CL 202340](https://go-review.googlesource.com/c/go/+/202340/) and launched with Go 1.14.
-Open-coded is short for "not being called as part of a loop"; the cost of these kind of defers was *greatly* lowered via [inlining](https://en.wikipedia.org/wiki/Inline_expansion) machine code and storing some extra `FUNCDATA` due to their predictable nature. 
 
-Benchmarks such as the following has lead some people to declare defers an *almost zero-cost abstraction*, which while an exaggeration, proves a point.
+Open-coded is short for *"not being called in a for-loop"*; due to their predictable nature the cost of these kind of defers was *greatly* lowered via [inlining](https://en.wikipedia.org/wiki/Inline_expansion) machine code and storing some extra data about the function they will be calling. 
+
+Benchmarks such as the following has lead some people to declare defers an *almost zero-cost abstraction*, which while an exaggeration, proves  .
 ```
 Cost of defer statement  [ go test -run NONE -bench BenchmarkDefer$ runtime ]
   With normal (stack-allocated) defers only:         35.4  ns/op
@@ -87,8 +83,8 @@ Cost of defer statement  [ go test -run NONE -bench BenchmarkDefer$ runtime ]
 Here's a short example from `defer_test.go`, which tests the behavior of an open-coded and a non-open-coded defer
 ```go
 func TestOpenAndNonOpenDefers(t *testing.T) {
-	for {
-        // f() is a more complicated function that is recover()'ed
+    // f() is a more complicated function that is recover()'ed  
+    for {
         defer f()   // <-- non open-coded defer
     }
     defer f()       // <-- open-coded defer
@@ -128,14 +124,14 @@ func f() {}
 If we inspect the code, we can see the following section
 ```asm
 ...
-  0x1057003    4889442408    MOVQ AX, 0x8(SP)
-  0x1057008    e8a303fdff    CALL runtime.deferproc(SB)    <--- defer is created
-  0x105700d    85c0          TESTL AX, AX
-  0x105700f    7502          JNE 0x1057013
-  0x1057011    ebce          JMP 0x1056fe1
-  0x1057013    90            NOPL
-  0x1057014    e8570cfdff    CALL runtime.deferreturn(SB)  <--- defer is created
-  0x1057019    488b6c2418    MOVQ 0x18(SP), BP
+  0x1057003    ...    MOVQ AX, 0x8(SP)
+  0x1057008    ...    CALL runtime.deferproc(SB)    <--- defer created
+  0x105700d    ...    TESTL AX, AX
+  0x105700f    ...    JNE 0x1057013
+  0x1057011    ...    JMP 0x1056fe1
+  0x1057013    ...    NOPL
+  0x1057014    ...    CALL runtime.deferreturn(SB)  <--- defer returned
+  0x1057019    ...    MOVQ 0x18(SP), BP
 ...
 ```
 
@@ -195,8 +191,11 @@ func newdefer(siz int32) *_defer {
 }
 ```
 
-As we mentioned, the deferreturn is placed at the return point of the 'parent' function.
-It gets the current goroutine, and checks whether there are any deferred functions. If a deferred function is detected, a call to `runtime.jmpdefer` will be executed, which will jump to the deferred function, and will execute it to appear like it has been called at that point. The deferreturn is called again and again, until there are no more deferred functions, that is until `jmpdefer` can flip the Program Counter over to the current function.
+A little later, `deferreturn` will be called at the return point of the 'parent' function.
+
+It gets the current goroutine, and checks whether there are any deferred functions. If a deferred function is detected, a call to `runtime.jmpdefer` will be executed, which will jump to the deferred function, and will execute it to appear like it has been called at that point. 
+
+The `deferreturn` is called again and again, until there are no more deferred functions, and `jmpdefer` can flip the Program Counter over to the current function.
 
 ```go
 // Run a deferred function if there is one.
@@ -207,14 +206,6 @@ It gets the current goroutine, and checks whether there are any deferred functio
 // to have been called by the caller of deferreturn at the point
 // just before deferreturn was called. The effect is that deferreturn
 // is called again and again until there are no more deferred functions.
-//
-// Declared as nosplit, because the function should not be preempted once we start
-// modifying the caller's frame in order to reuse the frame to call the deferred
-// function.
-//
-// The single argument isn't actually used - it just has its address
-// taken so it can be matched against pending defers.
-//go:nosplit
 func deferreturn(arg0 uintptr) {
 	gp := getg()
 	d := gp._defer
@@ -286,7 +277,6 @@ func main() {
 }
 
 func f() {
-    fmt.Println("Hey!")
     defer f()
 }
 ```
@@ -328,24 +318,12 @@ void __init files_maxfiles_init(void)
 So, let's try to measure defer performance in the straightforward task of opening as many files as possible and allocating one defer for each, using the following code snippet. We'll also read one file at random, just to avoid any optimizations of files closing before their time.
 
 ```go
-package main
-
-import (
-	"bufio"
-	"fmt"
-	"math/rand"
-	"os"
-	"strconv"
-)
-
-var files []*os.File
+// for i in {0..590432}; do touch "file-${i}.txt" ; done
 
 func main() {
 	N := 250_000
 	for i := 0; i < N; i++ {
-		n := strconv.Itoa(i)
-		filename := "file-" + n + ".txt"
-		file, err := os.Open("../testdata/" + filename)
+		file, err := os.Open("../testdata/" + "file-" + strconv.Itoa(i) + ".txt")
 		if err != nil {
 			panic(err)
 		}
@@ -359,10 +337,10 @@ func main() {
 	r := rand.Intn(N)
 	scanner := bufio.NewScanner(files[r])
 	for scanner.Scan() {
-		fmt.Println("Reading file ")
+		fmt.Println("Reading file", r)
 	}
-	//time.Sleep(120 * time.Second)
-	fmt.Println("Exiting...")
+
+    fmt.Println("Exiting...")
 }
 ```
 
@@ -374,8 +352,6 @@ Opened all files; length of array is : 250000
 Exiting...
 go run main.go  0.90s user 2.02s system 107% cpu 2.715 total
 ```
-
-I guess 
 
 
 ## Outro 
