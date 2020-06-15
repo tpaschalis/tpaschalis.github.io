@@ -10,7 +10,7 @@ description: "Look at them Go; in a few minutes!"
 
 Defers are one of my favorite Go features.
 
-They offer *predictability* and routinely simplify the way that we interact with the host system.
+They offer *predictability* and simplify the way that we interact with the host system.
 
 So, naturally I got curious and attempted look under the hood to find out how they're implemented. Grab some coffee and let's go!
 
@@ -45,33 +45,33 @@ The docstring informs us that the `_defer` struct is just an entry on *a list of
 // initialize them are not required. All defers must be manually scanned,
 // and for heap defers, marked.
 type _defer struct {
-	siz     int32 // includes both arguments and results
-	started bool
+    siz     int32 // includes both arguments and results
+    started bool
     heap    bool
     
-	// openDefer indicates that this _defer is for a frame with open-coded defers
-	openDefer bool
-	sp        uintptr  // stack pointer at time of defer
-	pc        uintptr  // program counter at time of defer
-	fn        *funcval // can be nil for open-coded defers
-	_panic    *_panic  // panic that is running defer
-	link      *_defer
+    // openDefer indicates that this _defer is for a frame with open-coded defers
+    openDefer bool
+    sp        uintptr  // stack pointer at time of defer
+    pc        uintptr  // program counter at time of defer
+    fn        *funcval // can be nil for open-coded defers
+    _panic    *_panic  // panic that is running defer
+    link      *_defer
 
-	fd   unsafe.Pointer // funcdata for the function associated with the frame
-	varp uintptr        // value of varp for the stack frame
-	framepc uintptr
+    fd   unsafe.Pointer // funcdata for the function associated with the frame
+    varp uintptr        // value of varp for the stack frame
+    framepc uintptr
 }
 ```
 
 
-### What's an Open-Coded defer?
-As we explore the `_defer` struct, we come across the `openDefer` field, which specifies whether a defer is *open-coded*.
+### What's an "open-coded" defer?
+As we explore the `_defer` struct, we come across the `openDefer` field, which specifies whether a defer is *open-coded*, which is short for *not being called in a for-loop*.
 
 This concept was introduced in Go just this year (February 2020) in [CL 202340](https://go-review.googlesource.com/c/go/+/202340/) and launched with Go 1.14.
 
-Open-coded is short for *"not being called in a for-loop"*; due to their predictable nature the cost of these kind of defers was *greatly* lowered via [inlining](https://en.wikipedia.org/wiki/Inline_expansion) machine code and storing some extra data about the function they will be calling. 
+Due to their predictable nature the cost of these kind of defers was *greatly* lowered via [inlining](https://en.wikipedia.org/wiki/Inline_expansion) machine code and storing some extra data about the function they will be calling. 
 
-Benchmarks such as the following has lead some people to declare defers an *almost zero-cost abstraction*, which while an exaggeration, proves  .
+Benchmarks such as the following has lead some people to declare defers an *almost zero-cost abstraction*, which while an exaggeration, is not so far from the truth.
 ```
 Cost of defer statement  [ go test -run NONE -bench BenchmarkDefer$ runtime ]
   With normal (stack-allocated) defers only:         35.4  ns/op
@@ -80,7 +80,7 @@ Cost of defer statement  [ go test -run NONE -bench BenchmarkDefer$ runtime ]
 ```
 
 
-Here's a short example from `defer_test.go`, which tests the behavior of an open-coded and a non-open-coded defer
+Here's a short example from `defer_test.go`, testingfa the behavior of an open-coded and a non-open-coded defer
 ```go
 func TestOpenAndNonOpenDefers(t *testing.T) {
     // f() is a more complicated function that is recover()'ed  
@@ -107,9 +107,10 @@ So what happens when we call `defer` from our code?
 
 When the compiler encounters a defer statement, it will turn it into a [`deferproc`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/panic.go#L218) or [`deferprocStack`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/panic.go#L271) call at that specific point, as well as a [`deferreturn`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/panic.go#L528) at the return point of the function.
 
-Let's see this with a couple of examples! We can just compile the source code and use the *go tool* command to inspect the generated code, like `go tool objdump -S main > compiler-generated.s`.
+Let's see this in action! We can just compile the source code and use the *go tool* command to inspect the generated code.
 
-```go 
+```go
+// `go tool objdump -S main > compiler-generated.s`
 package main
 
 func main() {
@@ -121,9 +122,8 @@ func main() {
 func f() {}
 ```
 
-If we inspect the code, we can see the following section
+Viewing the compiler-generated code, we spot the following section
 ```asm
-...
   0x1057003    ...    MOVQ AX, 0x8(SP)
   0x1057008    ...    CALL runtime.deferproc(SB)    <--- defer created
   0x105700d    ...    TESTL AX, AX
@@ -132,7 +132,6 @@ If we inspect the code, we can see the following section
   0x1057013    ...    NOPL
   0x1057014    ...    CALL runtime.deferreturn(SB)  <--- defer returned
   0x1057019    ...    MOVQ 0x18(SP), BP
-...
 ```
 
 
@@ -140,7 +139,7 @@ If we inspect the code, we can see the following section
 
 So what does actually happen in `deferproc` and `deferreturn`?
 
-As we see, `deferproc` gets the current goroutine, and uses [`newdefer`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/panic.go#L387) for the actual creation. After some checks, the newly created defer is allocated and added on the defer chain.
+As we see, `deferproc` gets the current goroutine, and uses [`newdefer`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/panic.go#L387) for the actual creation. After some checks, the new defer is allocated and added on the defer chain.
 
 ```go 
 // Create a new deferred function fn with siz bytes of arguments.
@@ -193,19 +192,18 @@ func newdefer(siz int32) *_defer {
 
 A little later, `deferreturn` will be called at the return point of the 'parent' function.
 
-It gets the current goroutine, and checks whether there are any deferred functions. If a deferred function is detected, a call to `runtime.jmpdefer` will be executed, which will jump to the deferred function, and will execute it to appear like it has been called at that point. 
+It gets the current goroutine, and checks whether there are any deferred functions. If a deferred function is detected, a call to `runtime.jmpdefer` will be executed, which will jump to the deferred function, and execute it as if it had been called at that point. 
 
 The `deferreturn` is called again and again, until there are no more deferred functions, and `jmpdefer` can flip the Program Counter over to the current function.
 
 ```go
 // Run a deferred function if there is one.
-// The compiler inserts a call to this at the end of any
-// function which calls defer.
-// If there is a deferred function, this will call runtime·jmpdefer,
-// which will jump to the deferred function such that it appears
-// to have been called by the caller of deferreturn at the point
-// just before deferreturn was called. The effect is that deferreturn
-// is called again and again until there are no more deferred functions.
+// The compiler inserts a call to this at the end of any function which calls defer.
+// If there is a deferred function, this will call runtime·jmpdefer, which will 
+// jump to the deferred function such that it appears to have been called 
+// by the caller of deferreturn at the point just before deferreturn was called. 
+// The effect is that deferreturn is called again and again 
+// until there are no more deferred functions.
 func deferreturn(arg0 uintptr) {
 	gp := getg()
 	d := gp._defer
@@ -230,7 +228,7 @@ _ = fn.fn
 }
 ```
 
-Subsequently, we can see that the `freedefer` is responsible for cleaning up all defers as they're being executed.
+Finally, we can see that the `freedefer` is responsible for cleaning up all defers as they're being executed.
 
 ```go
 // Free the given defer.
@@ -259,9 +257,7 @@ func freedefer(d *_defer) {
 }
 ```
 
-Items placed on the `deferpool` will be cleaned up by the Garbage Collector; you can examine how it's done [here](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/mgc.go#L2241).
-
-
+Items placed on the `deferpool` will be cleaned up by the GC as seen [here](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/mgc.go#L2241).
 
 ## How many defers could we run?
 
@@ -299,7 +295,7 @@ Many of the operations that you'll encounter in your daily work are constrained 
 
 For example, sufficiently modern Linux kernels will limit the max file descriptors `/proc/sys/fs/file-max`.
 
-The limit is enforced [here](https://github.com/torvalds/linux/blob/cb8e59cc87201af93dfbb6c3dccc8fcad72a09c2/fs/file_table.c#L134) and which should work out to around 590432
+The limit is enforced [here](https://github.com/torvalds/linux/blob/cb8e59cc87201af93dfbb6c3dccc8fcad72a09c2/fs/file_table.c#L134) and which should work out to around 590k (590432).
 ```c
 void __init files_maxfiles_init(void)
 {
@@ -315,7 +311,11 @@ void __init files_maxfiles_init(void)
 ```
 
 
-So, let's try to measure defer performance in the straightforward task of opening as many files as possible and allocating one defer for each, using the following code snippet. We'll also read one file at random, just to avoid any optimizations of files closing before their time.
+So, let's try to measure defer performance in the straightforward task :
+- Open as many files as possible 
+- Allocate one defer for each, using the following code snippet. 
+- Read one file at random (to avoid any optimizations of files closing before their time)
+- Execute all those defers
 
 ```go
 // for i in {0..590432}; do touch "file-${i}.txt" ; done
@@ -344,7 +344,7 @@ func main() {
 }
 ```
 
-Opening 250k files and as many defers is straightforward. On my system, it consumes about 80MB of real memory and about 5GB of Virtual memory.
+Opening 250k files and as executing as many defers is straightforward. On my system, it consumes about 80MB of real memory and about 5GB of Virtual memory.
 
 ```bash
 $ time go run main.go
@@ -353,12 +353,13 @@ Exiting...
 go run main.go  0.90s user 2.02s system 107% cpu 2.715 total
 ```
 
+So I hope you agree with me in saying that the defers themselves are *preetty cheap*.
 
 ## Outro 
 
 So that's all from me today! 
 
-We saw the `_defer` struct itself, and examined what's an open-coded defer and the latest Go 1.14 optimizations.
+We saw the `_defer` struct itself, and explained what's an open-coded defer and the latest Go 1.14 optimizations.
 
 We examined how defer calls are translated to machine code, and how defers are created, scheduled and executed.
 
