@@ -363,17 +363,13 @@ We saw the `_defer` struct itself, and explained what's an open-coded defer and 
 
 We examined how defer calls are translated to machine code, and how defers are created, scheduled and executed.
 
-Finally, we ran a few benchmarks to see the overhead of defers; it's a little unlikely that they'll be causing any performance headaches on their own.
+Finally, we ran a few benchmarks to see the overhead of defers; on a 64-bit system you can fit ~480k "empty" defers. Honestly t's a little unlikely that they'll be causing any performance headaches on their own.
 
 I hope you learned something new, and have some waypoints in order to poke into the code of the Go language itself.
 
 Until next time, bye!
 
-
-
 <!--
-
-
 The following is an *open-coded defer*, since it is outside a loop, and thus can be inlined directly into the compiler-generated code. 
 
 ```go 
@@ -408,6 +404,4 @@ func f() {
 ```
 
 The handling of a non-open-coded defer (living in a loop), is very similar as well!
-
-
 -->
