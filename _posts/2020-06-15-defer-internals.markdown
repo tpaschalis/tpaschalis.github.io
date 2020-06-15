@@ -8,16 +8,18 @@ mathjax: false
 description: "Look at them Go; in a few minutes!"
 ---
 
-Defers are one of my favorite Go features.
+Defer is one of my favorite Go features.
 
-They offer *predictability* and simplify the way that we interact with the host system.
+It offers *predictability* and simplifies the way that we interact with the host system.
 
-So, naturally I got curious and attempted look under the hood to find out how they're implemented. Grab some coffee and let's go!
+So, naturally I got curious and attempted look under the hood to find out how it's implemented. Grab some coffee and let's go!
 
 In this post, all code will point to the [Go 1.14 release branch](https://github.com/golang/go/tree/release-branch.go1.14).
 
 
 ## Intro -- TL;DR
+Tour of Go defines that *A defer statement defers the execution of a function until the surrounding function returns*.
+
 In the Go runtime, defers are handled like [goroutines](https://tpaschalis.github.io/goroutines-size/) or channels -- as constructs of the language itself. Multiple defers are stacked on the *defer chain*, and executed in LIFO order, as seen here.
 
 ```go
@@ -284,7 +286,7 @@ Well, it's easy to find out!
 
 Many of the operations that you'll encounter in your daily work are constrained not by Go, but by the host system, such as hardware specs, or kernel limits.
 
-For example, the Linux kernel will limit the max file descriptors, you can check on this limit by `cat /proc/sys/fs/file-max`.
+For example, the Linux kernel will limit the max file descriptors, you can check on this limit using `cat /proc/sys/fs/file-max`.
 
 The limit is enforced [here](https://github.com/torvalds/linux/blob/cb8e59cc87201af93dfbb6c3dccc8fcad72a09c2/fs/file_table.c#L134) and should work out to about ~10^5.
 ```c
@@ -335,13 +337,20 @@ func main() {
 }
 ```
 
-On a mid-end laptop, opening 250k files and as executing as many defers is completed in less than a second. It consumes about 80MB of real memory and about 5GB of Virtual memory.
+On a mid-end MacBook Pro, opening 250k files and as executing as many defers is completed in less than a second. It consumes about 80MB of real memory and about 500MB of virtual memory.
+
+On an older Linux laptop, opening 700k files and executing the defers takes 4.5sec, and consumes about 226MB of real memory and 860MB of virtual memory.
 
 ```bash
 $ time go run main.go
 Opened all files; length of array is : 250000
 Exiting...
 go run main.go  0.90s user 2.02s system 107% cpu 2.715 total
+
+$ time go run main.go
+Opened all files; length of array is : 700000
+Exiting...
+go run main.go  4.51s user 2.75s system 105% cpu 2.125 total
 ```
 
 I hope you agree with me in saying that the defers themselves are *preetty cheap*.
@@ -354,7 +363,7 @@ We saw the `_defer` struct itself, and explained what's an open-coded defer and 
 
 We examined how defer calls are translated to machine code, and how defers are created, scheduled and executed.
 
-Finally, we ran a few benchmarks to see the overhead of defers; on a 64-bit system you can fit ~480k "empty" defers per goroutine. Honestly it's a little unlikely that they'll be causing any performance headaches on their own.
+Finally, we ran a few benchmarks to see the overhead of defers; on a 64-bit system you can fit ~480k "empty" defers per stack frame. Honestly it's a little unlikely that they'll be causing any performance headaches on their own.
 
 I hope you learned something new, and have some waypoints in order to poke into the code of the Go language itself.
 
