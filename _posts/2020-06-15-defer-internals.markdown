@@ -348,7 +348,7 @@ So I hope you agree with me in saying that the defers themselves are *preetty ch
 
 ## Outro 
 
-So that's all from me today! 
+That's all from me today! 
 
 We saw the `_defer` struct itself, and explained what's an open-coded defer and the latest Go 1.14 optimizations.
 
