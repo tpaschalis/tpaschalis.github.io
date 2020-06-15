@@ -12,7 +12,7 @@ Defer is one of my favorite Go features.
 
 It offers *predictability* and simplifies the way that we interact with the host system.
 
-So, naturally I got curious and attempted look under the hood to find out how it's implemented. Grab some coffee and let's go!
+So, naturally I got curious and attempted to look under the hood and find out how it's implemented. Grab some coffee and let's go!
 
 In this post, all code will point to the [Go 1.14 release branch](https://github.com/golang/go/tree/release-branch.go1.14).
 
