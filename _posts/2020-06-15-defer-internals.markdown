@@ -41,11 +41,6 @@ There are countless tutorials and guides on *using* defers out there, so why don
 The docstring informs us that the `_defer` struct is just an entry on *a list of deferred calls*. Some of these entries will live on the stack and some on the heap. Here's the entire struct definition, with some comments omitted for brevity.
 
 ```go
-// A _defer holds an entry on the list of deferred calls.
-// Some defers will be allocated on the stack and some on the heap.
-// All defers are logically part of the stack, so write barriers to
-// initialize them are not required. All defers must be manually scanned,
-// and for heap defers, marked.
 type _defer struct {
     siz     int32 // includes both arguments and results
     started bool
@@ -145,9 +140,7 @@ So what's actually happening in `deferproc` and `deferreturn`?
 As we see, `deferproc` gets the current goroutine, and uses [`newdefer`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/panic.go#L387) for the actual creation. After some checks, the new defer is allocated and added on the defer chain.
 
 ```go 
-// Create a new deferred function fn with siz bytes of arguments.
-// The compiler turns a defer statement into a call to this.
-func deferproc(siz int32, fn *funcval) { // arguments of fn follow fn
+func deferproc(siz int32, fn *funcval) {
 	gp := getg()
 ...
 	d := newdefer(siz)
@@ -165,12 +158,7 @@ func deferproc(siz int32, fn *funcval) { // arguments of fn follow fn
 ```
 
 ```go
-// Allocate a Defer, usually using per-P pool. Each defer must be 
-// released with freedefer. The defer is not added to any defer chain yet.
 func newdefer(siz int32) *_defer {
-	var d *_defer
-	sc := deferclass(uintptr(siz))
-	gp := getg()
 ...
 	if d == nil {
 		// Allocate new defer+args.
@@ -194,13 +182,6 @@ It gets the current goroutine, and checks whether there are any deferred functio
 The `deferreturn` is called again and again, until there are no more deferred functions, and `jmpdefer` can flip the Program Counter over to the current function.
 
 ```go
-// Run a deferred function if there is one.
-// The compiler inserts a call to this at the end of any function which calls defer.
-// If there is a deferred function, this will call runtime·jmpdefer, which will 
-// jump to the deferred function such that it appears to have been called 
-// by the caller of deferreturn at the point just before deferreturn was called. 
-// The effect is that deferreturn is called again and again 
-// until there are no more deferred functions.
 func deferreturn(arg0 uintptr) {
 	gp := getg()
 	d := gp._defer
@@ -311,7 +292,7 @@ So, let's try to measure defer performance in a straightforward task :
 - Execute all those defers
 
 ```go
-// for i in {0..590432}; do touch "file-${i}.txt" ; done
+// for i in {0..N}; do touch "file-${i}.txt" ; done
 
 func main() {
 	N := 250_000
@@ -337,7 +318,7 @@ func main() {
 }
 ```
 
-On a mid-end MacBook Pro, opening 250k files and as executing as many defers is completed in less than a second. It consumes about 80MB of real memory and about 500MB of virtual memory.
+On a mid-end MacBook Pro, opening 250k files and as executing as many defers is completed in less than a second. It consumes about 80MB of real memory and 500MB of virtual memory.
 
 On an older Linux laptop, opening 700k files and executing the defers takes 4.5sec, and consumes about 226MB of real memory and 860MB of virtual memory.
 
