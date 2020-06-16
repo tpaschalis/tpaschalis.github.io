@@ -109,7 +109,7 @@ What happens when we call `defer` from our code?
 
 When the compiler encounters a defer statement, it will turn it into a [`deferproc`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/panic.go#L218) or [`deferprocStack`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/panic.go#L271) call at that specific point, as well as a [`deferreturn`](https://github.com/golang/go/blob/73f86d2a78423f26323e7acf52bc489fb3e7fcbc/src/runtime/panic.go#L528) at the return point of the function.
 
-Let's see this in action! We can just compile the source code and use the *go tool* command to inspect the generated code.
+Let's see this in action! We can just compile and use the *go tool* command to inspect the generated code.
 
 ```go
 // `go build main.go`
@@ -365,7 +365,7 @@ We examined how defer calls are translated to machine code, and how defers are c
 
 Finally, we ran a few benchmarks to see the overhead of defers; on a 64-bit system you can fit ~480k "empty" defers per stack frame. Honestly it's a little unlikely that they'll be causing any performance headaches on their own.
 
-I hope you learned something new, and have some waypoints in order to poke into the code of the Go language itself.
+I hope you learned something new, and have some waypoints to start digging around the Go source.
 
 Until next time, bye!
 
