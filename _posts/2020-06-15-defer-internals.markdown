@@ -64,7 +64,7 @@ type _defer struct {
 ### What's an "open-coded" defer?
 As we explore the `_defer` struct, we come across the `openDefer` field, which specifies whether a defer is *open-coded*, which is short for *not being called in a for-loop*.
 
-This concept was introduced in Go just this year (February 2020) in [CL 202340](https://go-review.googlesource.com/c/go/+/202340/) and launched with Go 1.14.
+This concept was introduced in Go just this year (February 2020) in [CL 202340](https://go-review.googlesource.com/c/go/+/202340/) and launched with Go 1.14. The design document is available [here](https://github.com/golang/proposal/blob/master/design/34481-opencoded-defers.md) and is a great read.
 
 Due to their predictable nature, the cost of these kind of defers was *greatly* lowered via [inlining](https://en.wikipedia.org/wiki/Inline_expansion) machine code and storing some extra data about the function they will be calling. 
 
@@ -259,7 +259,7 @@ runtime: sp=0xc020108378 stack=[0xc020108000, 0xc040108000]
 fatal error: stack overflow
 ```
 
-If we include a simple counter, we see that we can fit nearly 480k defers (4793475 to be exact) per stack frame.
+If we include a simple counter, we see that we can fit nearly 4.8 million defers (4'793'476 to be exact) per stack frame.
 
 ## How costly are defers?
 
