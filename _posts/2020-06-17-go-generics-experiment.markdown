@@ -28,7 +28,7 @@ The document is quite large, and not so easy to grok. I'm slowly going through t
 
 ## Min - Max
 
-The simplest of examples is, of course min/max. [Playground Link](https://go2goplay.golang.org/p/XhMBKX7gmqa).
+The simplest of examples is, of course min/max. [Playground Link](https://go2goplay.golang.org/p/XhMBKX7gmqa)
 
 ```go
 package main
@@ -88,7 +88,7 @@ func main() {
 
 The design draft introduces *a new predeclared type constraint: comparable*, which includes types that can be compared using `==` and `!=`.
 
-Here's the simple Set that the authors published, which supports the Add, Remove, Contains and Length operations. [Playground Link](https://go2goplay.golang.org/p/JU_fAhn3Pfo).
+Here's the simple Set that the authors published, which supports the Add, Remove, Contains and Length operations. [Playground Link](https://go2goplay.golang.org/p/JU_fAhn3Pfo)
 
 ```go
 package main
