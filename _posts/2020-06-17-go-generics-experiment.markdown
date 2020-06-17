@@ -42,7 +42,7 @@ type num interface {
 }
 
 func min(type T num)(a, b T) T {
-	if a > b {
+	if a < b {
 		return a
 	}
 	return b
