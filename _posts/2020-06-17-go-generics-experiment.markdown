@@ -207,4 +207,6 @@ func main() {
 
 ## Outro
 
-It's getting late, and I've got to get up early tomorrow. There are more examples to run, and the whole draft is there for you. I hope these couple of examples I picked up from there did pique your interest!
+It's getting late, and I've got to get up early tomorrow. The design draft is there for you to read, but I hope these examples did pique your interest.
+
+Until next time!
