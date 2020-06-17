@@ -24,7 +24,7 @@ There were two more important things mentioned.
 
 The document is quite large, and not so easy to grok. I'm slowly going through the document, but I couldn't wait to run and share some code!
 
-*All of these snippets were taken from the design draft page*.
+*All of these snippets were based on the design draft page*.
 
 ## Min - Max
 
