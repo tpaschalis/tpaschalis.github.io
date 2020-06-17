@@ -18,17 +18,17 @@ As the authors mention, the actual implementation *if and when* generics are acc
 
 There were two more important things mentioned. 
 
-- The *earliest possible date* for the launch of generics is August 2021, with Go 1.17. 
+- The *earliest possible date* for the launch is August 2021, with Go 1.17. 
 - There is now a type checker and a new version of playground supporting generics!
-- There were some actual working examples of various use cases for generics.
+- There were some actual working examples of various use cases.
 
-The document is quite large, and not so easy to grok. I'm a little skeptical towards generics, and currently slowly going through the document, but I couldn't wait to run and share some code!
+The document is quite large, and not so easy to grok. I'm slowly going through the document, but I couldn't wait to run and share some code!
 
 *All of these snippets were taken from the design draft page*.
 
 ## Min - Max
 
-The simplest fo examples is, of course min/max. [Playground Link](https://go2goplay.golang.org/p/XhMBKX7gmqa).
+The simplest of examples is, of course min/max. [Playground Link](https://go2goplay.golang.org/p/XhMBKX7gmqa).
 
 ```go
 package main
