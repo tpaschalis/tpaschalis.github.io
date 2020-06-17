@@ -16,11 +16,11 @@ The announcement post can be viewed [here](https://blog.golang.org/generics-next
 
 As the authors mention, the actual implementation *if and when* generics are accepted will look and work differently, but this is a good time to theorize!
 
-There were two more important things mentioned. 
+There are ~two~ three more important things : 
 
-- The *earliest possible date* for the launch is August 2021, with Go 1.17. 
-- There is now a type checker and a new version of playground supporting generics!
-- There were some actual working examples of various use cases.
+- The *earliest possible date* for the launch is August 2021, with Go 1.17.
+- There is now a type checker and a new version of playground supporting generics
+- There were some actual working examples provided
 
 The document is quite large, and not so easy to grok. I'm slowly going through the document, but I couldn't wait to run and share some code!
 
@@ -88,7 +88,7 @@ func main() {
 
 The design draft introduces *a new predeclared type constraint: comparable*, which includes types that can be compared using `==` and `!=`.
 
-Here's the simple Set that the authors published, which supports the Add, Remove, Contains and Length operations. [Playground Link](https://go2goplay.golang.org/p/JU_fAhn3Pfo)
+Here's the simple Set implementation that the authors published, which supports the Add, Remove, Contains and Length operations. [Playground Link](https://go2goplay.golang.org/p/JU_fAhn3Pfo)
 
 ```go
 package main
@@ -156,7 +156,7 @@ func main() {
 
 ## Map - Filter - Reduce
 
-You're probably thinking, wow hold on a second. A functional Map/Filter/Reduce implementation! [Playground Link](https://go2goplay.golang.org/p/-Cdr3jQ1RGS)
+You're probably thinking, wow hold on a second. A usable Map/Filter/Reduce implementation! [Playground Link](https://go2goplay.golang.org/p/-Cdr3jQ1RGS)
 ```go
 package main
 
@@ -209,4 +209,4 @@ func main() {
 
 It's getting late, and I've got to get up early tomorrow. The design draft is there for you to read, but I hope these examples did pique your interest.
 
-Until next time!
+Until next time, bye!
