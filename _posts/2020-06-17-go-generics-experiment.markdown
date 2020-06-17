@@ -176,7 +176,6 @@ func Map(type Tin, Tout num)(s []Tin, f func(Tin) Tout) []Tout {
 	return res
 }
 
-// Reduce reduces a []Tin to a single value using a reduction function.
 func Reduce(type Tin, Tout num)(s []Tin, init Tout, f func(Tout, Tin) Tout) Tout {
 	res := init
 	for _, v := range s { res = f(res, v) }
