@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Experimenting with Go Generics (build a Map/Filter/Reduce!)
+title:  Experimenting with Go Generics
 date:   2020-06-17
 author: Paschalis Ts
 tags:   [golang, generics]
@@ -12,24 +12,23 @@ description: "Could this be it!"
 
 On June 16th, a refined generics design draft was published by the Go team.
 
-The announcement post can be viewed [here](https://blog.golang.org/generics-next-step), while the actual proposal is [here](https://go.googlesource.com/proposal/+/refs/heads/master/design/go2draft-type-parameters.md). The community's reaction is still to be seen, but the authors cite Philip Wadler's [Featherweight Go](https://arxiv.org/abs/2005.11710) as a source of influence. Personally, I'm very happy that the language it taking a methodical, careful approach to such a radical change.
+The announcement post can be viewed [here](https://blog.golang.org/generics-next-step), while the actual draft is [here](https://go.googlesource.com/proposal/+/refs/heads/master/design/go2draft-type-parameters.md). The jury is still out on this, but the authors cite Philip Wadler's [Featherweight Go](https://arxiv.org/abs/2005.11710) as a source of influence. Personally, I'm very happy that the language it taking a methodical, careful approach to such a radical change.
 
-As the authors mention, the actual implementation *if and when* they're accepted will look and work differently, but this is a time to theorize!
+As the authors mention, the actual implementation *if and when* generics are accepted will look and work differently, but this is a good time to theorize!
 
 There were two more important things mentioned. 
 
 - The *earliest possible date* for the launch of generics is August 2021, with Go 1.17. 
 - There is now a type checker and a new version of playground supporting generics!
+- There were some actual working examples of various use cases for generics.
 
-The document is quite large, and not so easy to grok. I'm a little skeptical towards generics, and currently slowly going through the document, but *I couldn't wait to play around and share some results!*
+The document is quite large, and not so easy to grok. I'm a little skeptical towards generics, and currently slowly going through the document, but I couldn't wait to run and share some code!
 
-Let's see how generics could simplify some common operations in the Go language!
-
-Thanks to reddit users [/u/Rican7](https://www.reddit.com/user/Rican7) and [/u/PaluMacil](https://www.reddit.com/user/PaluMacil) for providing some examples which helped kickstart things!
+*All of these snippets were taken from the design draft page*.
 
 ## Min - Max
 
-The first thing that came to mind was, of course min/max. [Playground Link](https://go2goplay.golang.org/p/XhMBKX7gmqa).
+The simplest fo examples is, of course min/max. [Playground Link](https://go2goplay.golang.org/p/XhMBKX7gmqa).
 
 ```go
 package main
@@ -57,7 +56,7 @@ func main() {
 
 ## Sum
 
-The second most frequent operation, would be a simple sum. [Playground Link](https://go2goplay.golang.org/p/aAuFIZLOKNA)
+Another trivial operation, would be a simple sum. [Playground Link](https://go2goplay.golang.org/p/aAuFIZLOKNA)
 
 ```go   
 package main
@@ -87,9 +86,9 @@ func main() {
 
 ## Set
 
-The design draft introduces *a new predeclared type constraint: comparable*.
+The design draft introduces *a new predeclared type constraint: comparable*, which includes types that can be compared using `==` and `!=`.
 
-One more simple operation, is the Set. Here's a simple implementation that supports Add, Remove, Contains and Length operations. (Thanks to reddit user /u/Rican7)  [Playground Link](https://go2goplay.golang.org/p/JU_fAhn3Pfo).
+Here's the simple Set that the authors published, which supports the Add, Remove, Contains and Length operations. [Playground Link](https://go2goplay.golang.org/p/JU_fAhn3Pfo).
 
 ```go
 package main
@@ -157,7 +156,7 @@ func main() {
 
 ## Map - Filter - Reduce
 
-You're probably thinking, wow hold on a second. Yes, it's true, a functional Map/Filter/Reduce implementation for all you functional programming lovers out there! [Playground Link](https://go2goplay.golang.org/p/-Cdr3jQ1RGS)
+You're probably thinking, wow hold on a second. A functional Map/Filter/Reduce implementation! [Playground Link](https://go2goplay.golang.org/p/-Cdr3jQ1RGS)
 ```go
 package main
 
@@ -208,4 +207,4 @@ func main() {
 
 ## Outro
 
-It's getting late, and I've got to get up early tomorrow; I promise I'll try to experiment with some more common operations tomorrow, and keep you posted right here!
+It's getting late, and I've got to get up early tomorrow. There are more examples to run, and the whole draft is there for you. I hope these couple of examples I picked up from there did pique your interest!
