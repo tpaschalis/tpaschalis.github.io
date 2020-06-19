@@ -19,19 +19,19 @@ html {
 
 body {
 	background: $white;
-  font: 18px/1.4 $helvetica;
+  font: 18px/1.6 $helvetica;
   color: $darkGray;
 }
 
 .container {
   margin: 0 auto;
-  max-width: 740px;
+  max-width: 850px;
   padding: 0 10px;
   width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $helveticaNeue;
+  font-family: $ptserif;
   color: $darkerGray;
   font-weight: bold;
 
@@ -45,6 +45,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
+  font-family: $helveticaNeue;
   font-size: 30px;
   a {
     color: inherit;
