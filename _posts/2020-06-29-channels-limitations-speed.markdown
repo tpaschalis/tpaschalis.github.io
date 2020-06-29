@@ -65,7 +65,7 @@ Here are the maximum buffer sizes allowed by the compiler for some basic data ty
 
 ## Speed
 
-On the topic of speed, the actual limit has to do with the price of goroutine context-switching, which should be consistently ≤ 200ns, as the passing-around of the data is not really expensive.
+On the topic of speed, the actual limit has to do with the price of goroutine context-switching, which should be consistently ≤ 200ns, as the passing-around of the data should not be that expensive by itself.
 
 Using the following simple benchmark we can get a measure on the upper limit of the send/receive channel operations.
 ```go
@@ -106,7 +106,7 @@ I find it a little unlikely that you'll be hitting this kind of limits for passi
 
 But if you actually do, you can always ensure thread-safety using Mutexes. The Lock/Unlock operation of a Mutex is about 5x faster, and might not require moving the data itself around.
 
-Finally, and as a measuring stick, the naive copying of data from/to a memory address, takes about ~0.5ns
+Finally, and as a measuring stick, the copying of data between memory addresses takes about ~0.5ns
 
 ```
 func BenchmarkMutexLockUnlock(b *testing.B) {
