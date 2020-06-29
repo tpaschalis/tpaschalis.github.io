@@ -1,6 +1,6 @@
 ---
 layout: post
-title: What are the limits of Go channels, and how fast are they?
+title: What are the limits of Go channels, and just how fast are they?
 date:   2020-06-29
 author: Paschalis Ts
 tags:   [golang, internals]
