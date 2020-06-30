@@ -16,7 +16,7 @@ Channels ensure thread-safe communication between executing goroutines; but *how
 
 ## Limitations
 
-The limitations on the `chan` type are [pretty straightforward](https://github.com/golang/go/blob/release-branch.go1.14/src/runtime/chan.go) to decode.
+The limitations on the `chan` type are [pretty straightforward](https://github.com/golang/go/blob/release-branch.go1.14/src/runtime/chan.go#L71) to decode.
 ```go
 func makechan(t *chantype, size int) *hchan {
 	elem := t.elem
@@ -64,7 +64,7 @@ While the compiler might allow such large buffers sizes, you'll probably meet so
 
 ## Speed
 
-On the topic of speed, the [send](https://github.com/golang/go/blob/67d894ee652a3c6fd0a883a33b86686371b96a0e/src/runtime/chan.go#L142) and [receive](https://github.com/golang/go/blob/67d894ee652a3c6fd0a883a33b86686371b96a0e/src/runtime/chan.go#L422) operations are relatively straightforward. The time is dominated by the price of goroutine context-switching, (which should be consistently ≤ 200ns).
+On the topic of speed, the [send](https://github.com/golang/go/blob/67d894ee652a3c6fd0a883a33b86686371b96a0e/src/runtime/chan.go#L142) and [receive](https://github.com/golang/go/blob/67d894ee652a3c6fd0a883a33b86686371b96a0e/src/runtime/chan.go#L422) operations are relatively straightforward. The time is dominated by the price of goroutine context-switching (which should be consistently ≤ 200ns).
 
 Using the following simple benchmark we can get a measure on the upper limit of the send/receive channel operations.
 ```go
@@ -77,13 +77,13 @@ func BenchmarkUnbufferedChannelEmptyStruct(b *testing.B) {
     }()
     for i := 0; i < b.N; i++ {
         ch <- struct{}{}
-    }
+    
 }
 ```
 
 I repeated the test with a buffered channel, and sending a single byte instead of an empty struct. 
 
-On a 2019 MBP's Intel Core i5 @ 1,4 GHz, the results can be seen in the following table.
+On a 2019 MBP's Intel Core i5@1,4 GHz the results can be seen in the following table.
 
 ```
 BenchmarkBufferedChannelEmptyStruct-8         23657084            49.9 ns/op
@@ -101,7 +101,7 @@ The transfer rate of 18.31 MB/s is suspiciously low but it's also constrained by
 ## Improvements
 I find it a little unlikely that you'll be hitting this kind of limits for passing around messages.
 
-But if you actually do, you can always ensure thread-safety using Mutexes. The Lock/Unlock operation of a Mutex is about 5x faster, plus you might avoid moving data around.
+But if you actually do, you can always ensure thread-safety using Mutexes. The [Lock](https://github.com/golang/go/blob/efed90aedc039caffb6e412e31ee2f1fa4094bce/src/sync/mutex.go#L72) and [Unlock](https://github.com/golang/go/blob/efed90aedc039caffb6e412e31ee2f1fa4094bce/src/sync/mutex.go#L179) operations of a `sync.Mutex` are about 5x faster, plus you might avoid moving data around.
 
 Finally, and as a measuring stick, the copying of data between memory addresses takes about ~0.5ns.
 
