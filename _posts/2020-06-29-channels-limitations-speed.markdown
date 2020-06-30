@@ -8,13 +8,11 @@ mathjax: false
 description: ""
 ---
 
-As part of my upcoming talk at the [GoWay conference](http://goway.io/), I learned a lot about how channels work under the hood. Let's highlight some of the most important numbers!
-
-In this post, all code will point to the [Go 1.14 release branch](https://github.com/golang/go/tree/release-branch.go1.14).
-
 ## Intro
 
-Channels are the main form of thread-safe communication between goroutines; but *how fast is that communication*? And what are the limitations that the language imposes on them?
+As part of my upcoming talk at [GoWay conference](http://goway.io/), I learned a lot about how Go channels work under the hood. Let's highlight some of the most important numbers while looking into the [Go 1.14 release branch](https://github.com/golang/go/tree/release-branch.go1.14)!
+
+Channels ensure thread-safe communication between executing goroutines; but *how fast is that communication*? And what are the limitations that the language imposes on them?
 
 ## Limitations
 
@@ -42,9 +40,9 @@ func makechan(t *chantype, size int) *hchan {
 
 First off, the maximum message size (or channel type) is 2^16 bytes, or 64 kilobytes.
 
-Secondly, the same limitations that exist for slices or maps are applied here; a check against `maxAlloc` as well as a check using `math.MulUintptr`.
+Moreover, the same limitations that exist on slices or maps are applied here; a check against `maxAlloc` as well as a check using `math.MulUintptr`.
 
-In a 64-bit Unix-like system [`maxAlloc`](https://github.com/golang/go/blob/67d894ee652a3c6fd0a883a33b86686371b96a0e/src/runtime/malloc.go#L217) defines the maximum allowed allocation at 2^47 bytes (~140 Terabytes) while the pointer multiplication ensures a maximum buffer size so that the channel type multiplied by this buffer doesn't overflow our 64-bits.
+The [`maxAlloc`](https://github.com/golang/go/blob/67d894ee652a3c6fd0a883a33b86686371b96a0e/src/runtime/malloc.go#L217) value defines the maximum allocation that is allowed by the compiler; in a 64-bit Unix-like system that is 2^47 bytes (~140 Terabytes), while the pointer multiplication ensures a maximum buffer size so that the channel type multiplied by this buffer doesn't overflow 64-bits.
 
 Here are the maximum buffer sizes allowed by the compiler for some basic data types.
 ```go
@@ -62,10 +60,11 @@ Here are the maximum buffer sizes allowed by the compiler for some basic data ty
     ch6 := make(chan complex128, 1<<44-6)
 ```
 
+While the compiler might allow such large buffers sizes, you'll probably meet some memory issues way before as channels [allocate the whole buffer upfront](https://github.com/golang/go/blob/67d894ee652a3c6fd0a883a33b86686371b96a0e/src/runtime/chan.go#L101), retaining it until it's garbage collected.
 
 ## Speed
 
-On the topic of speed, the actual limit has to do with the price of goroutine context-switching, which should be consistently ≤ 200ns, as the passing-around of the data should not be that expensive by itself.
+On the topic of speed, the [send](https://github.com/golang/go/blob/67d894ee652a3c6fd0a883a33b86686371b96a0e/src/runtime/chan.go#L142) and [receive](https://github.com/golang/go/blob/67d894ee652a3c6fd0a883a33b86686371b96a0e/src/runtime/chan.go#L422) operations are relatively straightforward. The time is dominated by the price of goroutine context-switching, (which should be consistently ≤ 200ns).
 
 Using the following simple benchmark we can get a measure on the upper limit of the send/receive channel operations.
 ```go
@@ -98,13 +97,13 @@ First off, we notice a 4x decline when using unbuffered channels due to their bl
 
 On this machine, the upper limit is thus *~18-20 million messages per second* using buffered channels and *~5 million messages per second* when using unbuffered ones.
 
-The transfer rate of 18.31 MB/s might seem low, but it's also constrained by the small size of the message type.
+The transfer rate of 18.31 MB/s is suspiciously low but it's also constrained by the small size of the message type.
 
 ## Improvements
 
 I find it a little unlikely that you'll be hitting this kind of limits for passing around messages.
 
-But if you actually do, you can always ensure thread-safety using Mutexes. The Lock/Unlock operation of a Mutex is about 5x faster, and might not require moving the data itself around.
+But if you actually do, you can always ensure thread-safety using Mutexes. The Lock/Unlock operation of a Mutex is about 5x faster, plus you might avoid moving data around.
 
 Finally, and as a measuring stick, the copying of data between memory addresses takes about ~0.5ns
 
