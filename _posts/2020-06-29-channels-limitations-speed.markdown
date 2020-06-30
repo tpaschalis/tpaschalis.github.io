@@ -81,9 +81,9 @@ func BenchmarkUnbufferedChannelEmptyStruct(b *testing.B) {
 }
 ```
 
-I repeated the tests with a buffered channel, and sending a single byte instead of an empty struct. 
+I repeated the test with a buffered channel, and sending a single byte instead of an empty struct. 
 
-On a 2019 MBP, Intel Core i5 @ 1,4 GHz, the results can be seen in the following table.
+On a 2019 MBP's Intel Core i5 @ 1,4 GHz, the results can be seen in the following table.
 
 ```
 BenchmarkBufferedChannelEmptyStruct-8         23657084            49.9 ns/op
@@ -98,14 +98,12 @@ First off, we notice a 4x decline when using unbuffered channels due to their bl
 On this machine, the upper limit is thus *~18-20 million messages per second* using buffered channels and *~5 million messages per second* when using unbuffered ones.
 
 The transfer rate of 18.31 MB/s is suspiciously low but it's also constrained by the small size of the message type.
-
 ## Improvements
-
 I find it a little unlikely that you'll be hitting this kind of limits for passing around messages.
 
 But if you actually do, you can always ensure thread-safety using Mutexes. The Lock/Unlock operation of a Mutex is about 5x faster, plus you might avoid moving data around.
 
-Finally, and as a measuring stick, the copying of data between memory addresses takes about ~0.5ns
+Finally, and as a measuring stick, the copying of data between memory addresses takes about ~0.5ns.
 
 ```
 func BenchmarkMutexLockUnlock(b *testing.B) {
@@ -126,8 +124,8 @@ func BenchmarkNaiveCopy(b *testing.B) {
     copy(to, from)
 }
 
-BenchmarkMutexLockUnlock-8                	96631381	        11.8 ns/op
-BenchmarkNaiveCopy-8                      	1000000000	         0.548 ns/op	1823.95 MB/s	       0 B/op	       0 allocs/op
+BenchmarkMutexLockUnlock-8                96631381	    11.8 ns/op
+BenchmarkNaiveCopy-8                    1000000000	   0.548 ns/op	   1823.95 MB/s
 ```
 
 
