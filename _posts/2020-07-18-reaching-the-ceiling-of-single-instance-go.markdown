@@ -34,19 +34,19 @@ Well, here you Go, some bulletpoints you can reference, no attribution required!
 - Regarding data; the hard limits on maximum allocation for slices/maps are circa ~2<sup>47</sup> (10<sup>14</sup>) elements, and 2<sup>47</sup> bytes (~140 Terabytes).
 - Regarding data; actual ceiling is memory size as it's not very easy to work with larger-than-memory datasets. You also pay in GC pauses and heap-related delays.
 
-- Regarding goroutines; they're reminiscent of green threads. Their overhead is 2kb of stack memory which can grow and shrink as needed. The context switching is handled in the language by swapping some registers around and should be ≤200 nsec.
-- Regarding goroutines; the hard limit on maximum stack is 1GB for 64-bit systems. You can launch tens of millions of goroutines (>50M in a mid-range laptop), but the constrained is the timeshare on the CPU. After 2xCPU threads, more and more goroutines will wait for their turn to use the CPU and perform some work.
+- Regarding goroutines; they're reminiscent of green threads. Their startup overhead is 2kb of stack, which grows and shrinks as needed. The context switching is handled in the language by swapping some registers around and should be ≤200 nsec.
+- Regarding goroutines; the hard limit on maximum stack is 1GB for 64-bit systems. You can launch tens of millions of goroutines (>50M in a mid-range laptop), but the constraint is the timeshare on the CPU. After 2xCPU threads, goroutines will spend more time waiting for their turn to use the CPU rather than performing actual work.
 - Regarding goroutines; actual ceiling is having no access to lower-level primitives (eg. NUMA awareness) for manual optimizations, the max 1GB stack, slow GC and slow scheduling.
 - Regarding defers; the maximum amount of defers you can fit in a 1GB stack frame is ~4.8 million. Opening 700k files with one defer for each on an 2014 laptop takes <4.5 seconds, ~220MB of RAM.
 
-- Regarding net/http; all requests are launched into new goroutines before reaching your handlers. Thread safety is not guaranteed, so you should pay attention. net/http can handle up to ~90-100k requests per second on a 4-core machine. For comparison, StackOverflow, the 40th most visited website worldwide peaks at about 4k req/sec.
+- Regarding net/http; all requests are launched into new goroutines before reaching your handlers. Thread safety is not guaranteed, so you should pay attention. net/http can handle up to ~90-100k empty requests per second on a 4-core machine. On the same 4-core machine, net/http handles 45-50k req/sec when serving a 200kb file. For comparison, StackOverflow, the 40th most visited website worldwide peaks at about 4k req/sec.
 
 - Regarding the Garbage Collector; has increased by leaps and bounds since the Go 1.4/1.5 days. Current iteration is a concurrent mark-and-sweep GC.
-- Regarding the Garbage Collector; Service-Level Objectives dictate its behavior. Sub-nanosecond pauses (max 500µsec pause/cycle, usually lower than 100μsec), 25% of available CPU cores used, GC cost kept in linear proportion to the allocation cost. 
+- Regarding the Garbage Collector; Service-Level Objectives dictate its behavior. Sub-nanosecond pauses (max 500μsec pause/cycle, usually lower than 100μsec), 25% of available CPU cores used, GC cost kept in linear proportion to the allocation cost.
 
 - Regarding channels; maximum size of message (channel data type) is 64kb. Maximum buffer size and allocation are similar to the data limits i.e. circa ~2<sup>47</sup> (10<sup>14</sup>) elements, and 2<sup>47</sup> bytes (~140 Terabytes)
-- Regarding channels; maximum ~18-20 million messages/sec for buffered, ~5.5 million messages/sec for unbuffered ones. If that's too restrictive, a Mutex lock/unlock is ~4 times faster.
-- Regarding channels; limited by memory size, as allocation happens up-front for buffered channels.
+- Regarding channels; maximum throughput ~18-20 million messages/sec for buffered, ~5.5 million messages/sec for unbuffered ones. If that's too restrictive, a Mutex lock/unlock is ~4 times faster.
+- Regarding channels; limited by memory size, as allocation happens upfront for buffered channels.
 
 ## Transcript
 
