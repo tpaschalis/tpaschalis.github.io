@@ -12,7 +12,7 @@ description: ""
 
 Last week I had the honor of presenting *Reaching the ceiling of single-instance Go* as part of [GoWay 2020](https://goway.io).
 
-The talk explored how our industry has been trying to modularize deployments in smaller and smaller units, what are the challenges of vertical scaling, and presented our results on exploring the limitations that Go has when scaling up. I've gradually published some of these results in previous blogposts, but some of these benchmarks are brand new.
+The talk explored how our industry has been trying to modularize deployments in smaller and smaller units, the challenges of vertical scaling, and presented our results on exploring the limitations of Golang scaling up. I've gradually published some of these results in previous blogposts, but some of these benchmarks are brand new.
 
 If you're interested in chatting a bit more about scaling Go, or you think it would be a good idea to have this presentation on a conference or meetup, send an email or [hit me up on Twitter](https://twitter.com/tpaschalis_)!
 
@@ -31,7 +31,7 @@ Well, here you Go, some bulletpoints you can reference, no attribution required!
 
 - Go is a reasonable choice for scaling up.
 
-- Regarding data; the hard limits on maximum allocation for slices/maps are circa ~2^47 (10^14) elements, and 2^47 bytes (~140 Terabytes).
+- Regarding data; the hard limits on maximum allocation for slices/maps are circa ~2<sup>47</sup> (10<sup>14</sup>) elements, and 2<sup>47</sup> bytes (~140 Terabytes).
 - Regarding data; actual ceiling is memory size as it's not very easy to work with larger-than-memory datasets. You also pay in GC pauses and heap-related delays.
 
 - Regarding goroutines; they're reminiscent of green threads. Their overhead is 2kb of stack memory which can grow and shrink as needed. The context switching is handled in the language by swapping some registers around and should be ≤200 nsec.
@@ -44,7 +44,7 @@ Well, here you Go, some bulletpoints you can reference, no attribution required!
 - Regarding the Garbage Collector; has increased by leaps and bounds since the Go 1.4/1.5 days. Current iteration is a concurrent mark-and-sweep GC.
 - Regarding the Garbage Collector; Service-Level Objectives dictate its behavior. Sub-nanosecond pauses (max 500µsec pause/cycle, usually lower than 100μsec), 25% of available CPU cores used, GC cost kept in linear proportion to the allocation cost. 
 
-- Regarding channels; maximum size of message (channel data type) is 64kb. Maximum buffer size and allocation are similar to the data limits i.e. circa ~2^47 (10^14) elements, and 2^47 bytes (~140 Terabytes).
+- Regarding channels; maximum size of message (channel data type) is 64kb. Maximum buffer size and allocation are similar to the data limits i.e. circa ~2<sup>47</sup> (10<sup>14</sup>) elements, and 2<sup>47</sup> bytes (~140 Terabytes)
 - Regarding channels; maximum ~18-20 million messages/sec for buffered, ~5.5 million messages/sec for unbuffered ones. If that's too restrictive, a Mutex lock/unlock is ~4 times faster.
 - Regarding channels; limited by memory size, as allocation happens up-front for buffered channels.
 
