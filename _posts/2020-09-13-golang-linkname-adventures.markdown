@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Go linknames; or <br> Access unexported symbols using this one weird trick, Go developers hate it!
+title:  Go linknames; aka Access unexported symbols using this one weird trick, Go developers hate it!
 date:   2020-09-13
 author: Paschalis Ts
 tags:   [golang, code]
