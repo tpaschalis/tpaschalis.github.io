@@ -16,7 +16,7 @@ In today's edition, let's see one that (among other things) allows accessing une
 
 Linknames are briefly mentioned in the [compile command](https://golang.org/cmd/compile/) docs. One of their uses in the Go tree is to enable refactoring and allow flexibility while maintaining the compatibility promise.
 
-In contrast to other directives (eg. `//go:norace`) that affect the code blocks immediately under them, they can appear anywhere in a file, and follow the format `//go:linkname localname [importpath.name]`
+In contrast to other directives (eg. `//go:norace`) that affect the code blocks immediately under them, they can appear anywhere in a file, using the `//go:linkname localname [importpath.name]` format.
 
 This linkname directive tells the compiler to 'rename' or 'link' the variable or function `localname` to `importpath.name`; in other words, whenever the code calls `importpath.name` it will reach out to `localname` instead. 
 
@@ -89,7 +89,7 @@ That boolean is switched to 'true' if [importfile](https://github.com/golang/go/
 
 ## Outro
 That's all about linknames; make sure to *not* use this new toy in your arsenal. 
-Unless you have loads of experience, a robust testing infrastructure *and* you're working with low-level primitives or reaching for extreme performance optimizations, you probably shouldn't be messing with 'unsafe' and circumvent the type safety of your Go code.
-
+Unless you have loads of experience, a robust testing infrastructure *and* you're working with low-level primitives or reaching for extreme performance optimizations, you shouldn't circumvent the type safety of your Go code by be messing with 'unsafe'.
+ 
 Until next time!
 
