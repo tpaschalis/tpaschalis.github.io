@@ -20,16 +20,16 @@ In contrast to other directives (eg. `//go:norace`) that affect the code block i
 
 This linkname directive tells the compiler to 'rename' or 'link' the variable or function `localname` to `importpath.name`; in other words, whenever the code calls `importpath.name` it will reach out to `localname` instead. 
 
-Omitting the `importpath.name` will just make the `localname` symbol accessible (eg. so they can be called in assembly code), even if it doesn't start with a capital letter.
+Omitting the `importpath.name` will just make the `localname` symbol accessible (eg. soit can be called in assembly code), even if it doesn't start with a capital letter.
 
-Keep in mind you'll either have to provide a correct `go tool compile` command so that the compiler skips checking for partially defined functions with the `-complete` flag, or just add a dummy assembly (.s) file for the same effect.
+Keep in mind you'll either have to provide a correct `go tool compile` command with the `-complete` flag so that the compiler skips checking for partially defined functions, or just add a dummy assembly (.s) file for the same effect.
 
 ## Linknames in action
 
 Here's an example of linknames in action!
 
 ```go
-# foo/bar/bar.go
+// foo/bar/bar.go
 package bar
 
 import "encoding/base64"
@@ -57,7 +57,7 @@ func decode(input string) (string, error) {
 ```
 
 ```go
-# foo/main.go
+// foo/main.go
 package main
 
 import (
@@ -79,9 +79,9 @@ func main() {
 
 ## How is it implemented?
 
-Linknames are parsed and stored in a [`linkname` slice](https://github.com/golang/go/blob/dbc5602d18397d1841cb7b2e8974d472c15dee83/src/cmd/compile/internal/gc/noder.go#L230), which record the symbol's position on the file, as well as the local and remapped symbol names. The actual parsing of the directive happens [a few lines below](https://github.com/golang/go/blob/dbc5602d18397d1841cb7b2e8974d472c15dee83/src/cmd/compile/internal/gc/noder.go#L1555). This slice is ultimately used to add these symbols as nodes in the AST Node tree. They can only be used as long as the `unsafe` package has been imported.
+Linknames are parsed and stored in a [`linkname` slice](https://github.com/golang/go/blob/dbc5602d18397d1841cb7b2e8974d472c15dee83/src/cmd/compile/internal/gc/noder.go#L230), which records the symbol's position on the file, as well as the local and remapped symbol names. The actual parsing of the directive happens [a few lines below](https://github.com/golang/go/blob/dbc5602d18397d1841cb7b2e8974d472c15dee83/src/cmd/compile/internal/gc/noder.go#L1555). This slice is ultimately used to add these symbols as nodes in the AST tree. Linknames can only be used as long as the `unsafe` package has been imported.
 
-Linknamed functions are the only ones allowed to [not have a body](https://github.com/golang/go/blob/dbc5602d18397d1841cb7b2e8974d472c15dee83/src/cmd/compile/internal/gc/noder.go#L535), as we saw in our example. 
+Linknamed functions are the only ones allowed to [not have a body](https://github.com/golang/go/blob/dbc5602d18397d1841cb7b2e8974d472c15dee83/src/cmd/compile/internal/gc/noder.go#L535), as they still need their signature defined, like in our example. 
 
 ## How is the check for 'unsafe' implemented?
 In [`noder.go`](https://github.com/golang/go/blob/dbc5602d18397d1841cb7b2e8974d472c15dee83/src/cmd/compile/internal/gc/noder.go#L251), there is a comparison with `imported_unsafe`.
@@ -91,7 +91,7 @@ That boolean is switched to 'true' if [`importfile`](https://github.com/golang/g
 
 ## Outro
 That's all about linknames; make sure to *not* use this new toy in your arsenal. 
-Unless you have loads of experience, a robust testing infrastructure *and* you're working with low-level primitives or reaching for extreme performance optimizations, you probably shouldn't be messing with 'unsafe'.
+Unless you have loads of experience, a robust testing infrastructure *and* you're working with low-level primitives or reaching for extreme performance optimizations, you probably shouldn't be messing with *unsafe*.
  
 Until next time!
 
