@@ -20,7 +20,7 @@ In contrast to other directives (eg. `//go:norace`) that affect the code block i
 
 This linkname directive tells the compiler to 'rename' or 'link' the variable or function `localname` to `importpath.name`; in other words, whenever the code calls `importpath.name` it will reach out to `localname` instead. 
 
-Omitting the `importpath.name` will just make the `localname` symbol accessible (eg. soit can be called in assembly code), even if it doesn't start with a capital letter.
+Omitting the `importpath.name` will just make the `localname` symbol accessible (eg. so it can be called in assembly code), even if it doesn't start with a capital letter.
 
 Keep in mind you'll either have to provide a correct `go tool compile` command with the `-complete` flag so that the compiler skips checking for partially defined functions, or just add a dummy assembly (.s) file for the same effect.
 
@@ -77,7 +77,7 @@ func main() {
 ```
 
 
-## How is it implemented?
+## How is this implemented?
 
 Linknames are parsed and stored in a [`linkname` slice](https://github.com/golang/go/blob/dbc5602d18397d1841cb7b2e8974d472c15dee83/src/cmd/compile/internal/gc/noder.go#L230), which records the symbol's position on the file, as well as the local and remapped symbol names. The actual parsing of the directive happens [a few lines below](https://github.com/golang/go/blob/dbc5602d18397d1841cb7b2e8974d472c15dee83/src/cmd/compile/internal/gc/noder.go#L1555). This slice is ultimately used to add these symbols as nodes in the AST tree. Linknames can only be used as long as the `unsafe` package has been imported.
 
