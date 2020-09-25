@@ -43,13 +43,13 @@ People have built [businesses](http://casiomod.club/) and communities around [mo
 Introduced back in 1989, it has inspired a whole family of variants and still produces over 3 million pieces per year. Ιt's not that often that digital devices maintain their relevance 30+ years in the future.
 
 - Limitations  
-Sure, it's not perfect. It doesn't adjust itself for leap years, the light could be brighter, the stopwatch can only count up to one hour, and its accuracy is ±30 seconds per month (~6 minutes per year). But there aren't any 'clever' workarounds 'hide' or make up for them; they're part of the deal.
+Sure, it's not perfect. It doesn't adjust itself for leap years, the light could be brighter, the stopwatch can only count up to one hour, and its accuracy is ±30 seconds per month (~6 minutes per year). But there aren't any 'clever' workarounds to 'hide' or make up for them; they're part of the deal.
 
 ## So, what?
 
 I'm not sure if you agree, but these are qualities that are hard to find condensed into one product. 
 
-I long for the day we can construct F91W-equivalent smartphones, power generators or vehicles for everyone on the planet, and wish for more F91W-like command-line prompts or websites.  I'm talking about tools that are more than fashion statements of brag material, but useful in their own right without having to remind us of their relevance.
+I long for the day we can construct F91W-equivalent smartphones, power generators or vehicles for everyone on the planet, and wish for more F91W-like command-line prompts or websites.  I'm talking about tools that are more than fashion statements of brag material, but useful in their own right without having to constantly remind us of their relevance.
 
 But that's what technology is about, right? Combining art (techne) and skill (-logia) to build things that can make our world a better place™.
 
@@ -57,7 +57,7 @@ But that's what technology is about, right? Combining art (techne) and skill (-l
 ## Notes
 [Wikipedia entry](https://en.wikipedia.org/wiki/Casio_F-91W)
 
-Various articles/discussions  
+Various articles/discussions :
 https://news.ycombinator.com/item?id=23971045  
 https://news.ycombinator.com/item?id=20079488  
 https://www.bbc.com/news/magazine-13194733  
