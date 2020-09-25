@@ -28,7 +28,8 @@ Overall a solid book, and it picked up the pace as it went on. Even though it do
 * [MapReduce: Simplied Data Processing on Large Clusters](http://static.googleusercontent.com/media/research.google.com/es/us/archive/mapreduce-osdi04.pdf)
 
 ### Non-Technical
-* [Radical Candor](https://www.amazon.com/Radical-Candor-Revised-Kick-Ass-Humanity/dp/1250235375) by Kim Scott.
+* [Radical Candor](https://www.amazon.com/Radical-Candor-Revised-Kick-Ass-Humanity/dp/1250235375) by Kim Scott
+* [Team Geek](https://www.amazon.com/Team-Geek-Software-Developers-Working/dp/1449302440/) by Brian W. Fitzpatrick, Ben Collins-Sussman
 
 
 ## 2019
