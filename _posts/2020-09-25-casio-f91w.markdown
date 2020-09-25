@@ -1,0 +1,85 @@
+---
+layout: post
+title:  On Casio F-91W and the role of technology
+date:   2020-09-25
+author: Paschalis Ts
+tags:   [fluff, personal]
+mathjax: false
+description: ""  
+---
+
+Here's a picture of my Casio F-91W. 
+
+<img src="/images/casio-f91w.png" style='height: 50%; width: 50%; object-fit: contain'/>
+
+It's not fancy, expensive or impressive, but it's one of my most beloved material possessions (as in, I'd be a little bummed if it was lost or stolen).
+
+I've had it for around a year now, and the impulse to get one came from [this](https://dvt.name/2019/06/03/hacking-the-casio-f-91w-to-handle-1000-psi/) article about hacking one to handle 1000+ PSI (or ~700m deep). It's not the most fashionable accessory, has been touted a [terrorist icon](https://reaperfeed.com/how-did-the-casio-f91w-become-a-terrorist-icon/), but as David mentioned above, it's probably the only watch that was worn by both Obama and Osama so it's got *that* going for it.
+
+Jokes aside, I feel that it is an excellent piece of hardware, and the reason I love it is that it embodies many of the things I actually love about technology, and how it can empower humanity.
+
+- Great Design  
+It's actually not that common to find modern interfaces with *three* buttons. Most toasters or fridges nowadays have more. I'm not sure whether it's state of the art, but I feel that Dan Norman would be happy to use one.
+
+- Simplicity, Discoverability   
+Its entire functionality can fit into ~~4~~ 3 tweets, and the manual (not that you need one, but available [here](https://www.instructionsmanuals.com/sites/default/files/2019-06/Casio-qw415_587_590_593_595_596-en.pdf)) fits in one page, including pictures. The physical interface and 'software', if you can call it that, are seamlessly connected, and I believe anyone could figure how it works even if she hasn't seen a digital watch in her life.
+
+- Less is More  
+There is the place for a fourth button, but designers said *scratch that*, we don't need it.
+
+- Affordability  
+Its price (around €10 or less for clones), constitutes it as accessible for *everyone* in the globe.
+
+- Robustness, Build Quality  
+Battery life is about 7 years. The watch itself doesn't feel cheap, is water-resistant, and I don't ever think about taking it off when getting my hands dirty.
+
+- Disassembly and Repairability
+It's quite easy to disassemble the watch; there are no constructs in place to actively discourage you from doing so. Want to replace the battery? Just remove 4 screws on the back! Want to silence the beeping sound? Easy as well. Don't like the strap? Grab your tools! This simplicity also contributes to its resiliency and trustworthiness.
+
+People have built [businesses](http://casiomod.club/) and communities around [modding](https://www.reddit.com/r/casio/comments/f9ugyu/the_bestworst_casio_f91w_modifications_awards/) F91Ws; from adding NFC and SD-card holders, to changing the light color or inverting the screen colors.
+
+- Timelessness   
+Introduced back in 1989, it has inspired a whole family of variants and still produces over 3 million pieces per year. Ιt's not that often that digital devices maintain their relevance 30+ years in the future.
+
+- Limitations
+Sure, it's not perfect. It doesn't adjust itself for leap years, the light could be brighter, the stopwatch can only count up to one hour, and its accuracy is ±30 seconds per month (~6 minutes per year). But 
+
+## So, what?
+
+I'm not sure if you agree, but these are qualities that are hard to find condensed into one product. I long for the day we can construct an F91W-equivalent smartphones, power generators or vehicles for everyone on the planet, and wish for more F91W-like command-line prompts or websites.  I'm talking about tools that are more than fashion statements of brag material, but useful in their own right without having to remind us of their relevance.
+
+But that's what technology is about, right? Combining art (techne) and skill (-logia) to build things that can make our world a better place™.
+
+
+## Notes
+[Wikipedia entry](https://en.wikipedia.org/wiki/Casio_F-91W)
+
+Various articles/discussions
+- https://news.ycombinator.com/item?id=23971045
+- https://news.ycombinator.com/item?id=20079488
+- https://www.bbc.com/news/magazine-13194733
+- https://www.martinkaptein.com/blog/10-reasons-casio-f-91w-best-watch/
+
+
+
+Tweets
+
+~~~
+The Casio F91W is amazing in many ways. 
+
+One of the most interesting is how its _entire_ functionality can fit in two^H^H three tweets.
+
+Just remember, there are 3 buttons counting anti-clockwise (L), (C) and (A).
+
+~~~
+Button (C) always cycles through 'modes'.
+- Timekeeping mode; (L) turns the light on. (A) toggles between 12/24-hours view. Long press (A) for an authenticity check.
+- Alarm mode; (L) highlights fields (hour/minute) to set, and (A) advances them.
+~~~
+In alarm mode, press (C) to toggle the alarm, the hourly beep or both. Long pressing (A) sound-tests the alarm.
+- Setup Mode; (L) highlights fields to set, from hours, minutes, month, day-of-month, day of week. Use (A) to advance the fields or long press (A) to advance quickly 
+~~~
+- Stopwatch mode; Press (C) to start/stop the stopwatch. If the timer is stopped, (A) clears the timer. 
+If the timer is running, (A) records laptimes, while the timer continues running in the background.
+If you stay idle for a minute you'll return in timekeeping mode.
+~~~
