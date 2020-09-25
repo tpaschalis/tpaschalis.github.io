@@ -24,7 +24,7 @@ Jokes aside, I feel that it is an excellent piece of hardware, and the reason I 
 It's actually not that common to find modern interfaces with *three* buttons. Most toasters or fridges nowadays have more. I'm not sure whether it's state of the art, but I feel that Dan Norman would be happy to use one.
 
 - Simplicity, Discoverability   
-Its entire functionality can fit in ~~four~~ three tweets, and the manual (not that you need one, but available [here](https://www.instructionsmanuals.com/sites/default/files/2019-06/Casio-qw415_587_590_593_595_596-en.pdf)) fits in one page, including pictures. The physical interface and 'software', if you can call it that, are seamlessly connected, and I believe anyone could figure how it works even if she hasn't seen a digital watch in her life.
+Its entire functionality can fit in ~~four~~ [three tweets](https://twitter.com/tpaschalis_/status/1309453292011958273), and the manual (not that you need one, but available [here](https://www.instructionsmanuals.com/sites/default/files/2019-06/Casio-qw415_587_590_593_595_596-en.pdf)) fits in one page, including pictures. The physical interface and 'software', if you can call it that, are seamlessly connected, and I believe anyone could figure how it works even if she hasn't seen a digital watch in her life.
 
 - Less is More  
 There is the place for a fourth button, but designers said *scratch that*, we don't need it.
@@ -88,3 +88,4 @@ If you stay idle for a minute you'll return in timekeeping mode.
 ~~~
 
 -->
+
