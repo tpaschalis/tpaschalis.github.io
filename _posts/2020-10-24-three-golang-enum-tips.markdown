@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  3 tips for (slightly) better Go iota enums
-date:   2020-10-20
+date:   2020-10-24
 author: Paschalis Ts
 tags:   [golang]
 mathjax: false
