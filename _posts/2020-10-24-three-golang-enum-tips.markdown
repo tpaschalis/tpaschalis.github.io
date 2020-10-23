@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title:  3 tips for (slightly) better Go iota enums
@@ -79,7 +78,8 @@ func (s State) String() string {
 
 The map also provides constant access time, instead of linear in the case of the string array.
 
-## Uint8, try unexported enums
+## Use uint8 instead of int
 First off, why not use a `uint8` instead of an `int`? The 'iota' works the same, you get simpler validation, plus a small performance improvement, almost for free.
 
+## Bonus - Try unexported enum types
 Also, in the spirit of 'making invalid states unrepresentable', think about un-exporting the enumerator type. The types themselves can be exported, as well as their methods, but this will disallow people from instantiating their own `State(100)`.
