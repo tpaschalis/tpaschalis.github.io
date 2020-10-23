@@ -8,12 +8,12 @@ mathjax: false
 description: ""  
 ---
 
-Golang has no native enum types; the most idiomatic way of representing an enumerator is to use [constants](https://golang.org/pkg/os/#pkg-constants), many times along with [iota](https://golang.org/ref/spec#Iota). 
+Go has no native enum types; the most idiomatic way of representing an enumerator is to use [constants](https://golang.org/pkg/os/#pkg-constants), many times along with [iota](https://golang.org/ref/spec#Iota). 
 
 Here are three tips that can make for (just slightly) better Go iota enums.
 
 ## Add one more 'count' element
-I first saw this trick in the Go standard library, eg. when enumerating [Goroutine states](https://github.com/golang/go/blob/93810ac1f4574e1e2a79ea156781bafaf8b8ebe0/src/cmd/trace/trace.go#L471), [register bounds](https://github.com/golang/go/blob/de932da453f68b8fc04e9c2ab25136748173c806/src/cmd/compile/internal/ssa/op.go#L372) or when [marking GC roots](https://github.com/golang/go/blob/master/src/runtime/mgcmark.go#L18).
+I first saw this trick in the standard library, eg. when enumerating [Goroutine states](https://github.com/golang/go/blob/93810ac1f4574e1e2a79ea156781bafaf8b8ebe0/src/cmd/trace/trace.go#L471), [register bounds](https://github.com/golang/go/blob/de932da453f68b8fc04e9c2ab25136748173c806/src/cmd/compile/internal/ssa/op.go#L372) or when [marking GC roots](https://github.com/golang/go/blob/master/src/runtime/mgcmark.go#L18).
 
 In the most usual case it allows to build simpler validation methods.
 
@@ -21,11 +21,11 @@ In the most usual case it allows to build simpler validation methods.
 type method uint8
 
 const (
-	Get method = iota
+    Get method = iota
     Post
     Patch
     ...
-	methodCount
+    methodCount
 )
 ```
 
@@ -61,7 +61,7 @@ Well how about
 ```go
 var stateNames = map[State]string{
     Standing: "Stand",
-    Walking: "Walk",
+    Walking:  "Walk",
     Crouched: "Crouch",
 }
 
@@ -78,8 +78,8 @@ func (s State) String() string {
 
 The map also provides constant access time, instead of linear in the case of the string array.
 
-## Use uint8 instead of int
-First off, why not use a `uint8` instead of an `int`? The 'iota' works the same, you get simpler validation, plus a small performance improvement, almost for free.
-
-## Bonus - Try unexported enum types
+## Try un-exporting enum types
 Also, in the spirit of 'making invalid states unrepresentable', think about un-exporting the enumerator type. The types themselves can be exported, as well as their methods, but this will disallow people from instantiating their own `State(100)`.
+
+## Bonus - Use uint8 instead of int
+Why not use a `uint8` instead of an `int`? The 'iota' works the same, you get simpler validation, plus a small performance improvement, almost for free.
