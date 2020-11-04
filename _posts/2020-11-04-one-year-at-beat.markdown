@@ -12,11 +12,11 @@ On November 4th 2019, I started working for [Beat](https://thebeat.co) *"the fas
 
 Beat has been a milestone for the greek tech ecosystem; one of the first *big* exits, a smash hit abroad that also remained a love brand in Greece, a proponent of Open-Source and Agile, a company that relentlessly pushed forward with innovation, a great engineering culture and probably the first Go shop around here.
 
-You can see why I was so excited and moved all the way to Athens for this new chapter; well, a whole year has passed and here are some random highlights on these past 365 days in my professional life :
+You can see why I was so excited and moved all the way to Athens for this new chapter; well, a whole year has passed and here are some random highlights on these past 365 days in my professional life
 
 - Joined a newly created, ragtag team which turned into a cross-functional, high-performing cohesive unit
 - Saw our work impact the way that the company traded punches with Uber and Didi
-- Became member of the curator team of [Patron](https://github.com/beatlabs/patron), Beat's flagship OSS project, powering the entirety of our microservices architecture
+- Became member of the curator team for [Patron](https://github.com/beatlabs/patron), Beat's flagship OSS project, powering the entirety of our microservices architecture
 - Was surrounded by driven, extremely smart folks, which motivated me to become better each and every day
 - Learned to think in terms of distributed systems
 - Learned to think in terms of *business impact*
