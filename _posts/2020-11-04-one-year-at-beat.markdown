@@ -10,7 +10,7 @@ description: ""
 
 On November 4th 2019, I started working for [Beat](https://thebeat.co) *"the fastest-growing ride-hailing app in Latin America"*. 
 
-Beat has been a special point for the greek tech ecosystem; one of the first *big* exits, a smash hit abroad that also remained a love brand in Greece, a proponent of Open-Source and Agile, a company that relentlessly pushed forward with innovation, a great engineering culture and probably the first Go shop around here.
+Beat has been a milestone for the greek tech ecosystem; one of the first *big* exits, a smash hit abroad that also remained a love brand in Greece, a proponent of Open-Source and Agile, a company that relentlessly pushed forward with innovation, a great engineering culture and probably the first Go shop around here.
 
 You can see why I was so excited and moved all the way to Athens for this new chapter; well, a whole year has passed and here are some random highlights on these past 365 days in my professional life :
 
