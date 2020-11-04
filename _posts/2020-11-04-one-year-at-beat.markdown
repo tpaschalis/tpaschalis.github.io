@@ -8,7 +8,7 @@ mathjax: false
 description: ""  
 ---
 
-On November 4th 2019, I started working for [Beat](https://thebeat.co) *"the fastest-growing ride-hailing app in Latin America"*. 
+On November 4th 2019, I started working for [Beat](https://thebeat.co), *"the fastest-growing ride-hailing app in Latin America"*. 
 
 Beat has been a milestone for the greek tech ecosystem; one of the first *big* exits, a smash hit abroad that also remained a love brand in Greece, a proponent of Open-Source and Agile, a company that relentlessly pushed forward with innovation, a great engineering culture and probably the first Go shop around here.
 
@@ -45,6 +45,6 @@ $ cat ~/.logs/zsh-history-20* | wc -l
 
 All things considered, 2020 has been for most people a stressful, depressing year that should just move out of the way.
 
-Personally, I *extremely* blessed that this past year has been *at least* kind to me and people around me; I don't take it for granted and hope to spread some of these good vibes all around.
+Personally, I feel *extremely* blessed that this past year has been *at least* kind to me and people around me; I don't take it for granted and hope to spread some of these good vibes all around.
 
 So, with year number two lining up, I'm thinking to myself. *Where next?*  🚀
