@@ -12,9 +12,7 @@ On November 4th 2019, I started working for [Beat](https://thebeat.co) *"the fas
 
 Beat has been a special point for the greek tech ecosystem; one of the first *big* exits, a smash hit abroad that also remained a love brand in Greece, a proponent of Open-Source and Agile, a company that relentlessly pushed forward with innovation, a great engineering culture and probably the first Go shop around here.
 
-You can see why I was so excited and moved all the way to Athens for this new chapter. 
-
-Well, a whole year has passed and here are some random highlights on these past 365 days in my professional life.
+You can see why I was so excited and moved all the way to Athens for this new chapter; well, a whole year has passed and here are some random highlights on these past 365 days in my professional life :
 
 - Joined a newly created, ragtag team which turned into a cross-functional, high-performing cohesive unit
 - Saw our work impact the way that the company traded punches with Uber and Didi
@@ -33,14 +31,13 @@ In smaller, more specific things
 - Wrote loads of Go
 - Put some *serious work* in K8S
 - Presented both to internal meetups and an [international Go conference](https://goway.io)
-- Had the time to contribute not only to Go, but also other projects like Consul, Packer, Mattermost
+- Tried my best to further foster the OSS culture inside the company. Also had time to contribute not only to Go, but also other projects like Consul, Packer, Mattermost, Learn Go with Tests
 - Typed more than 130k commands on the terminal
 ```sh
 $ cat ~/.logs/zsh-history-20* | wc -l
   131106
 ```
-- Tried my best to further foster the OSS culture inside the company. Also had time to contribute not only to Go, but also other projects like Consul, Packer, Mattermost, Learn Go with Tests
-- I finally got it; I'm not as good a communicator as I thought I was; fortunately there are *great* people around who can help me become better (and are actively doing so)
+- I understood that I'm not as good a communicator as I thought I was; fortunately there are *great* people around who can help me become better (and are actively doing so)
 - Grew accustomed to living with a Mac ^^
 
 ## Final words
