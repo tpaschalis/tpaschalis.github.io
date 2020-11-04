@@ -27,9 +27,10 @@ You can see why I was so excited and moved all the way to Athens for this new ch
 
 
 In smaller, more specific things 
-- Learned PHP
+- Learned PHP and Groovy
 - Wrote loads of Go
 - Put some *serious work* in K8S
+- Sharpened my perspective on testing
 - Presented both to internal meetups and an [international Go conference](https://goway.io)
 - Tried my best to further foster the OSS culture inside the company. Also had time to contribute not only to Go, but also other projects like Consul, Packer, Mattermost, Learn Go with Tests
 - Typed more than 130k commands on the terminal
