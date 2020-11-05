@@ -22,8 +22,8 @@ You can see why I was so excited and moved all the way to Athens for this new ch
 - Learned to think in terms of *business impact*
 - Learned to think in terms of an Agile team workflow
 - Developed some great mentor-mentee relationships
-<!-- - Got promoted -->
 - Saw the impact of the pandemic on the ride-hailing industry first hand. Took upon tasks to help the company exit the turmoil with as few scars as possible
+- Got promoted
 
 
 In smaller, more specific things 
@@ -38,6 +38,7 @@ In smaller, more specific things
 $ cat ~/.logs/zsh-history-20* | wc -l
   131106
 ```
+- Opened, reviewed and discussed over 350 Github PRs
 - I understood that I'm not as good a communicator as I thought I was; fortunately there are *great* people around who can help me become better (and are actively doing so)
 - Grew accustomed to living with a Mac ^^
 
