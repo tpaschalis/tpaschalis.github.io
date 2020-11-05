@@ -152,7 +152,7 @@ ClientContext   – (mobile apps) Client context that's provided to Lambda by th
 
 The `ctx.Deadline()` method returns the time when work done on behalf of this context will be cancelled (aka the execution will time out), as milliseconds since the Unix epoch.
 
-To make use of the context, you'll need to import and use the ` "github.com/aws/aws-lambda-go/lambdacontext"` package. Afterwards, using it is as simple as
+To make use of the context, you'll need to import and use the `"github.com/aws/aws-lambda-go/lambdacontext"` package. Afterwards, using it is as simple as
 ```go
 lc, _ := lambdacontext.FromContext(ctx)
 log.Print(lc.FunctionName)
@@ -170,10 +170,10 @@ It's interesting to read up on how Lambdas [scale](https://docs.aws.amazon.com/l
 
 ## Trigger your Lambda with an REST endpoint
 
-Triggering your Lambda function with a REST endpoint [through the web console](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-getting-started-with-rest-apis.html), it only involves three or four clicks.
-Let's see how we can [create an API gateway](https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway-tutorial.html) so that we can 
+Triggering your Lambda function with a REST endpoint [through the web console](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-getting-started-with-rest-apis.html), it only involves three or four clicks. But let's use `aws-cli` to do the same thing!
 
-But let's use `aws-cli` to do the same thing. Here are [the steps](https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway-tutorial.html) we have to take. Take note of your *api-id*, *api-root-id* and *resource-id* values which should look like random strings (eg. `p31qx1ghe1`).
+ Here are [the steps](https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway-tutorial.html) we have to take.   
+ Take note of your *api-id*, *api-root-id* and *resource-id* values which should look like random strings (eg. `p31qx1ghe1`).
 
 - Create a REST API
 - Create a *resource* under that rest API
@@ -184,17 +184,17 @@ But let's use `aws-cli` to do the same thing. Here are [the steps](https://docs.
 - Grant invoke permission to the new API for Testing through the console and the defined *stage*
 - Invoke the POST endpoint -- the Lambda function should be triggered successfully!
 
-The full process is quite lengthy, but you can see it in [this](https://gist.github.com/tpaschalis/475db49d5034dff1ec3432936dbc40b4) GitHub gist.
+The full process is quite lengthy, but you can see it in full at [this](https://gist.github.com/tpaschalis/475db49d5034dff1ec3432936dbc40b4) GitHub gist.
 
 All in all, it starts with
 ```sh
-aws apigateway create-rest-api --name lambda-trigger-api
+$ aws apigateway create-rest-api --name lambda-trigger-api
 HEADER  2020-11-05T20:24:08+02:00       False   <api-id>      lambda-trigger-api
 TYPES   EDGE
 ```
 
 and the final result can be seen below
-```
+```sh
 $ aws apigateway test-invoke-method --rest-api-id <api-id> \
 --resource-id <resource_id> --http-method POST --path-with-query-string "" \
 --body file://test-payload.json
