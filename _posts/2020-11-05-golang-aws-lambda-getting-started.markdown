@@ -249,6 +249,15 @@ X-AMZN-TRACE-ID Root=1-5fa456b2-beda73b8340f62daf4d397fe;Sampled=0
 
 You can see that invoking the endpoint with POST returns string resulting from the original `fmt.Sprintf("%+v", event)` line. In the real world there are more than a few ways you could use to expose that endpoint in your VPC, or in the public internet.
 
+You can use AWS Direct Connect, alias it using Route53 alias inside your VPC or set up a public DNS hostname, but for now you can simply use the endpoint's private DNS name.
+```
+curl -v -X POST '{
+        "id": "tpaschalis",
+        "val": 100,
+        "flag": true
+}' https://<api-id>.execute-api.<region>.amazonaws.com/my-stage/somepath/
+```
+
 ## Layers
 AWS Lambda contains the concept of *layers*. A [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) is a ZIP archive that can contain auxiliary code, a library, a custom runtime, some configuration or whatever external dependency can help you keep the core Lambda small and more easily managed. Since Go is a statically-linked language, all dependencies are included in the final binary so layers provide no immediate benefits.
 
