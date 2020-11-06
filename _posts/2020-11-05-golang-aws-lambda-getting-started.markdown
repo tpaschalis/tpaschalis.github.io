@@ -10,17 +10,21 @@ description: "We all gotta start somewhere!"
 
 ## Intro
 
-Whether you think that serverless/FaaS Functions-as-a-Service) are a fad, a marketing gimmick, or a shooting star, their adoption is growing. I personally see them as the natural evolution of short-lived, immutable building blocks that we have been moving towards. 
+Serverless or FaaS (Functions-as-a-Service) entered the [spotlight](https://trends.google.com/trends/explore?date=today%205-y&geo=US&q=serverless) around two or three years ago. And while the interest is beyond the initial-craze phase, I feel that they are slowly maturing and having a growing adoption, as people understand their strenghs, limitations, and what kind of workloads they excel in. 
 
-Nevertheless, they're a *fun* tool to have in your arsenal, and fun is part of why we do things, right? Follow me and run your first Lambda function in AWS, written in Go, which you can trigger with a POST request!
+I personally see them as the natural evolution of short-lived, immutable building blocks that we have been moving towards. 
+
+What's most important, I think they're a *fun* tool to have in your arsenal, and fun is part of why we do things, right? Follow me, write and run your first AWS Lambda function in Go, which you can trigger with a POST request!
+
+Through this post, we'll be using three AWS services: Lambda, API Gateway and CloudWatch.
 
 ## Your first Lambda function
 
-First off, you'll need to set up your AWS account along with `aws-cli`. If you need any assistance with this, you can scroll down to the **Appendix** section.
+First off, you'll need to set up an AWS account along with `aws-cli`. If you haven't done this before, scroll down to the **Appendix** section and come back here!
 
 We'll create a new directory and initialize a new Go module using `go mod init <modulename>`. Our basic dependency will be the AWS SDK for Lambda functions and Go.
 
-Here's the most basic example I could think of; it expects a JSON payload which will be unmarshalled into that struct, and then will be printed out.
+Here's the most basic example I could think of; our function expects a JSON payload which will be unmarshalled into a struct, and then printed out.
 ```go
 package main
 
@@ -57,10 +61,10 @@ $ GOOS=linux go build -o my-lambda-binary main.go
 $ zip function.zip my-lambda-binary
 ```
 
-We're moments away from launching our Lambda function! We first need to create an [*execution policy*](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html).
+We're moments away from launching our Lambda! We first need to create an [*execution policy*](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html).
 
 Define a trust policy document, by creating a local file such as
-```
+```json
 # trust-policy.json
 {
   "Version": "2012-10-17",
@@ -76,7 +80,7 @@ Define a trust policy document, by creating a local file such as
 }
 ```
 
-and then create the policy itself and validate that it has been created correctly
+then create the policy itself and validate that it has been created correctly.
 ```shell
 $ aws iam create-role --role-name execute-lambda --assume-role-policy-document file://trust-policy.json
 $ aws iam get-role --role-name execute-lambda
@@ -120,7 +124,7 @@ $ cat response.json
 ## Digging deeper
 
 ### Valid method signatures
-To build something useful, you'll probably need a more useful handler. The [docs](https://docs.aws.amazon.com/lambda/latest/dg/golang-handler.html) mention all the valid handler signatures. `Tin` and `Tout` must be types that can be `json.Marshal` and `json.Unmarshal`
+To build something useful, you'll probably need a more useful handler. The [docs](https://docs.aws.amazon.com/lambda/latest/dg/golang-handler.html) mention all the valid signatures for a handler function. `Tin` and `Tout` are types that can be used with `json.Marshal` and `json.Unmarshal`
 
 ```
 func ()
@@ -133,10 +137,10 @@ func (context.Context) (TOut, error)
 func (context.Context, TIn) (TOut, error)
 ```
 
-You should make use of package-level variables and the `init()` function for more complex scenarios; the `init()` will be called whenever your handled is loaded. AWS also states that a single Lambda function instance will never run multiple events simultaneously, which avoiding hairy race conditions.
+You should make use of package-level variables and the `init()` function for more complex scenarios; the `init()` will be called whenever your handled is loaded. A single Lambda function instance will never run multiple events simultaneously, every Lambda trigger will run a fresh copy of our code.
 
 ### Using context.Context
-AWS will inject the passed in **context** with some values. This way it allows to retrieve information about the running function, as well as some AWS-specific details. The following exported variables are available
+AWS will inject the passed in **context** with some values, which you can access by using the ``"github.com/aws/aws-lambda-go/lambdacontext"`` package. They contain information about the running function, as well as some AWS-specific details. The following exported variables are available from the `lambdacontext` package
 ```
 FunctionName    – The name of the Lambda function.
 FunctionVersion – The version of the function.
@@ -152,7 +156,7 @@ ClientContext   – (mobile apps) Client context that's provided to Lambda by th
 
 The `ctx.Deadline()` method returns the time when work done on behalf of this context will be cancelled (aka the execution will time out), as milliseconds since the Unix epoch.
 
-To make use of the context, you'll need to import and use the `"github.com/aws/aws-lambda-go/lambdacontext"` package. Afterwards, using it is as simple as
+Using them is as simple as
 ```go
 lc, _ := lambdacontext.FromContext(ctx)
 log.Print(lc.FunctionName)
@@ -160,20 +164,48 @@ log.Print(lc.MemoryLimitInMB)
 ```
 
 ### Logging
+One of the gripes people have had with Lambdas is debugging. As their complexity grows, debugging quickly becomes a big burden. There are [some tools](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-test-and-debug.html) to [run Lambdas locally](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-debugging.html), but logging is what will allow to understand what's going on in a deployed Lambda.
+
+All you have to do is call `log.Printf()` from your Go code. The Go runtime logs will be placed between the `START` and `END` keywords, along with a `REPORT` line that offers some more insight like a unique request ID, the processing and billed duration, the memory allocated and max memory used, as well as the initialization duration.
+
+You can use the aws-cli to invoke your Lambda and retrieve up to 4kb of base64-encoded logs. Here's how it looks in practice.
+```shell
+$ aws lambda invoke --function-name sample-event-handle --payload 'eyJpZCI6ICJ0cGFzY2hhbGlzIiwgInZhbCI6IDEwMCwgImZsYWciOiB0cnVlfQo=' --log-type Tail --query 'LogResult' response.json | base64 --decode
+START RequestId: d045c89b-e8f8-4b7d-b783-e677c6a8a613 Version: $LATEST
+END RequestId: d045c89b-e8f8-4b7d-b783-e677c6a8a613
+REPORT RequestId: d045c89b-e8f8-4b7d-b783-e677c6a8a613	Duration: 0.66 ms	Billed Duration: 100 ms	Memory Size: 128 MB	Max Memory Used: 34 MB
+```
+
+To see more of your logs, you'll have to use a *log group* and *log stream*; you can get their values by adding the following two lines in your Go code
+```go
+    log.Print(os.Getenv("AWS_LAMBDA_LOG_GROUP_NAME"))
+    log.Print(os.Getenv("AWS_LAMBDA_LOG_STREAM_NAME"))
+    // or
+    log.Print(lambdacontext.LogGroupName)
+    log.Print(lambdacontext.LogStreamName)
+```
+
+The former should look like `/aws/lambda/sample-event-handle`, and the latter somewhat like `2020/11/06/[$LATEST]1c92b498a2qp472491c392c3pcf0910q`. 
+
+Afterwards, you need to create the log-group and log-stream into CloudWatch, and your logs will be available either from the command-line or the [Cloudwatch console](https://$REGION.console.aws.amazon.com/cloudwatch/home?region=$REGION#logsV2:log-groups). Don't forget to set up a retention policy for your newly created log group, to avoid logs (and costs) piling up.
+```shell
+$ aws logs create-log-group --log-group-name /aws/lambda/sample-event-handle
+$ aws logs create-log-stream --log-group-name /aws/lambda/sample-event-handle --log-stream-name "2020/11/06/[\$LATEST]1c92b498a2qp472491c392c3pcf0910q"
+$ aws logs get-log-events --log-group-name /aws/lambda/sample-event-handle --log-stream-name "2020/11/06/[\$LATEST]1c92b498a2qp472491c392c3pcf0910q"
+```
 
 ### Triggers
+
 In the real-world, you won't be using `aws lambda invoke` to invoke your function. There are a number of [triggers](https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html) that you can set up and use.
 
-These invocations can either be synchronous, or asynchronous where requests are placed in a queue where a separate process will be reading these events and sending them to your function. Remember, that a single Lambda function instance will never run multiple events simultaneously. 
+These invocations can either be synchronous, or asynchronous where requests are placed in a queue where a separate process will be reading these events and sending them to your function. Remember, that a single Lambda function instance will never run with multiple events, but a new one would be spawned for each one. It's interesting to read up on how Lambdas [scale](https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html) up in numbers.
 
-It's interesting to read up on how Lambdas [scale](https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html) up in numbers.
+### Trigger your Lambda with an REST endpoint
 
-## Trigger your Lambda with an REST endpoint
-
-Triggering your Lambda function with a REST endpoint [through the web console](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-getting-started-with-rest-apis.html), it only involves three or four clicks. But let's use `aws-cli` to do the same thing!
+Triggering your Lambda function with a REST endpoint [through the web console](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-getting-started-with-rest-apis.html) is easy; it only involves three or four clicks. But let's use `aws-cli` to do the same thing!
 
  Here are [the steps](https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway-tutorial.html) we have to take.   
- Take note of your *api-id*, *api-root-id* and *resource-id* values which should look like random strings (eg. `p31qx1ghe1`).
+ Take note of your *api-id*, *api-root-id* and *resource-id* values as you're managing your AWS resources.
 
 - Create a REST API
 - Create a *resource* under that rest API
@@ -217,10 +249,31 @@ X-AMZN-TRACE-ID Root=1-5fa456b2-beda73b8340f62daf4d397fe;Sampled=0
 
 You can see that invoking the endpoint with POST returns string resulting from the original `fmt.Sprintf("%+v", event)` line. In the real world there are more than a few ways you could use to expose that endpoint in your VPC, or in the public internet.
 
-## Notes
+## Layers
+AWS Lambda contains the concept of *layers*. A [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) is a ZIP archive that can contain auxiliary code, a library, a custom runtime, some configuration or whatever external dependency can help you keep the core Lambda small and more easily managed. Since Go is a statically-linked language, all dependencies are included in the final binary so layers provide no immediate benefits.
 
-- Uploading the zip file to AWS might take a while if you've got a shitty internet connection, like I do it may time out. The smallest golang binary will be at least 4.5MB
-- There is a [maximum size](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html) of 50MB for the uploaded functions
+Nevertheless, when you start hitting the deployment size limits, you can make use of [pre-compiled Go plugins](https://golang.org/pkg/plugin/), but the limitations might not be worth the trouble.
+
+## Versions
+Another useful feature of are *versions*. [Lambda versions](https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html) act like endpoint versions. You can use them to publish multiple implementations of a function and slowly deprecate the new one, or for Beta testing an internal system with an unpublished copy of the function.
+
+
+## Outro 
+That's all for today. I hope you enjoyed our foray into the world of Lambdas. I *think* I'll be using them more from now on, since they're not that mysterious black-box anymore; they seem like a great tool that can shine under specific circumstances. And with competition from Azure, GCP, Cloudflare and others, I think serverless will slowly find its place in many tech stacks.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ## Appendix
 
@@ -247,6 +300,11 @@ Finally, run `export AWS_PROFILE=my-profile-name` (and substitute your own profi
 
 That's all, you're set!
 
+## Notes
+
+- Uploading the zip file to AWS might take a while if you've got a shitty internet connection, like I do it may time out. The smallest golang binary will be at least 4.5MB
+- There is a [maximum size](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html) of 50MB for the uploaded functions
+
 ## Resources 
 
 https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html   
@@ -259,4 +317,5 @@ https://docs.aws.amazon.com/lambda/latest/dg/golang-handler.html
 https://docs.aws.amazon.com/lambda/latest/dg/golang-context.html   
 https://docs.aws.amazon.com/lambda/latest/dg/golang-logging.html   
 https://docs.aws.amazon.com/lambda/latest/dg/golang-exceptions.html   
-
+https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+https://aws.amazon.com/premiumsupport/knowledge-center/lambda-cloudwatch-log-streams-error/
