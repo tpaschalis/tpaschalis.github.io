@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Build an AWS Lambda REST triggered function using Go.
+title:  An introduction to AWS Lambda functions in Go (with a POST trigger endpoint)
 date:   2020-11-04
 author: Paschalis Ts
 tags:   [aws, lambda, golang, code]
