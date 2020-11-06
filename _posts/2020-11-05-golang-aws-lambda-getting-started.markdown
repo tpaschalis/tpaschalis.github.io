@@ -10,7 +10,7 @@ description: "We all gotta start somewhere!"
 
 ## Intro
 
-Serverless or FaaS (Functions-as-a-Service) entered the [spotlight](https://trends.google.com/trends/explore?date=today%205-y&geo=US&q=serverless) around two or three years ago. And while the interest is beyond the initial-craze phase, I feel that they are slowly maturing and having a growing adoption, as people understand their strenghs, limitations, and what kind of workloads they excel in. 
+Serverless or FaaS (Functions-as-a-Service) entered the [spotlight](https://trends.google.com/trends/explore?date=today%205-y&geo=US&q=serverless) around two or three years ago. And while the interest is beyond the initial-craze phase, I feel that they are slowly maturing and find their footing, as we figure out the strengths and limitations of this new computing model and what kind of workloads it excels in. 
 
 I personally see them as the natural evolution of short-lived, immutable building blocks that we have been moving towards. 
 
@@ -63,7 +63,7 @@ $ zip function.zip my-lambda-binary
 
 We're moments away from launching our Lambda! We first need to create an [*execution policy*](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html).
 
-Define a trust policy document, by creating a local file such as
+Define a trust policy document by creating a local policy file
 ```json
 # trust-policy.json
 {
@@ -121,6 +121,8 @@ $ cat response.json
 "{ID:tpaschalis Val:100 Flag:true}"%
 ```
 
+Congratulations, you just ran your first serverless function!
+
 ## Digging deeper
 
 ### Valid method signatures
@@ -137,10 +139,10 @@ func (context.Context) (TOut, error)
 func (context.Context, TIn) (TOut, error)
 ```
 
-You should make use of package-level variables and the `init()` function for more complex scenarios; the `init()` will be called whenever your handled is loaded. A single Lambda function instance will never run multiple events simultaneously, every Lambda trigger will run a fresh copy of our code.
+You should make use of package-level variables and the `init()` function for more complex scenarios; the `init()` will be called whenever your handled is loaded. A single Lambda function instance will never run multiple events simultaneously, as every Lambda trigger will run a fresh copy of our code.
 
 ### Using context.Context
-AWS will inject the passed in **context** with some values, which you can access by using the ``"github.com/aws/aws-lambda-go/lambdacontext"`` package. They contain information about the running function, as well as some AWS-specific details. The following exported variables are available from the `lambdacontext` package
+AWS will inject the passed **context** with some values, which you can access by using the ``"github.com/aws/aws-lambda-go/lambdacontext"`` package. They contain information about the running function, as well as some AWS-specific details. The following exported variables are available from the `lambdacontext` package
 ```
 FunctionName    – The name of the Lambda function.
 FunctionVersion – The version of the function.
@@ -250,7 +252,7 @@ X-AMZN-TRACE-ID Root=1-5fa456b2-beda73b8340f62daf4d397fe;Sampled=0
 You can see that invoking the endpoint with POST returns string resulting from the original `fmt.Sprintf("%+v", event)` line. In the real world there are more than a few ways you could use to expose that endpoint in your VPC, or in the public internet.
 
 You can use AWS Direct Connect, alias it using Route53 alias inside your VPC or set up a public DNS hostname, but for now you can simply use the endpoint's private DNS name.
-```
+```shell
 curl -v -X POST '{
         "id": "tpaschalis",
         "val": 100,
@@ -259,16 +261,16 @@ curl -v -X POST '{
 ```
 
 ## Layers
-AWS Lambda contains the concept of *layers*. A [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) is a ZIP archive that can contain auxiliary code, a library, a custom runtime, some configuration or whatever external dependency can help you keep the core Lambda small and more easily managed. Since Go is a statically-linked language, all dependencies are included in the final binary so layers provide no immediate benefits.
+AWS Lambda includes the concept of *layers*. A [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) is a ZIP archive that can contain auxiliary code, a library, a custom runtime, some configuration or whatever external dependency can help you keep the core Lambda small and more easily managed. Since Go is a statically-linked language, all dependencies are included in the final binary so layers provide no immediate benefits.
 
 Nevertheless, when you start hitting the deployment size limits, you can make use of [pre-compiled Go plugins](https://golang.org/pkg/plugin/), but the limitations might not be worth the trouble.
 
 ## Versions
-Another useful feature of are *versions*. [Lambda versions](https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html) act like endpoint versions. You can use them to publish multiple implementations of a function and slowly deprecate the new one, or for Beta testing an internal system with an unpublished copy of the function.
+Another useful feature of are *versions*. [Lambda versions](https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html) act like endpoint versions. You can use them to publish multiple implementations of a function and slowly deprecate older ones, or for Beta testing an internal system with an unpublished copy of the function.
 
 
 ## Outro 
-That's all for today. I hope you enjoyed our foray into the world of Lambdas. I *think* I'll be using them more from now on, since they're not that mysterious black-box anymore; they seem like a great tool that can shine under specific circumstances. And with competition from Azure, GCP, Cloudflare and others, I think serverless will slowly find its place in many tech stacks.
+That's all for today. I hope you enjoyed our foray into the world of Lambdas. I *think* I'll be using them more from now on, since they're not that mysterious black-box anymore; they seem like a great tool that can shine under specific circumstances. And with competition from Azure, GCP, Cloudflare and others, I think serverless will slowly mature and find its place in many tech stacks.
 
 <br>
 <br>
