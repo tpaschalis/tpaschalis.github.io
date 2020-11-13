@@ -10,7 +10,7 @@ description: "We all gotta start somewhere!"
 
 ## Intro
 
-Serverless and FaaS (Functions-as-a-Service) got into [spotlight](https://trends.google.com/trends/explore?date=today%205-y&geo=US&q=serverless) around two or three years ago. And while interest is beyond the initial-craze phase, I feel that they are finding their footing as we figure out the strengths and limitations of this new computing model and what kind of workloads it excels in. 
+Serverless and FaaS (Functions-as-a-Service) got into the [spotlight](https://trends.google.com/trends/explore?date=today%205-y&geo=US&q=serverless) around two or three years ago. And while interest is beyond the initial-craze phase, I feel that they are finding their footing as we figure out the strengths and limitations of this new computing model and what kind of workloads it excels in. 
 
 I personally see them as the natural evolution of the short-lived, immutable building blocks that we have been moving towards. 
 
@@ -22,9 +22,10 @@ Through this post, we'll be making use of three AWS services: Lambda, API Gatewa
 
 First off, you'll need to set up an AWS account along with `aws-cli`. If you haven't done this before, scroll down to the **Appendix** section and come back here!
 
-We'll create a new directory and initialize a new Go module using `go mod init <modulename>`. Our basic dependency will be the AWS SDK for Lambda functions and Go.
+We'll create a new directory and initialize a new Go module using `go mod init <modulename>`.  
+Our basic dependency will be the AWS SDK for Lambda functions and Go.
 
-Here's the most basic example I could think of; our function expects a JSON payload which will be unmarshalled into a struct, and then printed out.
+Here's the most basic example I could think of; a function that expects a JSON payload, unmarshalled into a struct, and then printed out.
 ```go
 package main
 
@@ -91,7 +92,7 @@ ROLELASTUSED    2020-11-05T15:10:59+00:00       eu-central-1
 
 Keep note of a the part that looks like this `arn:aws:iam::123456789012:role/execute-lambda`, you'll need it right away.
 
-Aaaand that's all! We're ready to [create](https://docs.aws.amazon.com/cli/latest/reference/lambda/create-function.html) and [check](https://docs.aws.amazon.com/cli/latest/reference/lambda/get-function.html) our lambda!
+Aaaand that's all! We're ready to [create](https://docs.aws.amazon.com/cli/latest/reference/lambda/create-function.html) and [check](https://docs.aws.amazon.com/cli/latest/reference/lambda/get-function.html) the newly created Lambda!
 ```shell
 $ aws lambda create-function --function-name sample-event-handle --runtime go1.x --zip-file fileb://function.zip --handler my-lambda-binary --role arn:aws:iam::123456789012:role/execute-lambda
 
@@ -102,7 +103,7 @@ TRACINGCONFIG   PassThrough
 ```
 
 Let's [invoke](https://docs.aws.amazon.com/cli/latest/reference/lambda/invoke.html) the function and save the result in a `response.json` file
-We can either base64-encode our payload or use the `-cli-binary-format raw-in-base64-out` flag to ship the payload in JSON format outright.
+We can either base64-encode the payload or use the `-cli-binary-format raw-in-base64-out` flag to POST the JSON directly.
 ```shell
 $ aws lambda invoke \
     --function-name sample-event-handle  \
@@ -161,17 +162,19 @@ log.Print(lc.FunctionName)
 log.Print(lc.MemoryLimitInMB)
 ```
 
-Also, the `ctx.Deadline()` method returns the time when work done on behalf of this context will be cancelled (aka the execution will time out), as milliseconds since the Unix epoch.
+The `ctx.Deadline()` method returns the timestamp of the moment the execution will time out (as the context will cancel), as milliseconds since the Unix epoch.
 
 ### Logging
 One of the gripes people have had with Lambdas is debugging. As their complexity grows, debugging quickly becomes a big burden. There are [some tools](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-test-and-debug.html) to [run Lambdas locally](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-debugging.html), but logging is integral for understanding what's going on in a deployed Lambda.
 
-Log entries are appended with calls to `log.Printf()` from your Go code. The Go runtime logs will be placed between the `START` and `END` keywords, along with a `REPORT` line that offers some more insight like a unique request ID, the processing and billed duration, the memory allocated and max memory used, as well as the initialization duration.
+Log entries are appended when calling to `log.Printf()` from your Go code. The Go runtime logs will be placed between the `START` and `END` keywords, along with a `REPORT` line that offers some more insight like a unique request ID, the processing and billed duration, the memory allocated and max memory used, as well as the initialization duration.
 
 You can use the aws-cli to invoke your Lambda and retrieve up to 4kb of base64-encoded logs. Here's how it looks in practice.
 ```shell
 $ aws lambda invoke --function-name sample-event-handle --payload 'eyJpZCI6ICJ0cGFzY2hhbGlzIiwgInZhbCI6IDEwMCwgImZsYWciOiB0cnVlfQo=' --log-type Tail --query 'LogResult' response.json | base64 --decode
 START RequestId: d045c89b-e8f8-4b7d-b783-e677c6a8a613 Version: $LATEST
+    ...
+    ...
 END RequestId: d045c89b-e8f8-4b7d-b783-e677c6a8a613
 REPORT RequestId: d045c89b-e8f8-4b7d-b783-e677c6a8a613	Duration: 0.66 ms	Billed Duration: 100 ms	Memory Size: 128 MB	Max Memory Used: 34 MB
 ```
