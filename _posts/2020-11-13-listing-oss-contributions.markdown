@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Listing OSS contributions
+title:  Keeping track of OSS contributions
 date:   2020-11-13
 author: Paschalis Ts
 tags:   [personal, script, oss]
@@ -8,11 +8,11 @@ mathjax: false
 description: "Automate this"
 ---
 
-A few months ago, I created [this page](https://tpaschalis.github.io/opensource/) to list some of my open-source contributions. Its purpose is not to brag, even though I love seeing it expanding month by month and it encourages me to keep at it. 
+A few months ago, I created [this page](https://tpaschalis.github.io/opensource/) to list some of my open-source contributions. Its purpose is not to brag around, even though I love seeing it expanding month by month as it encourages me keep on going. 
 
-Generally, my Open-Source contributions reflect things I'm interested in at work, things I'm researching, or things I'm having fun and relaxing with, so it's nice to have a list ready for quick reference.
+Generally, my open-source work reflect things I'm interested in at my daily job, things I'm researching, or things I'm having fun and relaxing with, so it's nice to have a list ready for quick reference.
 
-Here's how I'm updating this list semi-automatically, using the GitHub API, bash and `awk`. The [generator script](/opensource.sh) is pretty simple. Its structure looks like this
+Here's how I'm updating this list semi-automatically, using the GitHub API, bash and `awk`. The [generator script](https://github.com/tpaschalis/tpaschalis.github.io/blob/master/opensource.sh) is pretty simple. Its structure looks like this
 
 ```bash
 #!/bin/bash
@@ -45,6 +45,6 @@ https://api.github.com/repos/:owner/:repo/commits\?author\=:author \    # JSON r
 
 So whenever I'd like to refresh the list I just `./opensource.sh > opensource.md` -- done!
 
-Also as December is getting closer, and so are End of Year reviews. You can use this to remember what you worked on recently.
+Also as December is getting closer, and so are End of Year reviews, so this might be useful.
 
 Until next time, bye!
