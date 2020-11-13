@@ -8,7 +8,7 @@ mathjax: false
 description: "Automate this"
 ---
 
-A few months ago, I created [this page](https://tpaschalis.github.io/opensource/) to list some of my open-source contributions. Its purpose is not to brag (even though I love seeing it expanding month by month and it encourages me to keep at it). 
+A few months ago, I created [this page](https://tpaschalis.github.io/opensource/) to list some of my open-source contributions. Its purpose is not to brag, even though I love seeing it expanding month by month and it encourages me to keep at it. 
 
 Generally, my Open-Source contributions reflect things I'm interested in at work, things I'm researching, or things I'm having fun and relaxing with, so it's nice to have a list ready for quick reference.
 
@@ -35,7 +35,7 @@ This allows to inline bash code using [subshells](https://tldp.org/LDP/abs/html/
 The contribution list is updated using the following pipeline
 ```bash
 $(curl \                                                  # We'll GET request the Github API
--H "Accept: application/vnd.github.v3+json" \             # Explicitly request v3
+-H "Accept: application/vnd.github.v3+json" \             # Explicitly request v3 API version
 https://api.github.com/repos/:owner/:repo/commits\?author\=:author \    # JSON response of all :owner/:repo and :author commits
 | jq '.[] | "\(.html_url)DELIM\(.commit.message)"' \      # Filter for the URL and commit message
 | gsed -r 's/^"|"$//g' \                                  # Filter out leading and trailing quotes
