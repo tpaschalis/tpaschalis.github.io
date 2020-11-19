@@ -25,12 +25,14 @@ Unfortunately, not what I was looking for. Maybe the material was *too* distille
 * [Cloud Native Patterns: Designing change-tolerant software](https://www.amazon.co.uk/Cloud-Native-Designing-change-tolerant-software/dp/1617294292) by Cornelia Davis   
 Overall a solid book, and it picked up the pace as it went on. Even though it doesn't cover any greenfield advances, it succintly describes most of the things I've learned by practice when working with distributed software and not in a shallow way. Huge +1 for the hands-on examples that exist.
 
-* [MapReduce: Simplied Data Processing on Large Clusters](http://static.googleusercontent.com/media/research.google.com/es/us/archive/mapreduce-osdi04.pdf)
-
 ### Non-Technical
 * [Radical Candor](https://www.amazon.com/Radical-Candor-Revised-Kick-Ass-Humanity/dp/1250235375) by Kim Scott
 * [Team Geek](https://www.amazon.com/Team-Geek-Software-Developers-Working/dp/1449302440/) by Brian W. Fitzpatrick, Ben Collins-Sussman
+* [Driving Technical Change](https://www.amazon.com/Driving-Technical-Change-Terrence-Ryan/dp/1934356603/) by Terrence Ryan
+* [Managing Humans: Biting and Humorous Tales of a Software Engineering Manager](https://www.amazon.com/Managing-Humans-Humorous-Software-Engineering/dp/1484221575) by Michael Lopp
 
+### Small-scale
+* [MapReduce: Simplied Data Processing on Large Clusters](http://static.googleusercontent.com/media/research.google.com/es/us/archive/mapreduce-osdi04.pdf)
 
 ## 2019
 
