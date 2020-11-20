@@ -331,6 +331,6 @@ That's all, you're set!
 * [Lambda - Go context.Context](https://docs.aws.amazon.com/lambda/latest/dg/golang-context.html)
 * [Lambda - Go logging](https://docs.aws.amazon.com/lambda/latest/dg/golang-logging.html)
 * [Lambda - Go errors](https://docs.aws.amazon.com/lambda/latest/dg/golang-exceptions.html)
-* [Lambda - Go layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
-* [Lambda - Cloudwatch error](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-cloudwatch-log-streams-error/)
+* [Lambda - Layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
+* [Lambda - Cloudwatch errors](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-cloudwatch-log-streams-error/)
 * [Lambda - ApiGateway](https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway-tutorial.html)
