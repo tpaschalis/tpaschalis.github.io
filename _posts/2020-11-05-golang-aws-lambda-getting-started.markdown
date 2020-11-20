@@ -321,15 +321,16 @@ That's all, you're set!
 
 ## Resources 
 
-https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html   
-https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html   
-https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-awscli.html   
-https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html   
-https://docs.aws.amazon.com/lambda/latest/dg/lambda-golang.html   
-https://docs.aws.amazon.com/lambda/latest/dg/golang-package.html   
-https://docs.aws.amazon.com/lambda/latest/dg/golang-handler.html   
-https://docs.aws.amazon.com/lambda/latest/dg/golang-context.html   
-https://docs.aws.amazon.com/lambda/latest/dg/golang-logging.html   
-https://docs.aws.amazon.com/lambda/latest/dg/golang-exceptions.html   
-https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
-https://aws.amazon.com/premiumsupport/knowledge-center/lambda-cloudwatch-log-streams-error/
+* [aws-cli names profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+* [aws-cli access keys](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html)
+* [aws-cli getting started](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-awscli.html)
+* [Lambda runtimes](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html)
+* [Lambda and Go](https://docs.aws.amazon.com/lambda/latest/dg/lambda-golang.html)
+* [Lambda - Go deployment packages](https://docs.aws.amazon.com/lambda/latest/dg/golang-package.html)
+* [Lambda - Go function handlers](https://docs.aws.amazon.com/lambda/latest/dg/golang-handler.html)
+* [Lambda - Go context.Context](https://docs.aws.amazon.com/lambda/latest/dg/golang-context.html)
+* [Lambda - Go logging](https://docs.aws.amazon.com/lambda/latest/dg/golang-logging.html)
+* [Lambda - Go errors](https://docs.aws.amazon.com/lambda/latest/dg/golang-exceptions.html)
+* [Lambda - Go layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
+* [Lambda - Cloudwatch error](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-cloudwatch-log-streams-error/)
+* [Lambda - ApiGateway](https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway-tutorial.html)
