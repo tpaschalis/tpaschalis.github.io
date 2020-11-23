@@ -8,16 +8,16 @@ mathjax: false
 description: "Don't do this kids"
 ---
 
-For today's edition of [things you should never use in Go, but are fun to know about](https://tpaschalis.github.io/golang-linknames/), we have Go *plugins*! As is the case with CGO, they make use of the dynamic linker which rules out static binaries.
+On today's edition of [things you should never use in Go, but are fun to know about](https://tpaschalis.github.io/golang-linknames/), we have Go *plugins*! As is the case with CGO, they make use of the dynamic linker which rules out static binaries.
 
 Plugins were introduced back in early 2017 with Go 1.8, and allow loading code dynamically at run time. A special [build mode](https://golang.org/cmd/go/#hdr-Build_modes) enables compiling packages into shared object (.so) libraries, and the [plugin package](https://golang.org/pkg/plugin/) implements loading and symbol resolution.
 
-So in one sentence, a plugin is a `main` package with exported functions and variables, that has been built with 
+So in one sentence, a plugin is a `main` package with exported functions and variables, built with 
 ```bash 
 go build -buildmode=plugin
 ```
 
-The helper package contains only two types and two methods; 
+The helper package has only two types and two methods; 
 - `Plugin` which represents a loaded Go plugin, with
 - `plugin.Open` which opens a Go plugin and
 - `plugin.Lookup` which searches for a symbol via its name, in a threadsafe manner
@@ -128,7 +128,7 @@ fmt.Println(piValue, rad2deg(20.0))
 
 Here's a snippet that reuses all of the symbols we defined on the `geo.so` plugin above. As we mentioned, we cannot load types, or interfaces, so we have to define the interface (shape) that we want the inferred types (circle, ellipse) to implement.
 
-This is the same reason why we're not returning a `circle` from the `NewCircle` function, but we act on an exported `Circle` variable as you'll notice.
+This is the same reason we're not returning a `circle` from the `NewCircle` function, but as you'll notice, we act on an exported `Circle` variable.
 
 ```go
 package main
@@ -174,7 +174,7 @@ func main() {
 
 ## Outro
 
-That’s all about plugins; make sure to *not* use them, and discourage your co-workers from doing so. They are against Go's philosophy as a statically-linked language, they are clunky, need special environment for building and maintaining, and can panic unexpectedly.
+That’s all about plugins; make sure to *not* use them, and discourage your co-workers from doing so. They are against Go's philosophy as a statically-linked language, they are clunky, need special environment for building and maintaining, play a lot with `interface{}` type casts, and can panic unexpectedly.
 
 Until next time, bye!
 
