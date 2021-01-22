@@ -33,7 +33,7 @@ Another is seeing other people using my resources and tutorials to build even gr
 
 What I was more pumped up though was two occasions. First one, when my younger brother (a DevOps) got to meet his new team, he was asked "Is your brother tpaschalis? I've read his blog!" And the second when I received this message at work one morning
 <center>
-<img src="/images/ru-telgram.png" style='height: 70%; width: 70%; object-fit: contain'/>
+<img src="/images/ru-telgram.png" style='height: 100%; width: 100%; object-fit: contain'/>
 </center>
 
 ### Looking back to last year's summary...
@@ -48,7 +48,7 @@ Here's the goals I stated in early 2020 :
 
 Unfortunately I didn't reach that 52-post goal. Looking at these past four years, the number of posts (as well as semi-publishable drafts) is steadily growing. I wish I could say that about quality as well, but I cannot be the judge of that.
 <center>
-<img src="/images/y4-posts-per-year.png" style='height: 70%; width: 70%; object-fit: contain'/>
+<img src="/images/y4-posts-per-year.png" style='height: 90%; width: 90%; object-fit: contain'/>
 </center>
 
 Github Pages still work fine -- so fine that I've opted to use them at `$DAYJOB` as well! To be honest, I don't feel the urge to change something now on that front.
