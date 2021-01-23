@@ -13,15 +13,15 @@ A rushed, half-assed yearly summary, right to your screen! Without further ado, 
 ## Year Four!
 Looking back at the [previous year's](https://tpaschalis.github.io/three-years-later/) entry, last January feels like an eternity ago. 
 2020 was a turbulent, rough year for most people, and I really count my blessings that it has been kind to me and people around me; I really don't take it for granted. 
-I had to make a conscious effort to avoid hot takes, stay on top of things both at work *and* be there for friends and family. 
+I had to make a conscious effort to avoid hot takes, stay on top of things at work *and* be there for friends and family. 
 This small corner of the internet still has no intention of hitting it big time, but helped me express myself, develop myself and compose myself once again this past year.
 
 ### What happened here, during the past 365 days?
 
 * A total of 32 posts were published (four times as many as the year before)
-* [Here](https://tpaschalis.github.io/delve-debugging/) [are](https://tpaschalis.github.io/goroutines-size/) [some](https://tpaschalis.github.io/go-generics-experiment/) [highlights](https://tpaschalis.github.io/channels-limitations-speed/)
+* [Here.](https://tpaschalis.github.io/delve-debugging/) [are.](https://tpaschalis.github.io/goroutines-size/) [some.](https://tpaschalis.github.io/go-generics-experiment/) [highlights.](https://tpaschalis.github.io/channels-limitations-speed/)
 * One series of posts took the form of a presentation at the [GoWay.io](https://goway.io) conference. You can [read](https://tpaschalis.github.io/reaching-the-ceiling-of-single-instance-go/) or [watch](https://www.youtube.com/watch?v=-jnmGZu9sN0) my work -- that's if you're interested in a mediocre presentation about some limitations of Go in a single-machine context
-* I got some independent offers to have guest posts, or to promote educational material via Affiliate links and, which I had to decline
+* I got some independent offers to have guest posts or to promote educational material via affiliate links, which I had to decline
 * There's now an [/opensource](https://tpaschalis.github.io/opensource) and a Derek-Sivers-inspired [/now](https://tpaschalis.github.io/now) page
 * Some minor CSS properties were changed
 * I was contacted from readers, with encouragement, corrections, criticism at least once a month
@@ -29,9 +29,10 @@ This small corner of the internet still has no intention of hitting it big time,
 ### Some bragging
 There were some events that put a smile on my face, and encouraged me to keep on going. 
 One example is seeing posts featured on aggregators and third-party publications like [Golang Weekly](https://golangweekly.com/), [Golang News](https://golangnews.com/), [LibHunt](https://go.libhunt.com/), [Lobste.rs](https://lobste.rs/), or the Orange Website. 
-Another is seeing other people using my resources and tutorials to build even greater things; so I hope I can assist and inspire even more people to hack on kickass projects!
+Another is seeing other people using my resources and tutorials to build [cool](https://jreisinger.blogspot.com/2019/12/runp-run-shell-commands-in-parallel.html?m=1) [things](https://medium.com/alterway/building-a-ci-cd-pipeline-for-a-spark-project-using-github-actions-sbt-and-aws-s3-part-1-c7d43658832d); so I hope I can assist and inspire even more people to hack on kickass projects!
 
-What I was more pumped up though was two occasions. First one, when my younger brother (a DevOps) got to meet his new team, he was asked "Is your brother tpaschalis? I've read his blog!" And the second when I received this message at work one morning
+What I was more pumped up though was two occasions. First one, when my younger brother (a DevOps) got to meet his new team, he was asked "Is your brother tpaschalis? I've read his blog!"   
+And the second when I received this message at work one morning
 <center>
 <img src="/images/ru-telgram.png" style='height: 100%; width: 100%; object-fit: contain'/>
 </center>
@@ -51,9 +52,9 @@ Unfortunately I didn't reach that 52-post goal. Looking at these past four years
 <img src="/images/y4-posts-per-year.png" style='height: 90%; width: 90%; object-fit: contain'/>
 </center>
 
-Github Pages still work fine -- so fine that I've opted to use them at `$DAYJOB` as well! To be honest, I don't feel the urge to change something now on that front.
+Github Pages still work fine -- so fine that I've opted to use them at `$DAYJOB` as well! To be honest, I don't feel the urge to change something now on that front right now.
 
-Unfortunately I did not publish a game or something resembling a book. I took a stab and started developing a couple of videogames, but finally went off yak-shaving things that seemed more interesting at that specific moment.
+Unfortunately I did not publish a game or something resembling a book. I took a stab and started developing a couple of videogames, but finally went off yak-shaving things that seemed more interesting at that moment.
 
 Something interesting is that writing is slowly turning from something I dreaded, to a creative, fun outlet. If I've had a rough day, or have 30 minutes to kill, I might either try to sneak in some gaming, *or* sit down and review a draft from the previous week/write down some thoughts on a recent disastrous deploy at work. I wouldn't believe that writing could be *so enjoyable*, but here we are!
 
@@ -65,11 +66,11 @@ Finally, this year, I found myself learning 'deeper' rather than 'wider'. This i
 
 ### Goals for 2021..?
 
-- I'll keep on aiming for 52 posts (~one per week), *and* for higher-quality original content at the same time
+- I'll keep on aiming for 52 posts (~one per week), *and* higher-quality original content at the same time
 - Present at another conference
 - Be able to express ideas with more clarity, conciseness, and confidence
 - Become an "expert software engineer", for some definition of this phrase
-- Continue deep-diving into Go, Distributed Systems
+- Continue deep-diving into Go and Distributed Systems
 - Master a functional language.
 - *vol 3* I will either publish a small game, or a small 'book'-like thingy
 
