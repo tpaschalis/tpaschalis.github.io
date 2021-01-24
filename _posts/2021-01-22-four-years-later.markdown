@@ -12,9 +12,9 @@ A rushed, half-assed yearly summary, right to your screen! Without further ado, 
 
 ## Year Four!
 Looking back at the [previous year's](https://tpaschalis.github.io/three-years-later/) entry, last January feels like an eternity ago. 
-2020 was a turbulent, rough year for most people, and I really count my blessings that it has been kind to me and people around me; I really don't take it for granted. 
+2020 was a turbulent, rough year for most people, and I really count my blessings that it has been kind to me and people around me; I don't take it for granted. 
 I had to make a conscious effort to avoid hot takes, stay on top of things at work *and* be there for friends and family. 
-This small corner of the internet still has no intention of hitting it big time, but helped me express myself, develop myself and compose myself once again this past year.
+This small corner of the internet still has no intention of hitting it big time, but helped me express myself, develop myself and compose myself once again.
 
 ### What happened here, during the past 365 days?
 
@@ -47,16 +47,16 @@ Here's the goals I stated in early 2020 :
 > - I'm thinking about switching to Hugo, and/or switching to another, personal domain. I don't want to break any links, and if this happens, it will probably need to be early during 2020.
 > - *vol 2* I will either publish a small game, or a small 'book'-like thingy
 
-Unfortunately I didn't reach that 52-post goal. Looking at these past four years, the number of posts (as well as semi-publishable drafts) is steadily growing. I wish I could say that about quality as well, but I cannot be the judge of that.
+Unfortunately I didn't reach that 52-post goal. Looking back, the number of posts (as well as semi-publishable drafts) is steadily growing. I wish I could say that about quality as well, but I cannot be the judge of that.
 <center>
 <img src="/images/y4-posts-per-year.png" style='height: 90%; width: 90%; object-fit: contain'/>
 </center>
 
-Github Pages still work fine -- so fine that I've opted to use them at `$DAYJOB` as well! To be honest, I don't feel the urge to change something now on that front right now.
+Github Pages still work fine -- so fine that I've opted to use them at `$DAYJOB` as well! To be honest, I don't feel the urge to change something on that front right now.
 
 Unfortunately I did not publish a game or something resembling a book. I took a stab and started developing a couple of videogames, but finally went off yak-shaving things that seemed more interesting at that moment.
 
-Something interesting is that writing is slowly turning from something I dreaded, to a creative, fun outlet. If I've had a rough day, or have 30 minutes to kill, I might either try to sneak in some gaming, *or* sit down and review a draft from the previous week/write down some thoughts on a recent disastrous deploy at work. I wouldn't believe that writing could be *so enjoyable*, but here we are!
+Something interesting is that the act of writing is slowly turning from something I dreaded, to a creative, fun outlet. If I've had a rough day, or have 30 minutes to kill, I might either try to sneak in some gaming, *or* sit down and review a draft from the previous week/write down some thoughts on a recent disastrous deploy at work. I wouldn't believe that writing could be *so enjoyable*, but here we are!
 
 Also, something I "knew", but I *finally really understood*, is that becoming good at writing, communicating and expressing ideas, as with most things, is [*only attainable through relentless practice*](https://blog.codinghorror.com/how-to-achieve-ultimate-blog-success-in-one-easy-step/). 
 Working in a remote setting, the need for expressiveness, concise communication and clarity of speech is vital. 
@@ -76,7 +76,7 @@ Finally, this year, I found myself learning 'deeper' rather than 'wider'. This i
 
 ### Parting words
 
-I hope that 2021 brings you peace, prosperity, health and happiness to you and your families. Let's all try to make the world a better place, one step at a time, one good deed at a time.
+I hope that 2021 brings peace, prosperity, health and happiness to you and your families. Let's all try to make the world a better place, one step at a time, one good deed at a time.
 
 I really appreciate you taking the time to be here, on this journey.
 
