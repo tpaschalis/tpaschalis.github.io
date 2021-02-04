@@ -38,7 +38,7 @@ func parseUsingRegex(p string) bool {
 }
 ```
 
-Looks simple, right? Except for that write once/read never regex, that you *hope* is correct (but write a bunch of tests to make sure, right?).
+Looks simple, right? Except for that write once/read never regex, that you *hope* is correct (but write a bunch of tests to make sure anyway).
 
 ## Stdlib
 Why not use the tools in the standard library to implement these rules in a more straightforward way?
@@ -94,7 +94,13 @@ I feel this reads more like C. Such handling make sense if we are certain that w
 
 ## Benchmarks
 
-So, how do these three examples stack against each other? I ran the silly benchmark presented below; I expected *some* difference in performance, but not THAT much.
+So, how do these three examples stack against each other? Take five seconds to guess...
+<br>
+<br>
+<br>
+<br>
+
+Well, I ran the benchmark presented below; I expected *some* difference in performance, but not THAT much.
 
 ```go
 var c1, c2, c3, c4, c5, c6, c7 bool
@@ -115,7 +121,7 @@ func BenchmarkRegex(b *testing.B) {
 }
 ```
 
-The rune comparison outperforms the 'stdlib' solution by 8.5x
+For this seven cases, the rune comparison outperforms the 'stdlib' solution by 8.5x, and the 'regex' solution by 45.5x.
 
 ```
 BenchmarkRegex-8    	 1447944	       816 ns/op
@@ -125,10 +131,10 @@ BenchmarkRunes-8    	64005085	       17.9 ns/op
 
 
 ## Parting words
-I personally have a soft-spot for such old-school code, but I understand that possible performance gains do not usually outweighs the readability.
+I personally have a soft-spot for such old-school code, but I understand that possible performance gains do not usually outweigh the loss of readability.
 
-This example might be a little simplistic, and in the general case there are a lot of pitfalls in the general case of working with UTF-8 strings. 
+This example might be a little simplistic, and in general there are a lot of pitfalls when working with UTF-8 strings. 
 
-In any case, what I'd like to underline is when you're trying to squeeze some more performance out of some critical path, don't hesitate to use the language's lower level primitives.
+In any case, what I'd like to underline is, when you're trying to squeeze some more performance out of some critical path, don't hesitate to use the language's lower level primitives.
 
 Until next time, bye!
