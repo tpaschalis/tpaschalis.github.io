@@ -8,15 +8,15 @@ mathjax: false
 description: ""
 ---
 
-Many people have described Go as "C for the 21st century". One of the things that reminds me of this metaphor is the old-school handling of text using runes.
+Many people have described Go as "C for the 21st century". One of the things that reminds me of this metaphor is the handling of text using runes.
 
 For a *great* introduction on Runes, UTF-8 Strings and generally text in Go, I recommend that you refer to Donovan and Kernighan's '[Blue Book](https://www.amazon.com/Programming-Language-Addison-Wesley-Professional-Computing/dp/0134190440)'. I feel that we can use runes to enhance performance in some straightforward ways.
 
 I encountered this specific example in the Go codebase while attempting to solve issue [#44052](https://github.com/golang/go/issues/44052) with [CL 288712](https://go-review.googlesource.com/c/go/+/288712/). Long story short, it's about validating the [major version suffix](https://golang.org/ref/mod#go-mod-file-ident) for Go modules. 
 
-The way this check is implemented in Go modules is by directly comparing the input using runes, like 'simulating' the behavior of `strconv.Atoi`. 
+The way this check is implemented in Go modules is by directly comparing the input using runes, 'simulating' the behavior of `strconv.Atoi` using `r >= '0' && r <= '9'`. 
 
-To be honest, it's just what [Atoi](https://golang.org/src/strconv/atoi.go?s=5658:5690#L214) and [ParseInt/ParseUint](https://golang.org/src/strconv/atoi.go?s=5658:5690#L214) do in the background.
+To be fair, that's exactly what [Atoi](https://golang.org/src/strconv/atoi.go?s=5658:5690#L214) and [ParseInt/ParseUint](https://golang.org/src/strconv/atoi.go?s=5658:5690#L214) do in the background.
 
 ## Let's compare some code!
 
@@ -71,7 +71,6 @@ I'll admit, this can be read at a glance, and is pretty easy to expand.
 ## Runes
 Finally, here's (almost) what [rsc used](https://github.com/golang/mod/commit/5d307ac8d37c05b4a8ce233dfc138f2bc5783c7b) in the Modules toolset.
 
-
 ```go
 func parseUsingRunes(p string) bool {
     if p[:2] != "/v" || p[2] == '0' || p == "/v1" {
@@ -100,7 +99,7 @@ So, how do these three examples stack against each other? Take five seconds to g
 <br>
 <br>
 
-Well, I ran the benchmark presented below; I expected *some* difference in performance, but not THAT much.
+Well, I ran the benchmark presented below; I expected *some* difference in performance, but not in that scale.
 
 ```go
 var c1, c2, c3, c4, c5, c6, c7 bool
@@ -121,7 +120,7 @@ func BenchmarkRegex(b *testing.B) {
 }
 ```
 
-For this seven cases, the rune comparison outperforms the 'stdlib' solution by 8.5x, and the 'regex' solution by 45.5x.
+For these seven cases, the rune comparison outperforms the 'stdlib' solution by 8.5x, and the 'regex' solution by 45.5x.
 
 ```
 BenchmarkRegex-8    	 1447944	       816 ns/op
@@ -131,10 +130,10 @@ BenchmarkRunes-8    	64005085	       17.9 ns/op
 
 
 ## Parting words
-I personally have a soft-spot for such old-school code, but I understand that possible performance gains do not usually outweigh the loss of readability.
+I personally have a soft-spot for such 'old-school' code, but I understand that possible performance gains do not usually outweigh the loss of readability.
 
 This example might be a little simplistic, and in general there are a lot of pitfalls when working with UTF-8 strings. 
 
-In any case, what I'd like to underline is, when you're trying to squeeze some more performance out of some critical path, don't hesitate to use the language's lower level primitives.
+In any case, what I'd like to underline is, when you're trying to squeeze some more performance out of some critical path, don't hesitate to use the language's lower level building blocks.
 
 Until next time, bye!
