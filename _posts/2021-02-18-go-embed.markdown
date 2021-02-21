@@ -1,0 +1,24 @@
+---
+layout: post
+title:  Trying out //go:embed
+date:   2021-02-18
+author: Paschalis Ts
+tags:   [golang, code]
+mathjax: false
+description: ""
+---
+
+A couple of days ago, Go 1.16 released a new directive `//go:embed` which makes possible to bundle supporting data files into your Go application.
+
+As the release notes suggest, do check out Carl Johnson's [tutorial](https://blog.carlmjohnson.net/post/2021/how-to-use-go-embed/) and [examples](https://github.com/carlmjohnson/exembed).
+
+## How it works
+The `//go:embed` feature allows initializing three types of variables `string`, `[]byte`, or the special `FS` type which is a read-only collection of files and directories. The variables have to be defined at the package level (i.e. not within functions )
+
+The [documentation](https://pkg.go.dev/embed) is all you need to start using embed! But now as we're at it, why not list some possible use-cases?
+
+## Some use-cases
+
+### As fallback
+
+

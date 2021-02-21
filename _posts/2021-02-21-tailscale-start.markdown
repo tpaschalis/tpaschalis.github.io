@@ -202,7 +202,7 @@ I don't know why the ping was lower the second time around, maybe a different re
 
 Of course, I was able to ping my relay from the mobile device at the same time.
 <img src="/images/tailscale-admin-panel.png" style='height: 100%; width: 100%; object-fit: contain'/>
-<img src="images/tailscale-mobile-ping.png" style='height: 60%; width: 60%; object-fit: contain'/>
+<img src="/images/tailscale-mobile-ping.png" style='height: 60%; width: 60%; object-fit: contain'/>
 
 ## First use-case!
 
@@ -213,3 +213,7 @@ The idea is that you can can set up any `go/<word>` link to point to another URL
 I got them adopted to my previous `$DAYJOB` as well, where it pretty loved for some time.
 
 That way, in any of my machines connected to the Tailscale network, I could just `http://go/jira` and be redirected to my employer's Jira, `http://go/status` to see the status of our services or `http://go/vim` to revisit my Vim notes.
+
+## Parting words
+
+I'm pretty happy with what Tailscale has achieved; it just embodies the *do one thing, and do it well* mentality. Looking forward to what's in stock for them in the near future!
