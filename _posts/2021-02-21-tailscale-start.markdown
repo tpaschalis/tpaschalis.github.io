@@ -8,20 +8,20 @@ mathjax: false
 description: ""
 ---
 
-I've been following the Tailscale gang (Brad, Christine, Avery, Dave, David) on Twitter for a while now, and this weekend I finally found some time to see what they've been cooking!
+I've been following the gang (Brad, Christine, David et al.) on Twitter for a while now, and this weekend I finally found some time to see what they've been cooking.
 
 Unfortunately, this post is going to be a little underwhelming.....  
 mainly because of *how painless and easy* it was to set everything up! 
 
 Really, the most difficult part was finding out how to restart the Apple App Store as it was stuck and refused to download the Tailscale client.
 
-Before I start, thanks to [Kaden Barlow's](https://www.kadenbarlow.dev/blog/tailscale/) help on getting Tailscale to run in a Docker container. I feel like `systemd` is my nemesis, and I was *not* looking forward to messing with it again, but Kaden made sure things played out of the box.
+Before we start, I'd like to thank [Kaden Barlow](https://www.kadenbarlow.dev/blog/tailscale/) for helping to run Tailscale in a container. I feel like `systemd` is my nemesis, and I was *not* looking forward to messing with it again, but Kaden made sure things played out of the box.
 
 ## What's Tailscale?
 
 Tailscale is a zero-config mesh VPN based on Wireguard that 'just works'.
 
-It runs on desktops, laptops (Windows, MacOS, Linux), mobiles (IOS, Android), plus a bunch of other Unix-y or BSD-ish OSes and different platforms or architectures (pfSense, Synology, Ubiquity and more).
+It runs on desktops, laptops (Windows, MacOS, Linux), mobile     (IOS, Android), plus a bunch of other Unix-y or BSD-ish OSes and different platforms or architectures (pfSense, Synology, Ubiquity and more).
 
 It promises to abstract away your network woes, punch holes through NATs, choose geographically sensible relay nodes, provide DNS, enforce Access Control Lists and monitor services automatically.
 
@@ -33,7 +33,7 @@ Best of all is that it is not only [*free*](https://tailscale.com/pricing/) for 
 Here's the setup I wanted to work with
 ```
      +----------------------+
-     | Xiaomi Redmi Note 9  |
+     | Mobile Phone         |
      | Via Mobile Hotspot   |
      +----------+-----------+
                 |
@@ -92,9 +92,9 @@ COPY ./src /app
 RUN chmod +x /app/script.sh
 CMD ["bash", "-c", "/app/script.sh"]
 ```
-So, we can just crrate a Dockerfile and build the image with `docker build . -t tpaslocal/tailscale`.
+First, we can create a Dockerfile and build an image with `docker build . -t tpaslocal/tailscale`.
 
-The entrypoint script below creates a [Kubernetes configmap](https://kubernetes.io/docs/concepts/configuration/configmap/) and boots up Tailscale with a couple of arguments. 
+The entrypoint script shown below creates a [Kubernetes configmap](https://kubernetes.io/docs/concepts/configuration/configmap/) and boots up Tailscale with a couple of arguments. 
 
 We define the name for our 'machine' (`ubuntu-k8s` in our case), an authentication key so that it can join our own network, as well as the aforementioned subnet routes that will be advertised.
 
@@ -108,7 +108,7 @@ kubectl create configmap tailscale-cm
 tailscaled >/dev/null 2>&1 &
 sleep 5 # boot up before registering with tailscale
 
-tailscale up -hostname "ubuntu-k8s" -authkey "tskey-2c354014590dc8bb84046687" -advertise-routes=10.0.0.0/24,10.0.1.0/24
+tailscale up -hostname "ubuntu-k8s" -authkey "tskey-2c354014590dc8bb840xxxxx" -advertise-routes=10.0.0.0/24,10.0.1.0/24
 
 data=$(cat /var/lib/tailscale/tailscaled.state | sed 's/\"/\\\"/g' | sed ':a;N;$!ba;s/\n/ /g') # Kaden Barlow, I owe you a beer mate
 kubectl patch configmap tailscale-cm -p "{\"data\": {\"state\": \"$data\"}}"
@@ -116,7 +116,7 @@ kubectl patch configmap tailscale-cm -p "{\"data\": {\"state\": \"$data\"}}"
 fg
 ```
 
-That's all! Then, it was time to deploy the docker image to our K8S cluster. We used the following deployment manifest, which exposes the `/dev/net/tun` 'device' that Tailscale needs.
+Then, it was time to deploy our image to the K8S cluster. We used the following deployment manifest, which exposes the `/dev/net/tun` 'device' that Tailscale needs.
 
 ```yaml
 apiVersion: apps/v1
@@ -156,7 +156,7 @@ When I switched back to the admin panel, I could see the new relay as well as th
 <img src="/images/tailscale-admin-panel.png" style='height: 100%; width: 100%; object-fit: contain'/>
 <img src="/images/tailscale-subnet-review.png" style='height: 70%; width: 70%; object-fit: contain'/>
 
-Finally, it's time to start a different pod to check that our relay works as intended!
+Finally, it's time to start a different pod to check that our relay works as intended.  
 
 ```yaml
 apiVersion: v1
@@ -180,9 +180,9 @@ spec:
 
 Using that pod 
 ```bash
-➜  tailscale-k8s-test k apply -f ubuntu.yml
+➜  kubectl apply -f ubuntu.yml
 pod/ubuntu created
-➜  tailscale-k8s-test k exec -it ubuntu -- bash
+➜  kubectl exec -it ubuntu -- bash
 root@ubuntu:/# apt update
 ...
 root@ubuntu:/# apt install iputils-ping
@@ -204,15 +204,13 @@ Of course, I was able to ping my relay from the mobile device at the same time.
 <img src="/images/tailscale-admin-panel.png" style='height: 100%; width: 100%; object-fit: contain'/>
 <img src="/images/tailscale-mobile-ping.png" style='height: 60%; width: 60%; object-fit: contain'/>
 
-## First use-case!
+## First use-case
 
-First thing I thought to build set up an instance of `go/` shortlinks in a forgotten machine, using `kellegous/go`. 
+First thing I thought to set up is `go/` shortlinks in a Raspberry Pi that was dusting away using `kellegous/go`. 
 
-The idea is that you can can set up any `go/<word>` link to point to another URL, or a list of notes. It (used to be? is?) a thing inside Google, that has been adopted by other companies.
+The idea is that you can can set up any `go/<word>` link to point to another URL, or a Markdown document. It (used to be? is?) a thing inside Google, that has been adopted by other companies as well. In my previous `$DAYJOB` it was a great way to onboard new people and keep relevant links handy at all times.
 
-I got them adopted to my previous `$DAYJOB` as well, where it pretty loved for some time.
-
-That way, in any of my machines connected to the Tailscale network, I could just `http://go/jira` and be redirected to my employer's Jira, `http://go/status` to see the status of our services or `http://go/vim` to revisit my Vim notes.
+That way, from any machine connected to my Tailscale network, could just `http://go/jira` and be redirected to my employer's Jira, `http://go/status` to see the status of our services or `http://go/vim` to revisit my Vim notes.
 
 ## Parting words
 
