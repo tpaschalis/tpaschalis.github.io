@@ -202,7 +202,7 @@ I don't know why the ping was lower the second time around, maybe a different re
 
 Of course, I was able to ping my relay from the mobile device at the same time.
 <img src="/images/tailscale-admin-panel.png" style='height: 100%; width: 100%; object-fit: contain'/>
-<img src="/images/tailscale-mobile-ping.png" style='height: 60%; width: 60%; object-fit: contain'/>
+<img src="images/tailscale-mobile-ping.png" style='height: 60%; width: 60%; object-fit: contain'/>
 
 ## First use-case
 
