@@ -50,9 +50,10 @@ Writing helpful, informative (and even fun!) release notes is time consuming and
 How would *you* do it?
 
 ## The Go team solution
-So, how is Go team approaching this problem? A typical Go release in the past three years may contain from 1.6k to 2.3k commits. How do you keep track of what was important, what someone reading the release notes would like to know?
+So, how is Go team approaching this problem? A typical Go release in the past three years may contain from 1.6k to 2.3k commits.
 
 ```
+from -> to   commits
 1.15 -> 1.16 1695
 1.14 -> 1.15 1651
 1.13 -> 1.14 1754
@@ -62,6 +63,8 @@ So, how is Go team approaching this problem? A typical Go release in the past th
 1.9  -> 1.10 1996
 1.8  -> 1.9  2157
 ```
+
+How do you keep track of what was important, what someone reading the release notes may need to know?
 
 I set to find out, after a [Emmanuel](https://twitter.com/odeke_et) (a great person, and one of the best ambassadors the Go community could wish for), added a mysterious comment on one of my [latest CLs](https://go-review.googlesource.com/c/go/+/284136) that read `RELNOTE=yes`.
 
@@ -107,7 +110,7 @@ unicode
 ```
 
 
-Of course, this is not a tool that will automatically generate something you can publish, but it's a good start
+Of course, this is not a tool that will automatically generate something you can publish, but it's a pretty good start!
 
 ## Parting words
 That's all for today! I hope that my change will find its way on the Go 1.17 release notes; if not I learned something new!
