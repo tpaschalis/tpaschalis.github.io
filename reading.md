@@ -10,6 +10,9 @@ I used to be an avid book reader. For some years, university education made me *
 Here's a list of books that I’ve read since early 2019, along with tweet-long comments. Titles in **bold** are ones that I would highly recommend.   
 Hope you can find something interesting here as well!
 
+## 2021
+* [Snow Crash](https://www.amazon.com/Snow-Crash-Neal-Stephenson/dp/0553380958/) by Neal Stephenson  
+It's been a couple of months since I finished a book. Snow Crash was just *fun*! Turns out, I've missed that factor!
 
 ## 2020
 
@@ -23,7 +26,7 @@ The first book I finished this year, and *it was awesome*. I found new respect f
 Unfortunately, not what I was looking for. Maybe the material was *too* distilled, and needed that extra context and depth
 
 * [Cloud Native Patterns: Designing change-tolerant software](https://www.amazon.co.uk/Cloud-Native-Designing-change-tolerant-software/dp/1617294292) by Cornelia Davis   
-Overall a solid book, and it picked up the pace as it went on. Even though it doesn't cover any greenfield advances, it succintly describes most of the things I've learned by practice when working with distributed software and not in a shallow way. Huge +1 for the hands-on examples that exist.
+Overall a solid book, and it picked up the pace as it went on. Even though it doesn't cover any greenfield advances, it succinctly describes most of the things I've learned by practice when working with distributed software and not in a shallow way. Huge +1 for the hands-on examples that exist.
 
 ### Non-Technical
 * [Radical Candor](https://www.amazon.com/Radical-Candor-Revised-Kick-Ass-Humanity/dp/1250235375) by Kim Scott
