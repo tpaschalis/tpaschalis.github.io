@@ -65,7 +65,12 @@ So, how is Go team approaching this problem? A typical Go release in the past th
 
 I set to find out, after a [Emmanuel](https://twitter.com/odeke_et) (a great person, and one of the best ambassadors the Go community could wish for), added a mysterious comment on one of my [latest CLs](https://go-review.googlesource.com/c/go/+/284136) that read `RELNOTE=yes`.
 
-The [`build`](https://github.com/golang/build) repo, which holds Go's continuous build and release infrastructure contains the [`relnote` tool](https://github.com/golang/build/blob/master/cmd/relnote/relnote.go) which summarizes Gerrit changes (CLs) which are marked with RELNOTE annotations. The earliest reference of this idea I could find is [this CL](https://go-review.googlesource.com/c/build/+/30697) from Brad Fitzpatrick, back in Oct 2016.
+The [`build`](https://github.com/golang/build) repo, which holds Go's continuous build and release infrastructure contains the [`relnote` tool](https://github.com/golang/build/blob/master/cmd/relnote/relnote.go) which gathers and summarizes Gerrit changes (CLs) which are marked with RELNOTE annotations. The earliest reference of this idea I could find is [this CL](https://go-review.googlesource.com/c/build/+/30697) from Brad Fitzpatrick, back in Oct 2016.
+
+So, any time a commit is merged (or close to merging) where someone thinks it may be useful to include in the release notes, they can leave a `RELNOTE=yes` or `RELNOTES=yes` comment. All these CLs are then gathered to be reviewed by the release author. Here's the actual query on the Gerrit API :
+```
+query := fmt.Sprintf(`status:merged branch:master since:%s (comment:"RELNOTE" OR comment:"RELNOTES")`
+```
 
 I love the simplicity of it; I feel that it embodies the Go's spirit. I feel that if my team at work tried to come up with a solution, we'd come up with something much more complex, fragile and unmaintainable than this. The tool doesn't even support time ranges as input; since Go releases are once every six months, here's how it decides which commits to include
 
