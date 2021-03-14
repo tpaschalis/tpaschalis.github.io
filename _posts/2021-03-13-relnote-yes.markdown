@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  How the Go team (used to?) track what to include in release notes
+title:  How the Go team could track what to include in release notes
 date:   2021-03-13
 author: Paschalis Ts
 tags:   [golang, foss]
@@ -10,30 +10,36 @@ description: ""
 
 Release notes can sometimes be exciting to read. 
 
-Condensing the work since the last release in a couple of paragraphs, announcing new exciting features, verifying the fixing of older bugs, making important announcements on the lifecycle of older features. Come to think of it, the couple of times that I've had to *write* them, wasn't so bad at all! 
+Condensing the work since the last release into a couple of paragraphs, announcing new exciting features and fixes of older bugs or making important announcements on the lifecycle of features. Come to think of it, the couple of times that I've had to *write* them, wasn't so bad at all! 
 
-Unfortunately, the current trend is release notes being a mix of *Bug fixes*, *Made ur app faster*, *Added new featured, won't tell you what it is*, which can sound like generalities at best and condescending or patronizing at worst; usually like something written just to fill an arbitrary word limit in the last five minutes before a release.
+Unfortunately, the current trend is release notes becoming a mix of *Bug fixes*, *Made ur app faster*, *Added new feature, won't tell you what it is*, which can sound like generalities at best and condescending or patronizing at worst; usually like something written just to fill an arbitrary word limit in the last five minutes before a release.
 
-Here's what's currently listed at the Google Play Store as in the "What's New" section for a handful of popular applications.
+Here's what's currently listed in the "What's New" section for a handful of popular applications in the Google Play Store.
 
 ```
 - Thanks for choosing Chrome! This release includes stability and performance improvements.
 
-- Every week we polish up the Pinterest app to make it faster and better than ever. Tell us if you like this newest version at http://help.pinterest.com/contact
+- Every week we polish up the Pinterest app to make it faster and better than ever. 
+Tell us if you like this newest version at http://help.pinterest.com/contact
 
-- Get the best experience for enjoying recent hits and timeless classics with our latest Netflix update for your phone and tablet.
+- Get the best experience for enjoying recent hits and timeless classics with our latest 
+Netflix update for your phone and tablet.
 
-- We update the Uber app as often as possible to help make it faster and more reliable for you. This version includes several bug fixes and performance improvements.
+- We update the Uber app as often as possible to help make it faster and more reliable 
+for you. This version includes several bug fixes and performance improvements.
 
-- We’re always making changes and improvements to Spotify. To make sure you don’t miss a thing, just keep your Updates turned on.
+- We’re always making changes and improvements to Spotify. To make sure you don’t miss 
+a thing, just keep your Updates turned on.
 
-- For new features, look for in-product education & notifications sharing the feature and how to use it! (FYI this is YouTube, as it doesn't even mention the product's name)
+- For new features, look for in-product education & notifications sharing the feature 
+and how to use it! (FYI this was YouTube, as it doesn't even mention the product's name)
 ```
 
-The Opera browser, on the other hand has something more reminiscent of actual Release Notes.
+The Opera browser, on the other hand has something more reminiscent of actual release notes.
 ```
 What's New
-Thanks for choosing Opera! This version includes improvements to Flow, the share dialog and the built-in video player.
+Thanks for choosing Opera! This version includes improvements to Flow, 
+the share dialog and the built-in video player.
 
 More changes:
 - Chromium 87
@@ -68,14 +74,16 @@ How do you keep track of what was important, what someone reading the release no
 
 I set to find out, after a [Emmanuel](https://twitter.com/odeke_et) (a great person, and one of the best ambassadors the Go community could wish for), added a mysterious comment on one of my [latest CLs](https://go-review.googlesource.com/c/go/+/284136) that read `RELNOTE=yes`.
 
-The [`build`](https://github.com/golang/build) repo, which holds Go's continuous build and release infrastructure contains the [`relnote` tool](https://github.com/golang/build/blob/master/cmd/relnote/relnote.go) which gathers and summarizes Gerrit changes (CLs) which are marked with RELNOTE annotations. The earliest reference of this idea I could find is [this CL](https://go-review.googlesource.com/c/build/+/30697) from Brad Fitzpatrick, back in Oct 2016.
+The [`build`](https://github.com/golang/build) repo holds Go's continuous build and release infrastructure; and also contains the [`relnote` tool](https://github.com/golang/build/blob/master/cmd/relnote/relnote.go) that gathers and summarizes Gerrit changes (CLs) which are marked with RELNOTE annotations. The earliest reference of this idea I could find is [this CL](https://go-review.googlesource.com/c/build/+/30697) from Brad Fitzpatrick, back in October 2016.
 
-So, any time a commit is merged (or close to merging) where someone thinks it may be useful to include in the release notes, they can leave a `RELNOTE=yes` or `RELNOTES=yes` comment. All these CLs are then gathered to be reviewed by the release author. Here's the actual query on the Gerrit API :
+So, any time a commit is merged (or close to merging) where someone thinks it may be useful to include in the release notes, they can leave a `RELNOTE=yes` or `RELNOTES=yes` comment. All these CLs are then gathered to be reviewed by the release author. Here's the actual Gerrit API query:
 ```
 query := fmt.Sprintf(`status:merged branch:master since:%s (comment:"RELNOTE" OR comment:"RELNOTES")`
 ```
 
-I love the simplicity of it; I feel that it embodies the Go's spirit. I feel that if my team at work tried to come up with a solution, we'd come up with something much more complex, fragile and unmaintainable than this. The tool doesn't even support time ranges as input; since Go releases are once every six months, here's how it decides which commits to include
+Of course, this is not a tool that will automatically generate something you can publish, but it's a pretty good alternative to sieving a couple thousands of commits manually.
+
+I love the simplicity; I feel that it embodies the Go way of doing things. I feel that if my team at work tried to find a solution, we'd come up with something much more complex, fragile and unmaintainable than this. The tool doesn't even support time ranges as input; since Go releases are roughly once every six months, here's how it decides which commits to include
 
 ```go
 // Releases are every 6 months. Walk forward by 6 month increments to next release.
@@ -110,15 +118,9 @@ unicode
 ```
 
 
-Of course, this is not a tool that will automatically generate something you can publish, but it's a pretty good start!
-
 ## Parting words
-That's all for today! I hope that my change will find its way on the Go 1.17 release notes; if not I learned something new!
+That's all for today! I hope that my change will find its way on the Go 1.17 release notes; if not I'm happy that I learned something new! 
 
-See you soon!
+I'm not sure if the `relnote` tool is still being actively used, but I think it would be fun to learn more aboyt what goes into packaging a Go release.
 
-
-
-
-
-
+Until next time, bye!
