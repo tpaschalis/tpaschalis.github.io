@@ -10,7 +10,7 @@ description: ""
 
 Release notes can sometimes be exciting to read. 
 
-Condensing the work since the last release into a couple of paragraphs, announcing new exciting features and fixes of older bugs or making important announcements on the lifecycle of features. Come to think of it, the couple of times that I've had to *write* them, wasn't so bad at all! 
+Condensing the work since the last release into a couple of paragraphs, announcing new exciting features or deprecating older ones, communicating fixes of bugs or architectural decisions, making important announcements.. Come to think of it, the couple of times that I've had to *write* them, wasn't so bad at all! 
 
 Unfortunately, the current trend is release notes becoming a mix of *Bug fixes*, *Made ur app faster*, *Added new feature, won't tell you what it is*, which can sound like generalities at best and condescending or patronizing at worst; usually like something written just to fill an arbitrary word limit in the last five minutes before a release.
 
@@ -72,9 +72,9 @@ from -> to   commits
 
 How do you keep track of what was important, what someone reading the release notes may need to know?
 
-I set to find out, after a [Emmanuel](https://twitter.com/odeke_et) (a great person, and one of the best ambassadors the Go community could wish for), added a mysterious comment on one of my [latest CLs](https://go-review.googlesource.com/c/go/+/284136) that read `RELNOTE=yes`.
+I set to find out, after [Emmanuel](https://twitter.com/odeke_et) (a great person, and one of the best ambassadors the Go community could wish for), added a mysterious comment on one of my [latest CLs](https://go-review.googlesource.com/c/go/+/284136) that read `RELNOTE=yes`.
 
-The [`build`](https://github.com/golang/build) repo holds Go's continuous build and release infrastructure; and also contains the [`relnote` tool](https://github.com/golang/build/blob/master/cmd/relnote/relnote.go) that gathers and summarizes Gerrit changes (CLs) which are marked with RELNOTE annotations. The earliest reference of this idea I could find is [this CL](https://go-review.googlesource.com/c/build/+/30697) from Brad Fitzpatrick, back in October 2016.
+The [`build`](https://github.com/golang/build) repo holds Go's continuous build and release infrastructure; it also contains the [`relnote` tool](https://github.com/golang/build/blob/master/cmd/relnote/relnote.go) that gathers and summarizes Gerrit changes (CLs) which are marked with RELNOTE annotations. The earliest reference of this idea I could find is [this CL](https://go-review.googlesource.com/c/build/+/30697) from Brad Fitzpatrick, back in October 2016.
 
 So, any time a commit is merged (or close to merging) where someone thinks it may be useful to include in the release notes, they can leave a `RELNOTE=yes` or `RELNOTES=yes` comment. All these CLs are then gathered to be reviewed by the release author. Here's the actual Gerrit API query:
 ```
@@ -121,6 +121,6 @@ unicode
 ## Parting words
 That's all for today! I hope that my change will find its way on the Go 1.17 release notes; if not I'm happy that I learned something new! 
 
-I'm not sure if the `relnote` tool is still being actively used, but I think it would be fun to learn more aboyt what goes into packaging a Go release.
+I'm not sure if the `relnote` tool is still being actively used, but I think it would be fun to learn more about what goes into packaging a Go release.
 
 Until next time, bye!
