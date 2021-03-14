@@ -10,7 +10,7 @@ description: ""
 
 Release notes can sometimes be exciting to read. 
 
-Condensing the work since the last release into a couple of paragraphs, announcing new exciting features or deprecating older ones, communicating fixes of bugs or architectural decisions, making important announcements.. Come to think of it, the couple of times that I've had to *write* them, wasn't so bad at all! 
+Condensing the work since the last release into a couple of paragraphs, announcing new exciting features or deprecating older ones, communicating bugfixes or architectural decisions, making important announcements.. Come to think of it, the couple of times that I've had to *write* them, wasn't so bad at all! 
 
 Unfortunately, the current trend is release notes becoming a mix of *Bug fixes*, *Made ur app faster*, *Added new feature, won't tell you what it is*, which can sound like generalities at best and condescending or patronizing at worst; usually like something written just to fill an arbitrary word limit in the last five minutes before a release.
 
