@@ -16,16 +16,16 @@ Essentially, you can set a schedule during which your phone will be on Do-Not-Di
 
 Here's the bedtime mode, plus how the lock screen and homepage looks like.
 <div>
-    <img src="images/bw-smartphone/bedtime-mode.jpg" style='height: 30%; width: 30%; object-fit: contain'/>
-    <img src="images/bw-smartphone/lockscreen.jpg" style='height: 30%; width: 30%; object-fit: contain'/>
-    <img src="images/bw-smartphone/homepage.jpg" style='height: 30%; width: 30%; object-fit: contain'/>
+    <img src="/images/bw-smartphone/bedtime-mode.jpg" style='height: 30%; width: 30%; object-fit: contain'/>
+    <img src="/images/bw-smartphone/lockscreen.jpg" style='height: 30%; width: 30%; object-fit: contain'/>
+    <img src="/images/bw-smartphone/homepage.jpg" style='height: 30%; width: 30%; object-fit: contain'/>
 </div>
 
 And here's some of my typical usage scenarios
 <div>
-    <img src="images/bw-smartphone/hackernews.jpg" style='height: 30%; width: 30%; object-fit: contain'/>
-    <img src="images/bw-smartphone/twitter.jpg" style='height: 30%; width: 30%; object-fit: contain'/>
-    <img src="images/bw-smartphone/youtube.jpg" style='height: 30%; width: 30%; object-fit: contain'/>
+    <img src="/images/bw-smartphone/hackernews.jpg" style='height: 30%; width: 30%; object-fit: contain'/>
+    <img src="/images/bw-smartphone/twitter.jpg" style='height: 30%; width: 30%; object-fit: contain'/>
+    <img src="/images/bw-smartphone/youtube.jpg" style='height: 30%; width: 30%; object-fit: contain'/>
 </div>
 
 ## Grayscale, huh?
