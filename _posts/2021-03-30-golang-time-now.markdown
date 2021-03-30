@@ -234,7 +234,7 @@ MOVQ	m_g0(BX), DX
 MOVQ	(g_sched+gobuf_sp)(DX), SP	// Set SP to g0 stack
 ```
 
-4. Next up, it tries to call `runtime·vdsoClockgettimeSym` and store it in the `AX` register; if it succeeds, it retrieves the second and nanosecond values, restores the real Stack Pointer, restores the vDSO program counter and stack pointer and finaly returns
+4. Next up, it tries to call `runtime·vdsoClockgettimeSym` and store it in the `AX` register; if it succeeds, it retrieves the second and nanosecond values, restores the real Stack Pointer, restores the vDSO program counter and stack pointer and finally returns
 ```assembly
 	MOVQ	0(SP), AX	// sec
 	MOVQ	8(SP), DX	// nsec
@@ -275,7 +275,7 @@ which actually corresponds to the [`__x64_sys_clock_gettime`](https://github.com
 
 ## What's with these two different options?
 
-The 'preferred' `vdsoClockgettimeSym` mode is defined in the `vdsoSymbolKeys`
+The 'preferred' `vdsoClockgettimeSym` mode is defined in `vdsoSymbolKeys`
 ```go
 var vdsoSymbolKeys = []vdsoSymbolKey{
 	{"__vdso_gettimeofday", 0x315ca59, 0xb01bca00, &vdsoGettimeofdaySym},
@@ -322,7 +322,7 @@ useQPC:
 	RET
 ```
 
-If that's not the case the code will try to use the following two addresses from the [`KUSER_SHARED_DATA`](http://www.nirsoft.net/kernel_struct/vista/KUSER_SHARED_DATA.html) structure, also known as `SharedUserData`. This structure holds some kernel information that is shared with user-mode, in order to avoid multiple transition to the kernel, similar to what vDSO does.
+If that's not the case the code will try to use the following two addresses from the [`KUSER_SHARED_DATA`](http://www.nirsoft.net/kernel_struct/vista/KUSER_SHARED_DATA.html) structure, also known as `SharedUserData`. This structure holds some kernel information that is shared with user-mode, in order to avoid multiple transitions to the kernel, similar to what vDSO does.
 
 ```
 #define _INTERRUPT_TIME 0x7ffe0008
@@ -332,7 +332,7 @@ KSYSTEM_TIME InterruptTime;
 KSYSTEM_TIME SystemTime;
 ```
 
-The part which uses the utilizes these two addresses is presented below. The information is fetched as [`KSYSTEM_TIME`](http://www.nirsoft.net/kernel_struct/vista/KSYSTEM_TIME.html) structs.
+The part which uses these two addresses is presented below. The information is fetched as [`KSYSTEM_TIME`](http://www.nirsoft.net/kernel_struct/vista/KSYSTEM_TIME.html) structs.
 
 ```assembly
 	CMPB	runtime·useQPCTime(SB), $0
@@ -352,7 +352,7 @@ loop:
 	MOVQ	$_SYSTEM_TIME, DI
 ```
 
-The issue with `_SYSTEM_TIME` is that is of lower resolution, having an update period of 100 nanoseconds; and that's probably why QPC time is prefered.
+The issue with `_SYSTEM_TIME` is that it is of lower resolution, having an update period of 100 nanoseconds; and that's probably why QPC time is prefered.
 
 It's been so long since I've worked with Windows, but 
 [here's](https://www.matteomalvica.com/minutes/windows_kernel/#kuser-shared-data) 
@@ -373,7 +373,7 @@ The exported `Local *Location` symbol points to the `localLoc` address at first.
 var Local *Location = &localLoc
 ```
 
-If this address is nil, as we mentioned, the UTC location is returned. Otherwise, the code attempts to setup the package-level `localLoc` variable by using the `sync.Once` primitive the first time that location information is needed.
+If this address is nil, as we mentioned, the UTC location is returned. Otherwise, the code attempts to set up the package-level `localLoc` variable by using the `sync.Once` primitive the first time that location information is needed.
 
 ```go
 // localLoc is separate so that initLocal can initialize
