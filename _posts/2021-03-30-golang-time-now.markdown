@@ -45,7 +45,7 @@ More precisely, here's how the behavior differs:
 
 **If the `hasMonotonic` bit is 1**, then the 33-bit field stores the unsigned wall seconds since Jan 1 Year 1885, and ext holds a signed 64-bit monotonic clock reading, nanoseconds since process start. This is what usually happens in most of your code.
 
-**If the `hasMonotonic` bit is 0**, then the 33-bit seconds field is zero, and the full signed 64-bit wall seconds since Jan 1 year 1 is stored in `ext` as it did before the monotonic change.
+**If the `hasMonotonic` bit is 0**, then the 33-bit field is zero, and the full signed 64-bit wall seconds since Jan 1 year 1 is stored in `ext` as it did before the monotonic change.
 
 Finally, each `Time` value contains a Location, which is used when computing its *presentation form*; changing the location only changes the representation eg. when printing the value, it doesn't affect the instant in time being stored. A nil location (the default) means 'UTC'.
 
@@ -224,9 +224,7 @@ fallback:
 
 As far as I can understand, here's how the process goes.
 
-1. Since we don't know how much stack space the code will need we switch over to `g0` which is the first goroutine created for each OS thread, responsible for scheduling other goroutines.
-
-We first keep track of the thread local storage using `get_tls` to load it into the `CX` register and our current goroutine using a couple of `MOVQ` statements.
+1. Since we don't know how much stack space the code will need we switch over to `g0` which is the first goroutine created for each OS thread, responsible for scheduling other goroutines. We keep track of the thread local storage using `get_tls` to load it into the `CX` register and our current goroutine using a couple of `MOVQ` statements.
 
 2. The code then stores the values for `vdsoPC` and `vdsoSP` (Program Counter and Stack Pointer) to restore them before exiting so that the function can be *re-entrant*.
 
@@ -299,11 +297,11 @@ To quote the docs
 > Making system calls can be slow, but triggering a software interrupt to tell the kernel you wish to make a system call is expensive as it goes through the full interrupt-handling paths in the processor's microcode as well as in the kernel. 
 
 > One frequently used system call is gettimeofday(2). 
-> This system call is called both directly by user-space applications. This information is also not secret—any application in any privilege mode (root or any unprivileged user) will get the same answer. Thus the kernel arranges for the information required to answer this question to be placed in memory the process can access. Now a call to gettimeofday(2) changes from a system call to a normal function call and a few memory accesses.
+> This system call is called directly by user-space applications. This information is also not secret—any application in any privilege mode (root or any unprivileged user) will get the same answer. Thus the kernel arranges for the information required to answer this question to be placed in memory the process can access. Now a call to gettimeofday(2) changes from a system call to a normal function call and a few memory accesses.
 
 So, the vDSO call is preferred as the method of getting clock information as it doesn't have to go through the kernel's interrupt-handling path, but can be called more quickly.
 
-To wrap things up, the current time in Linux AMD64 is ultimately derived from either `__vdso_clock_gettime` or the `__x64_sys_clock_gettime` syscall. To 'fool' or 'tamper' with `time.Now()` you'd have to tamper with either of these.
+To wrap things up, the current time in Linux AMD64 is ultimately derived from either `__vdso_clock_gettime` or the `__x64_sys_clock_gettime` syscall.   To 'fool' `time.Now()` you'd have to tamper with either of these.
 
 ## Windows Weirdness
 
@@ -419,7 +417,7 @@ Finally, we can set up the location manually from our code by using the [`LoadLo
 
 That's all for today! I hope y'all either learned something new, or had some fun and you're now more confident to jump into the Go codebase!
 
-Feel free to reach out for comments, corrections or advice via email or on [Twitter](https://twitter.com/tpaschalis_)
+Feel free to reach out for comments, corrections or advice via email or on [Twitter](https://twitter.com/tpaschalis_).
 
 See you soon, take care of yourself!
 
