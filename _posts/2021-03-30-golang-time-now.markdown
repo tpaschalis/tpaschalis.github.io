@@ -234,7 +234,7 @@ MOVQ	m_g0(BX), DX
 MOVQ	(g_sched+gobuf_sp)(DX), SP	// Set SP to g0 stack
 ```
 
-4. Next up, it tries to call `runtime·vdsoClockgettimeSym` and store it in the `AX` register; if it succeeds, it retrieves the second and nanosecond values, restores the real Stack Pointer, restores the vDSO program counter and stack pointer and finally returns
+4. Next up, it tries to load the address of `runtime·vdsoClockgettimeSym` into the `AX` register; if it is not zero it calls it and moves on to the `ret` block where it retrieves the second and nanosecond values, restores the real Stack Pointer, restores the vDSO program counter and stack pointer and finally returns
 ```assembly
 	MOVQ	0(SP), AX	// sec
 	MOVQ	8(SP), DX	// nsec
@@ -253,7 +253,7 @@ MOVQ	(g_sched+gobuf_sp)(DX), SP	// Set SP to g0 stack
 	RET
 ```
 
-5. On the other hand, if the exit code of `runtime·vdsoClockgettimeSym` is 1, then it jumps to the `fallback` tag where it tries to use a different method to get the system's time, that is `$SYS_clock_gettime`
+5. On the other hand, if the address of `runtime·vdsoClockgettimeSym` is zero, then it jumps to the `fallback` tag where it tries to use a different method to get the system's time, that is `$SYS_clock_gettime`
 ```assembly
 	MOVQ	runtime·vdsoClockgettimeSym(SB), AX
 	CMPQ	AX, $0
