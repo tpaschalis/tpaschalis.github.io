@@ -13,6 +13,12 @@ Hope you can find something interesting here as well!
 ## 2021
 * [Snow Crash](https://www.amazon.com/Snow-Crash-Neal-Stephenson/dp/0553380958/) by Neal Stephenson  
 It's been a couple of months since I finished a book. Snow Crash was just *fun*! Turns out, I've missed that factor!
+* [The Five Dysfunctions of a Team: A Leadership Fable](https://www.amazon.com/Five-Dysfunctions-Team-Leadership-Fable/dp/0787960756) by Patrick Lencioni  
+Patrick uses a story to 'teach' some fundamentals about dysfunctions appearing within a team, and how they can be overcome. While at the time I did *not* enjoy the writing style too much (didn't flow for longer periods, and sometimes sounded like Buzzfeed headlines), I liked the presented ideas and solutions. He managed to pass through his points clearly enough, and I was able to relate with situations in my current and previous teams. So, overall, it was short and useful enough to leave a good impression, and I might try reading other similar books!
+* [How To Brew](https://www.amazon.com/How-Brew-Everything-Great-Every/dp/1938469356) by John Palmer  
+I got into a new hobby this year! Palmer's *excellent* book answered all the questions I had, provided a new view for me when tasting beer, and fueled me with new ideas for experimentation!
+* [Zen and the Art of Motorcycle Maintenance: An Inquiry Into Values](https://www.amazon.com/Zen-Art-Motorcycle-Maintenance-Inquiry/dp/0060839872) by Robert M Pirsig  
+To be honest, I kinda left this in the middle. Looking forward to resuming it once I get a feel for it again. I think I prefer not being compulsive with finishing books, like I was in the past. There's a time for each and every thing.
 
 ## 2020
 
