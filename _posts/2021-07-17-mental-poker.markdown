@@ -10,14 +10,14 @@ description: ""
 
 **Standard Disclaimer** : Don't trust me or any random internet person with anything related to cryptography and production-grade systems. This is just a toy so that I could introduce my SO to some cryptography fundamentals with a 'fun' example that didn't involve too much math. The Go code is a hacky mess, just to showcase the idea, don't judge ^^
 
-So without further ado, let's get to it!
+So without further ado, let's get to it.
 
 ## Intro 
-I recently read the ['Mental Poker (1979)'](https://people.csail.mit.edu/rivest/pubs/SRA81.pdf) paper by Shamir, Rivest and Adleman (of RSA fame). The acknowledgment section also mentions Robert W Floyd (as in the Floyd-Warshall algorithm) as well as Michael Rabin (as in the Rabin-Karp search algorithm), so it's a star-spangled effort all in all!
+I recently read the ['Mental Poker (1979)'](https://people.csail.mit.edu/rivest/pubs/SRA81.pdf) paper by Shamir, Rivest and Adleman (of RSA fame). The acknowledgment section also mentions Robert W Floyd (as in the Floyd-Warshall algorithm) as well as Michael Rabin (as in the Rabin-Karp search algorithm), so it's a star-spangled effort all in all.
 
 At just 8 pages, it's easy for anyone to read and understand. The basic question it poses is *"Can two potentially dishonest players play a fair game of poker without using any cards (eg. via the mail, or via the telephone) and without using any mutually trusted intermediate"*?
 
-Before jumping in the paper, I tried to reason for about twenty minutes, and decided that no, it wouldn't be possible. I was smiling at the paper's first part that agreed with my intuition, but then was intrigued when they provided such a concise and easy way to achieve it!
+Before jumping in the paper, I tried to reason for about twenty minutes, and decided that no, it wouldn't be possible. I was smiling at the paper's first part that agreed with my intuition, but then was intrigued when they provided such a concise and easy way to achieve it.
 
 Actually, all it takes is a commutative encryption scheme!
 
@@ -25,9 +25,10 @@ Actually, all it takes is a commutative encryption scheme!
 
 In mathematics, an operation is commutative if changing the order of the operands does not affect the result. Addition and multiplication are commutative operations, while subtraction and division are *noncommutative* operations.
 
-Another two examples of commutative operations would be the symmetry of second derivatives `∂xy f = ∂yx f` for functions satisfying Young's theorem, or the dot product. On the other hand, the three-dimensional cross product is *anti-commutative* since `b × a = −(a × b)`. 
+Another two examples of commutative operations would be the symmetry of second derivatives for functions satisfying Young's theorem, `∂xy f = ∂yx f` or the dot product. On the other hand, the three-dimensional cross product is *anti-commutative* since `b × a = −(a × b)`. 
 
-The authors introduce the concept of a commutative encryption scheme. That is, given a key *K*, we can agree on a pair of encryption and decryption functions *Ek* and *Dk*. For all messages *X*, and keys *K* and *J*, the order which we use to apply the encryption functions should not matter; that is Ek(Ej(X)) = Ej(Ek(X)).
+The authors introduce the concept of a commutative encryption scheme. That is, given a key *K*, we can agree on a pair of encryption and decryption functions *Ek* and *Dk*. For all messages *X*, and keys *K* and *J*, the order which we use to apply the encryption functions should not matter;   
+that is Ek(Ej(X)) = Ej(Ek(X)).
 
 We also suppose that this encryption key is *strong*, meaning that  
 a) given a message *X* and its encrypted version *Ek(X)*, we can never infer the key *K* and  
@@ -41,7 +42,7 @@ The authors propose a simple function that utilizes Euler's totient function and
 
 If you haven't read the paper yet (it takes no more than 5 minutes), here's the protocol steps for our two classic suspects, Bob and Alice.
 
-1) Bob and Alice agree on the encryption scheme. Each selects their key/passphrase, and creates their enryption/decryption function pairs *Eb/Db* and *Ea/Da*. The keys will remain secret until the end of the game, when they will be revealed to verify that no cheating has occured
+1) Bob and Alice agree on the encryption scheme. Each selects their key/passphrase, and creates their enryption/decryption function pairs *Eb/Db* and *Ea/Da*. The keys will remain secret until the end of the game, when they will be revealed to verify that no cheating has occured.
 
 2) It's Bob's turn to deal, so he creates a new deck and encrypts all of the cards using his encryption function. He then shuffles the deck.
 
@@ -53,16 +54,16 @@ If you haven't read the paper yet (it takes no more than 5 minutes), here's the 
 
 6) Alice receives her hand, and can use her decryption function to see what she has been dealt.
 
-7) The players can bet on their hand
+7) The players can bet on their hand.
 
-8) Finally, for the showdown, each player reveals their hand, *and* their secret key/passphrase. This way, each player can now check that the other was actually dealt the hand that he claims to have.
+8) Finally, for the showdown, each player reveals their hand, *and* their secret key/passphrase. This way, each player can now check that the other was actually dealt the hand that they claimed to have.
 
 
 ## The Code
 
 What feels so great about this process (at least for me) is that the physical-world analogy of using padlocks and sending over each card in a little box is *just as good* for understanding what's up, without having to mention anything about mathematics.
 
-Since we could gain a good feel of how this works, let's translate it into some hacky Go code! For the commutative encryption scheme, we can use a *ChaCha20 stream* to simply XOR with the key stream. A downside is that we have to re-create the Cipher object each time, since it maintains state and multiple calls to the `XORKeyStream` breaks the commutativity. Please reach out if you have a better alternative in mind!
+Since we could get a feel of how this works, let's translate it into some hacky Go code! For the commutative encryption scheme, we can use a *ChaCha20 stream* to simply XOR with the key stream. A downside is that we have to re-create the Cipher object each time, since it maintains state and multiple calls to the `XORKeyStream` breaks the commutativity. Please reach out if you have a better alternative in mind!
 
 ```go
 package main
@@ -233,4 +234,4 @@ func (c card) name() []byte {
 
 ## Outro
 
-That's all for today! I don't claim to know anything about crypto, so don't hesitate to reach out for any corrections and issues. See you around!
+That's all for today! I don't claim to know anything about crypto, but this has been a fun topic to discuss over beer! Don't hesitate to reach out for any corrections and issues. See you around!
