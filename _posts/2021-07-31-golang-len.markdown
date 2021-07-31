@@ -15,9 +15,10 @@ The impetus for this post was a question on the Gophers Slack a while back. A fe
 People chimed in quickly with a correct answer
 
 > It doesn't. Len is compiler magic, not an actual function call.
+
 > ... all the types len works on have the same header format, the compiler just treats the object like a header and returns the integer representing the length of elements
 
-And while those answers are technically true, I thought it would be nice to unfurl the layers that make up this 'magic' in a concise explanation! It was also a nice exercise into getting more insight about the inner workings of the Go compiler.
+And while those answers are technically true, I thought it would be nice to unfurl the layers that make up this 'magic' in a concise explanation! It was also a nice little exercise into getting more insight about the inner workings of the Go compiler.
 
 FYI, all links in this post point to the soon-to-be-released [Go 1.17 branch](https://github.com/golang/go/tree/release-branch.go1.17).
 
@@ -45,7 +46,7 @@ As the docstring suggests, this function is responsible for parsing Go source fi
 
 One of the things that takes place early on is [`typecheck.InitUniverse()`](https://github.com/golang/go/blob/release-branch.go1.17/src/go/types/universe.go) which defines the basic types, built-in functions, types and operands.
 
-There, we see how all built-in functions will be matched to an 'operation'.   
+There, we see how all built-in functions are matched to an 'operation'.   
 We can use `ir.OLEN` to trace the steps of a len statement.
 
 ```go
@@ -73,21 +74,21 @@ var builtinFuncs = [...]struct {
 
 Moving on a while down in InitUniverse, one can see the initialization of the `okfor` arrays, which define the valid types for various operands. For example, one can see how Go defines which types are valid for the `+` operator
 ```go
-		if types.IsInt[et] || et == types.TIDEAL {
-			...
-			okforadd[et] = true
-			...
+	if types.IsInt[et] || et == types.TIDEAL {
+		...
+		okforadd[et] = true
+		...
+	}
+	if types.IsFloat[et] {
+		...
+		okforadd[et] = true
+		...
 		}
-		if types.IsFloat[et] {
-			...
-			okforadd[et] = true
-			...
-			}
-		if types.IsComplex[et] {
-			...
-			okforadd[et] = true
-			...
-		}
+	if types.IsComplex[et] {
+		...
+		okforadd[et] = true
+		...
+	}
 ```
 
 In the same way, we can see all types which will be valid inputs for `len()`
@@ -201,7 +202,7 @@ func (s *state) expr(n ir.Node) *ssa.Value {
 ```
 
 ### Arrays
-For `arrays` we just return an constant integer based on the input array's `NumElem()` which just accesses the Bound field of the input array
+For `arrays` we just return an constant integer based on the input array's `NumElem()` method which just accesses the Bound field of the input array.
 
 ```go
 // Array contains Type fields specific to array types.
@@ -234,8 +235,9 @@ func (x *expandState) rewriteSelect(leaf *Value, selector *Value, offset int64, 
 ``` 
 
 ### Maps, Channels
-Finally for maps and channels we use the `referenceTypeBuiltin` helper. Its inner workings are a little magical, but what it ultimately does is take the address of the map/chan argument and reference its struct layout with zero offset, much like `unsafe.Pointer(uintptr(unsafe.Pointer(s)))`. This ends up returning the value of first struct field.
+Finally for maps and channels we use the `referenceTypeBuiltin` helper. Its inner workings are a little magical, but what it ultimately does is take the address of the map/chan argument and reference its struct layout with zero offset, much like `unsafe.Pointer(uintptr(unsafe.Pointer(s)))`. 
 
+This ends up returning the value of first struct field.
 ```go
 // referenceTypeBuiltin generates code for the len/cap builtins for maps and channels.
 func (s *state) referenceTypeBuiltin(n *ir.UnaryExpr, x *ssa.Value) *ssa.Value {
@@ -306,11 +308,13 @@ type hchan struct {
 ```
 
 ## Parting words
-Aaaand that's all! This post wasn't as *len*gthy as I thought it would be; I hope this was to you as interesting as it has been for me!
+Aaaand that's all! This post wasn't as *len*gthy as I thought it would be; I hope this was to you as well.
 
 I've got little experience with the inner workings of the Go compiler, so some things may be amiss. Also, many things are subject to change in the very near future, especially with generics and the new type system coming in the next couple of Go versions, but at least I hope I've provided a way that you can use to start digging around for yourself.
 
-In any case, please don't hesitate to reach out for comments, suggestions, ideas for new posts or simply talk about Go! Until next time, bye!
+In any case, please don't hesitate to reach out for comments, suggestions, ideas for new posts or simply talk about Go! 
+
+Until next time, bye!
 
 
 <!--
