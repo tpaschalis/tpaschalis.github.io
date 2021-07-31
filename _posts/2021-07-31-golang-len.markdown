@@ -46,8 +46,7 @@ As the docstring suggests, this function is responsible for parsing Go source fi
 
 One of the things that takes place early on is [`typecheck.InitUniverse()`](https://github.com/golang/go/blob/release-branch.go1.17/src/go/types/universe.go) which defines the basic types, built-in functions, types and operands.
 
-There, we see how all built-in functions are matched to an 'operation'.   
-We can use `ir.OLEN` to trace the steps of a len statement.
+There, we see how all built-in functions are matched to an 'operation' and we can use `ir.OLEN` to trace the steps of a call to len.
 
 ```go
 var builtinFuncs = [...]struct {
@@ -72,7 +71,7 @@ var builtinFuncs = [...]struct {
 }
 ```
 
-Moving on a while down in InitUniverse, one can see the initialization of the `okfor` arrays, which define the valid types for various operands. For example, one can see how Go defines which types are valid for the `+` operator
+Moving on a while down in `InitUniverse`, one can see the initialization of the `okfor` arrays, which define the valid types for various operands. For example, one can see how Go defines which types are valid for the `+` operator
 ```go
 	if types.IsInt[et] || et == types.TIDEAL {
 		...
@@ -102,9 +101,9 @@ In the same way, we can see all types which will be valid inputs for `len()`
 
 ## The compiler 'frontend'
 
-Moving on to the next major steps in the compilation process in our `main()`, we reach the point where the code parses and typechecks the input source starting with [`noder.LoadPackage(flag.Args())`](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/gc/main.go#L191-L192).
+Moving on to the next major steps in the compilation process, we reach the point where the input is parsed and typechecked starting with [`noder.LoadPackage(flag.Args())`](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/gc/main.go#L191-L192).
 
-A few levels deeper we can see each file being [parsed](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/noder/noder.go#L40-L64) and then type-checked in five distinct phases.
+A few levels deeper we can see each file being [parsed](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/noder/noder.go#L40-L64) individually and then type-checked in five distinct phases.
 ```
 Phase 1: const, type, and names and types of funcs.
 Phase 2: Variable assignments, interface assignments, alias declarations
@@ -113,7 +112,9 @@ Phase 4: Check external declarations.
 Phase 5: Verify map keys, unused dot imports.
 ```
 
-Once the len statement is encountered in the last type-checking phase, it's transformed to a `UnaryExpr` as it won't actually end up being a function call. The compiler also implicitly takes the argument's address and uses the `okforlen` array to verify the argument's legality or emit a correct error message.
+Once the len statement is encountered in the last type-checking phase, it's transformed to a `UnaryExpr`, meaning it won't actually end up being a function call as we will see. 
+
+The compiler implicitly takes the argument's address and uses the `okforlen` array to verify the argument's legality or emit a relevant error message.
 ```go
 // typecheck1 should ONLY be called from typecheck.
 func typecheck1(n ir.Node, top int) ir.Node {
@@ -171,7 +172,7 @@ There, each element in the queue is passed through `ssagen.Compile`
 	compile(compilequeue)
 ```
 
-where a few layers deep, after `buildssa` and `genssa` and we finally get to convert the expression of the the AST tree to SSA. 
+where a few layers deep, after `buildssa` and `genssa` and we finally get to convert the len expression in the AST tree to SSA. 
 
 At this point it's easy to see how each one of the available types is handled!
 ```go
@@ -179,22 +180,22 @@ At this point it's easy to see how each one of the available types is handled!
 func (s *state) expr(n ir.Node) *ssa.Value {
 	...
 	switch n.Op() {
-		case ir.OLEN, ir.OCAP:
-			n := n.(*ir.UnaryExpr)
-			switch {
-			case n.X.Type().IsSlice():
-				op := ssa.OpSliceLen
-				if n.Op() == ir.OCAP {
-					op = ssa.OpSliceCap
-				}
-				return s.newValue1(op, types.Types[types.TINT], s.expr(n.X))
-			case n.X.Type().IsString(): // string; not reachable for OCAP
-				return s.newValue1(ssa.OpStringLen, types.Types[types.TINT], s.expr(n.X))
-			case n.X.Type().IsMap(), n.X.Type().IsChan():
-				return s.referenceTypeBuiltin(n, s.expr(n.X))
-			default: // array
-				return s.constInt(types.Types[types.TINT], n.X.Type().NumElem())
+	case ir.OLEN, ir.OCAP:
+		n := n.(*ir.UnaryExpr)
+		switch {
+		case n.X.Type().IsSlice():
+			op := ssa.OpSliceLen
+			if n.Op() == ir.OCAP {
+				op = ssa.OpSliceCap
 			}
+			return s.newValue1(op, types.Types[types.TINT], s.expr(n.X))
+		case n.X.Type().IsString(): // string; not reachable for OCAP
+			return s.newValue1(ssa.OpStringLen, types.Types[types.TINT], s.expr(n.X))
+		case n.X.Type().IsMap(), n.X.Type().IsChan():
+			return s.referenceTypeBuiltin(n, s.expr(n.X))
+		default: // array
+			return s.constInt(types.Types[types.TINT], n.X.Type().NumElem())
+		}
 		...
 	}
 	...
@@ -202,7 +203,7 @@ func (s *state) expr(n ir.Node) *ssa.Value {
 ```
 
 ### Arrays
-For `arrays` we just return an constant integer based on the input array's `NumElem()` method which just accesses the Bound field of the input array.
+For `arrays` we just return an constant integer based on the input array's `NumElem()` method which just accesses the `Bound` field of the input array.
 
 ```go
 // Array contains Type fields specific to array types.
@@ -220,7 +221,7 @@ func (t *Type) NumElem() int64 {
 ### Slices, Strings
 For slices and strings, we have to take a peek at how `ssa.OpSliceLen` and `ssa.OpStringLen` are handled. 
 
-When either of those calls are lowered in the Late Expansion stage and the `rewriteSelect` method, the slices and strings are recursively walked to find out their size using pointer arithmetic like `offset+x.ptrSize`  
+When either of those calls are lowered in the Late Expansion stage and the `rewriteSelect` method, slices and strings are recursively walked to find out their size using pointer arithmetic like `offset+x.ptrSize`  
 
 ```go
 func (x *expandState) rewriteSelect(leaf *Value, selector *Value, offset int64, regOffset Abi1RO) []*LocalSlot {
@@ -235,9 +236,7 @@ func (x *expandState) rewriteSelect(leaf *Value, selector *Value, offset int64, 
 ``` 
 
 ### Maps, Channels
-Finally for maps and channels we use the `referenceTypeBuiltin` helper. Its inner workings are a little magical, but what it ultimately does is take the address of the map/chan argument and reference its struct layout with zero offset, much like `unsafe.Pointer(uintptr(unsafe.Pointer(s)))`. 
-
-This ends up returning the value of first struct field.
+Finally for maps and channels we use the `referenceTypeBuiltin` helper. Its inner workings are a little magical, but what it ultimately does is take the address of the map/chan argument and reference its struct layout with zero offset, much like `unsafe.Pointer(uintptr(unsafe.Pointer(s)))` which ends up returning the value of first struct field.
 ```go
 // referenceTypeBuiltin generates code for the len/cap builtins for maps and channels.
 func (s *state) referenceTypeBuiltin(n *ir.UnaryExpr, x *ssa.Value) *ssa.Value {
@@ -275,7 +274,6 @@ func (s *state) referenceTypeBuiltin(n *ir.UnaryExpr, x *ssa.Value) *ssa.Value {
 ```
 
 The definitions of the `hmap` and `hchan` structs show that their first fields *do* indeed contain what we need for `len` i.e. the live map cells and channel queue data respectively.
-
 ```go
 type hmap struct {
 	count     int // # live cells == size of map.  Must be first (used by len() builtin)
@@ -308,7 +306,7 @@ type hchan struct {
 ```
 
 ## Parting words
-Aaaand that's all! This post wasn't as *len*gthy as I thought it would be; I hope this was to you as well.
+Aaaand that's all! This post wasn't as **len**gthy as I thought it would be; I just hope it was interesting to you as well.
 
 I've got little experience with the inner workings of the Go compiler, so some things may be amiss. Also, many things are subject to change in the very near future, especially with generics and the new type system coming in the next couple of Go versions, but at least I hope I've provided a way that you can use to start digging around for yourself.
 
