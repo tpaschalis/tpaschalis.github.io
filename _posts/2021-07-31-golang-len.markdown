@@ -150,22 +150,9 @@ func tcLenCap(n *ir.UnaryExpr) ir.Node {
 }
 ```
 
-Back to the main compiler flow and after everything is type-checked all functions are enqueued to be compiled
-```go
-	base.Timer.Start("be", "compilefuncs")
-	fcount := int64(0)
-	for i := 0; i < len(typecheck.Target.Decls); i++ {
-		if fn, ok := typecheck.Target.Decls[i].(*ir.Func); ok {
-			enqueueFunc(fn)
-			fcount++
-		}
-	}
-	base.Timer.AddEvent(fcount, "funcs")
+Back to the main compiler flow and after everything is type-checked all functions are [enqueued to be compiled](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/gc/main.go#L277-L287) before `compileFunctions()` is called.
 
-	compileFunctions()
-```
-
-Inside `compileFunctions()`, each element in the queue is passed through `ssagen.Compile`.
+Inside `compileFunctions()`, each element in the queue is passed through `ssagen.Compile`
 ```go
 	compile = func(fns []*ir.Func) {
 		wg.Add(len(fns))
@@ -182,7 +169,7 @@ Inside `compileFunctions()`, each element in the queue is passed through `ssagen
 	compile(compilequeue)
 ```
 
-Where a few layers deep, we finally get to convert the expression of the the AST tree to SSA. At this point it's easy to see how each one of the available types is handled!
+where a few layers deep, after `buildssa` and `genssa` and we finally get to convert the expression of the the AST tree to SSA. At this point it's easy to see how each one of the available types is handled!
 
 ```go
 // expr converts the expression n to ssa, adds it to s and returns the ssa result.
