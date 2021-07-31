@@ -19,7 +19,7 @@ People chimed in quickly with a correct answer
 
 And while those answers are technically true, I thought it would be nice to unfurl the layers that make up this 'magic' in a concise explanation! It was also a nice exercise into getting more insight about the inner workings of the Go compiler.
 
-FYI, all links in this post point to the soon-to-be-released Go 1.17 branch.
+FYI, all links in this post point to the soon-to-be-released [Go 1.17 branch](https://github.com/golang/go/tree/release-branch.go1.17).
 
 <!-- ## The investigation
 
@@ -39,13 +39,14 @@ The Go compiler consists of four main phases. You can start reading about them [
 Let's dive back in!
 
 ## The entrypoint
-The entrypoint of the Go compiler is (unsurprisingly) the `main()` function in the `compile/internal/gc` package [here](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/gc/main.go).
+The entrypoint of the Go compiler is (unsurprisingly) the [`main()`](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/gc/main.go) function in the `compile/internal/gc` package.
 
 As the docstring suggests, this function is responsible for parsing Go source files, type-checking the parsed Go package, compiling everything to machine code and writing the compiled package definition.
 
-One of the things that takes place early on is `typecheck.InitUniverse()` [here](https://github.com/golang/go/blob/release-branch.go1.17/src/go/types/universe.go) which defines the basic types, built-in functions, types and operands.
+One of the things that takes place early on is [`typecheck.InitUniverse()`](https://github.com/golang/go/blob/release-branch.go1.17/src/go/types/universe.go) which defines the basic types, built-in functions, types and operands.
 
-There, we can see how all built-in functions will be matched to an 'operation'. We can use `ir.OLEN` to trace the journey of a len statement.
+There, we see how all built-in functions will be matched to an 'operation'.   
+We can use `ir.OLEN` to trace the steps of a len statement.
 
 ```go
 var builtinFuncs = [...]struct {
@@ -103,15 +104,15 @@ In the same way, we can see all types which will be valid inputs for `len()`
 Moving on to the next major steps in the compilation process in our `main()`, we reach the point where the code parses and typechecks the input source starting with [`noder.LoadPackage(flag.Args())`](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/gc/main.go#L191-L192).
 
 A few levels deeper we can see each file being [parsed](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/noder/noder.go#L40-L64) and then type-checked in five distinct phases.
-```go
-	// Phase 1: const, type, and names and types of funcs.
-	// Phase 2: Variable assignments, interface assignments, alias declarations
-	// Phase 3: Type check function bodies.
-	// Phase 4: Check external declarations.
-	// Phase 5: Verify map keys, unused dot imports.
+```
+Phase 1: const, type, and names and types of funcs.
+Phase 2: Variable assignments, interface assignments, alias declarations
+Phase 3: Type check function bodies.
+Phase 4: Check external declarations.
+Phase 5: Verify map keys, unused dot imports.
 ```
 
-Once the len statement is encountered in the last type-checking phase, it's transformed to a `UnaryExpr` as it won't actually end up being a function call. The compiler also implicitly takes the argument's address and uses the `okforlen` array to verify the argument's legality and emit a correct error message if it's not in the valid types.
+Once the len statement is encountered in the last type-checking phase, it's transformed to a `UnaryExpr` as it won't actually end up being a function call. The compiler also implicitly takes the argument's address and uses the `okforlen` array to verify the argument's legality or emit a correct error message.
 ```go
 // typecheck1 should ONLY be called from typecheck.
 func typecheck1(n ir.Node, top int) ir.Node {
@@ -152,7 +153,7 @@ func tcLenCap(n *ir.UnaryExpr) ir.Node {
 
 Back to the main compiler flow and after everything is type-checked all functions are [enqueued to be compiled](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/gc/main.go#L277-L287) before `compileFunctions()` is called.
 
-Inside `compileFunctions()`, each element in the queue is passed through `ssagen.Compile`
+There, each element in the queue is passed through `ssagen.Compile`
 ```go
 	compile = func(fns []*ir.Func) {
 		wg.Add(len(fns))
@@ -169,8 +170,9 @@ Inside `compileFunctions()`, each element in the queue is passed through `ssagen
 	compile(compilequeue)
 ```
 
-where a few layers deep, after `buildssa` and `genssa` and we finally get to convert the expression of the the AST tree to SSA. At this point it's easy to see how each one of the available types is handled!
+where a few layers deep, after `buildssa` and `genssa` and we finally get to convert the expression of the the AST tree to SSA. 
 
+At this point it's easy to see how each one of the available types is handled!
 ```go
 // expr converts the expression n to ssa, adds it to s and returns the ssa result.
 func (s *state) expr(n ir.Node) *ssa.Value {
@@ -215,7 +217,9 @@ func (t *Type) NumElem() int64 {
 ```
 
 ### Slices, Strings
-For slices and strings, we have to go one level deeper, and see how `ssa.OpSliceLen` and `ssa.OpStringLen` are defined. When either of those calls are lowered in the Late Expansion stage and the `rewriteSelect` method, the slices and strings are recursively walked to find out their size using pointer arithmetic like `offset+x.ptrSize`  
+For slices and strings, we have to take a peek at how `ssa.OpSliceLen` and `ssa.OpStringLen` are handled. 
+
+When either of those calls are lowered in the Late Expansion stage and the `rewriteSelect` method, the slices and strings are recursively walked to find out their size using pointer arithmetic like `offset+x.ptrSize`  
 
 ```go
 func (x *expandState) rewriteSelect(leaf *Value, selector *Value, offset int64, regOffset Abi1RO) []*LocalSlot {
@@ -227,11 +231,10 @@ func (x *expandState) rewriteSelect(leaf *Value, selector *Value, offset int64, 
 	...
 	}
 	return locs
-
 ``` 
 
 ### Maps, Channels
-Finally for maps and channels we use the `referenceTypeBuiltin` helper. Its inner workings are a little magical, but what it ultimately does is take the address of the map/chan argument and reference its struct layout with zero offset, much like `unsafe.Pointer(uintptr(unsafe.Pointer(s)))` which ends up as the first struct field.
+Finally for maps and channels we use the `referenceTypeBuiltin` helper. Its inner workings are a little magical, but what it ultimately does is take the address of the map/chan argument and reference its struct layout with zero offset, much like `unsafe.Pointer(uintptr(unsafe.Pointer(s)))`. This ends up returning the value of first struct field.
 
 ```go
 // referenceTypeBuiltin generates code for the len/cap builtins for maps and channels.
@@ -269,10 +272,9 @@ func (s *state) referenceTypeBuiltin(n *ir.UnaryExpr, x *ssa.Value) *ssa.Value {
 }
 ```
 
-The definitions of the `hmap` and `hchan` structs verify that statement, since their first fields are the live map cells and channel queue data, which are what we need for `len`.
+The definitions of the `hmap` and `hchan` structs show that their first fields *do* indeed contain what we need for `len` i.e. the live map cells and channel queue data respectively.
 
 ```go
-// A header for a Go map.
 type hmap struct {
 	count     int // # live cells == size of map.  Must be first (used by len() builtin)
 	flags     uint8
@@ -308,7 +310,7 @@ Aaaand that's all! This post wasn't as *len*gthy as I thought it would be; I hop
 
 I've got little experience with the inner workings of the Go compiler, so some things may be amiss. Also, many things are subject to change in the very near future, especially with generics and the new type system coming in the next couple of Go versions, but at least I hope I've provided a way that you can use to start digging around for yourself.
 
-Until next time, bye!
+In any case, please don't hesitate to reach out for comments, suggestions, ideas for new posts or simply talk about Go! Until next time, bye!
 
 
 <!--
