@@ -44,7 +44,7 @@ The entrypoint of the Go compiler is (unsurprisingly) the [`main()`](https://git
 
 As the docstring suggests, this function is responsible for parsing Go source files, type-checking the parsed Go package, compiling everything to machine code and writing the compiled package definition.
 
-One of the things that takes place early on is [`typecheck.InitUniverse()`](https://github.com/golang/go/blob/release-branch.go1.17/src/go/types/universe.go) which defines the basic types, built-in functions, types and operands.
+One of the things that takes place early on is [`typecheck.InitUniverse()`](https://github.com/golang/go/blob/release-branch.go1.17/src/go/types/universe.go) which defines the basic types, built-in functions and operands.
 
 There, we see how all built-in functions are matched to an 'operation' and we can use `ir.OLEN` to trace the steps of a call to len.
 
@@ -71,7 +71,7 @@ var builtinFuncs = [...]struct {
 }
 ```
 
-Moving on a while down in `InitUniverse`, one can see the initialization of the `okfor` arrays, which define the valid types for various operands. For example, one can see how Go defines which types are valid for the `+` operator
+Later on in `InitUniverse`, one can see the initialization of the `okfor` arrays, which define the valid types for various operands; for example which types should be allowed for the `+` operator.
 ```go
 	if types.IsInt[et] || et == types.TIDEAL {
 		...
@@ -106,13 +106,13 @@ Moving on to the next major steps in the compilation process, we reach the point
 A few levels deeper we can see each file being [parsed](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/noder/noder.go#L40-L64) individually and then type-checked in five distinct phases.
 ```
 Phase 1: const, type, and names and types of funcs.
-Phase 2: Variable assignments, interface assignments, alias declarations
+Phase 2: Variable assignments, interface assignments, alias declarations.
 Phase 3: Type check function bodies.
 Phase 4: Check external declarations.
 Phase 5: Verify map keys, unused dot imports.
 ```
 
-Once the len statement is encountered in the last type-checking phase, it's transformed to a `UnaryExpr`, meaning it won't actually end up being a function call as we will see. 
+Once the len statement is encountered in the last type-checking phase, it's transformed to a `UnaryExpr`, as it won't actually end up being a function call. 
 
 The compiler implicitly takes the argument's address and uses the `okforlen` array to verify the argument's legality or emit a relevant error message.
 ```go
@@ -153,9 +153,9 @@ func tcLenCap(n *ir.UnaryExpr) ir.Node {
 }
 ```
 
-Back to the main compiler flow and after everything is type-checked all functions are [enqueued to be compiled](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/gc/main.go#L277-L287) before `compileFunctions()` is called.
+Back to the main compiler flow and after everything is type-checked, all functions are [enqueued to be compiled](https://github.com/golang/go/blob/release-branch.go1.17/src/cmd/compile/internal/gc/main.go#L277-L287).
 
-There, each element in the queue is passed through `ssagen.Compile`
+ In `compileFunctions()` each element in the queue is passed through `ssagen.Compile`
 ```go
 	compile = func(fns []*ir.Func) {
 		wg.Add(len(fns))
