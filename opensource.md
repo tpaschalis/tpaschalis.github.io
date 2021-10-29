@@ -5,6 +5,11 @@ permalink: /opensource/
 ---
 
 ### Go
+* [cmd/go: make mod init disallow invalid major version suffixes](https://github.com/golang/go/commit/a2a9a7b5132c7a0b1d4c297018d6072101456709)  
+* [testing: add -shuffle=off|on|N to alter the execution order of tests and benchmarks](https://github.com/golang/go/commit/cbb3f090477de92a7e158050803ef71a5ea825ee)  
+* [archive/zip: fix imports block of biggestZipBytes generator](https://github.com/golang/go/commit/4efd581383ade76c562953289ed8210bb55bff47)  
+* [runtime: replace outdated documentation link in Windows' nanotime](https://github.com/golang/go/commit/5d80f8a82b1fc3261bb4279f1426a9767b654e92)  
+* [reflect: panic if ArrayOf is called with negative length](https://github.com/golang/go/commit/d7cc2f1d7c60b51c600c7d0c808610985dcd9b0c)  
 * [crypto/x509: return errors instead of panicking](https://github.com/golang/go/commit/27280d8c14331c1c46cd90206be9f3c924f6b4c4)  
 * [runtime: improve error messages after allocating a stack that is too big](https://github.com/golang/go/commit/331614c4daa5504ddfe35a96371cc34783d14cf1)  
 * [src/go.mod, net/http: update bundled and latest golang.org/x/net](https://github.com/golang/go/commit/62fe10bf4e62c97af3bb8eb2ef72d9224a8752ba)  
@@ -17,6 +22,10 @@ permalink: /opensource/
 * [Add packer.ExpandUser() function to support tilde in usage of config.ValidationKeyPath (#8657)](https://github.com/hashicorp/packer/commit/beca6de71ba2c87c981cf12a997eb6008984c801)  
 
 ### beatlabs/patron
+* [Set status code in dynamicCompressionResponseWriter early exit (#429)](https://github.com/beatlabs/patron/commit/a93562a0b961b2a5140afcdea8d5a0e0fec97b72)  
+* [Attempt to ignore patch versions of aws sdk (#381)](https://github.com/beatlabs/patron/commit/cbab2b11b92299bdd12bb408e153e02571ad57b3)  
+* [Enable setting uncompressed paths in service builder (#304)](https://github.com/beatlabs/patron/commit/c0556559f4a96c5cc1aa7d2c7fe651e58715e540)  
+* [Introduce compression middleware (#270)](https://github.com/beatlabs/patron/commit/3783bea7f04d03b2551eb314243a77b27fef7eb6)  
 * [Sync goroutine assertion in component/http with caller test (#269)](https://github.com/beatlabs/patron/commit/ef6b531c6d33f4c4e53f86914c50af3986c58794)  
 * [Retrieve error causing consumer group to close (#262)](https://github.com/beatlabs/patron/commit/6bdcd50ed2fd7289433a9a9e8625cfc4945840ee)  
 * [Fix logger initialization in patron-cli (#258)](https://github.com/beatlabs/patron/commit/1bbe88cf64f86ebe16e02773daf103b916022649)  
