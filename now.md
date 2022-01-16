@@ -11,7 +11,9 @@ It's a simple page, serving as a public declaration of priorities, helping me ke
 You can browse some great now pages and blogs from [nownownow.com](https://nownownow.com/)
 
 ## What I'm doing right now
-- I'm working as a Backend Engineer for [Beat](https://thebeat.co)
+- I'm working as a Software Engineer for [Grafana Labs](https://grafana.com/)
+- Building a path for my long-term career goal of becoming a _great_ software engineer (for any definition of that term)
+- I'm trying to give back to the open source community by [contributing](https://tpaschalis.github.io/opensource/) to different projects
+- I'm interested in developing a deeper understanding for Distributed Systems and performance engineering
 - I'm working towards building the skill set and understanding of a more Senior engineer; that includes both soft skills, team/organization dynamics, systems thinking and that elusive higher level vision and 'common sense' that transcends specific tech stacks
-- I'm working on becoming a better software engineer, practicing my Go and [Distributed Systems skills](https://www.youtube.com/watch?v=cQP8WApzIQQ&list=PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB)
-- I'm trying to stay the course and reach 52 [blog posts](https://tpaschalis.github.io) for ~~2020~~ 2021
+
