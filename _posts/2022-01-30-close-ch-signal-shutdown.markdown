@@ -45,11 +45,13 @@ go c.Run()
 
 ### The question is, _how would you stop all instances of `foo`?_
 
-Someone might say keep track of them and send an exit signal to each one (eg. `a.exit <- struct{}{}`)
+Someone might say keep track of them and send an exit signal to each one  
+(eg. `a.exit <- struct{}{}`)
 
 This won't work as you'd expect; the shared channel means you don't know _which_ instance would receive the exit signal.
 
-Another might try to send N exit signals to the shared exit channel (`eg. for i := range pool; exit <- struct{}{}`)
+Another might try to send N exit signals to the shared exit channel  
+(`eg. for i := range pool; exit <- struct{}{}`)
 
 This _could_ work, but requires that you keep meticulous track of how many instances are currently running. In the meantime, if an instance was already shut down there would be no receiver and you could get a deadlock; or if a new instance was added, then it might be left running.
 
@@ -63,9 +65,9 @@ The [Go language specification](https://go.dev/ref/spec#Close) mentions :
 
 So `close(ch)` provides a concise way to unblock all receive operations and simultaneously provide that signal to them. It also is another reminder to ["make zero values useful"](https://dave.cheney.net/2013/01/19/what-is-the-zero-value-and-why-is-it-useful).
 
-When I discussed this with a friend, he mentioned that he'd actually use a context to handle cancellation for long-running goroutines, but that's also what happens in the background when we use [context.cancelCtx](https://github.com/golang/go/blob/release-branch.go1.17/src/context/context.go#L411).
+When I discussed this with a friend, he mentioned that he'd actually use a context to handle cancellation for long-running goroutines, but that's also what [context.cancelCtx](https://github.com/golang/go/blob/release-branch.go1.17/src/context/context.go#L411) uses in the background.
 
-So that's it for today! I love learning this kind of small and useful tidbits. Let me know if you have any other fun facts around closing channels!
+So that's it for today! I love learning this kind of small and useful tidbits; let me know if you have any other fun facts around closing channels!
 
 Until next time, bye!
 
