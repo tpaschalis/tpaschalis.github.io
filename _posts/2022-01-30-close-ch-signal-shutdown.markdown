@@ -8,12 +8,12 @@ mathjax: false
 description: ""
 ---
 
-So, this past week I learned something unexpected and fun at work. Well I learned many things, but this just ticked all the boxes of a great party trick; 
+So, this past week I learned something fun at work. Well I learned many things, but this just ticked all the boxes of a great party trick;   
 ✅ short  
 ✅ unexpected  
 ✅ makes total sense if you think about it  
 
-It's about what `close(ch)`. Do I have your attention?
+Do I have your attention?
 
 ### The code
 Let's say you have a pool of small, long-running things that you want to stop by signalling a channel
@@ -37,21 +37,21 @@ exit := make(chan struct{})
 a := foo{"first", exit}
 b := foo{"second", exit}
 c := foo{"third", exit}
-// .....
+
 go a.Run()
 go b.Run()
 go c.Run()
 ```
 
-_How would you stop all instances of `foo`?_
+### The question is, _how would you stop all instances of `foo`?_
 
-- Keep track of them and send an exit signal to each one (eg. `a.exit <- struct{}{}`)
+Someone might say keep track of them and send an exit signal to each one (eg. `a.exit <- struct{}{}`)
 
 This won't work as you'd expect; the shared channel means you don't know _which_ instance would receive the exit signal.
 
-- Send N exit signals to the shared exit channel (`eg. for i := range pool; exit <- struct{}{}`)
+Another might try to send N exit signals to the shared exit channel (`eg. for i := range pool; exit <- struct{}{}`)
 
-This _could_ work, but requires that you keep meticulous track of how many instances are currently running. In the meantime, if an instance was already shut down, there would be no receiver and you could get a deadlock; or if a new instance was added, then it might be left running.
+This _could_ work, but requires that you keep meticulous track of how many instances are currently running. In the meantime, if an instance was already shut down there would be no receiver and you could get a deadlock; or if a new instance was added, then it might be left running.
 
 The best solution here is much simpler. Just call `close(ch)`!
 
@@ -61,11 +61,11 @@ The [Go language specification](https://go.dev/ref/spec#Close) mentions :
 
 > After calling close, and after any previously sent values have been received, _receive operations will return the zero value for the channel's type without blocking._
 
-So `close(ch)` provides a concise way to unblock all receive operations and simultaneously provide that signal. It also is another reminder to ["make zero values useful"](https://dave.cheney.net/2013/01/19/what-is-the-zero-value-and-why-is-it-useful).
+So `close(ch)` provides a concise way to unblock all receive operations and simultaneously provide that signal to them. It also is another reminder to ["make zero values useful"](https://dave.cheney.net/2013/01/19/what-is-the-zero-value-and-why-is-it-useful).
 
-When I discussed this with a friend, he mentioned that he'd actually use a context to handle cancellation for long-running goroutines, but that's also what happens when we use [context.cancelCtx](https://github.com/golang/go/blob/release-branch.go1.17/src/context/context.go#L411).
+When I discussed this with a friend, he mentioned that he'd actually use a context to handle cancellation for long-running goroutines, but that's also what happens in the background when we use [context.cancelCtx](https://github.com/golang/go/blob/release-branch.go1.17/src/context/context.go#L411).
 
-So that's it for today! I love when I learn this kind of small and useful tidbits. Let me know if you have any other fun things around closing channels!
+So that's it for today! I love learning this kind of small and useful tidbits. Let me know if you have any other fun facts around closing channels!
 
 Until next time, bye!
 
