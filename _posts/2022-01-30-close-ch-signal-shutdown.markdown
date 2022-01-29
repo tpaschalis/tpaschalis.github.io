@@ -8,7 +8,8 @@ mathjax: false
 description: ""
 ---
 
-So, this past week I learned something fun at work. Well I learned many things, but this just ticked all the boxes of a great party trick;   
+So, this past week I learned something fun at work.  
+Well I learned many things, but this just ticked all the boxes of a great party trick;   
 ✅ short  
 ✅ unexpected  
 ✅ makes total sense if you think about it  
@@ -55,7 +56,7 @@ Another might try to send N exit signals to the shared exit channel
 
 This _could_ work, but requires that you keep meticulous track of how many instances are currently running. In the meantime, if an instance was already shut down there would be no receiver and you could get a deadlock; or if a new instance was added, then it might be left running.
 
-The best solution here is much simpler. Just call `close(ch)`!
+The best solution here is much simpler. Just call `close(exit)`!
 
 The [Go language specification](https://go.dev/ref/spec#Close) mentions : 
 
