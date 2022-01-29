@@ -31,7 +31,7 @@ _aaaand_ I completely lost that viewpoint as I went through a rut. Now that I'm 
 
 ### Looking back to last year's summary...
 
-Last year's goals..... ended up _way off_ the mark. I won't be a downer here and start a small rant, but here's to a better year!
+Last year's goals..... ended up _way off_ the mark. I won't be a downer here and start a small rant, but here's to better things!
 
 ### Goals for 2022..?
 You know what? I'll leave technical goals off for this year. I still haven't changed my mind about them, I love Go, Distributed Systems, want to grow as a SWE and be a 'creator'. So I'll put out some non-technical ones for this year:
