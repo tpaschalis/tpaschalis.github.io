@@ -51,7 +51,7 @@ Someone might say keep track of them and send an exit signal to each one
 This won't work as you'd expect; the shared channel means you don't know _which_ instance would receive the exit signal.
 
 Another might try to send N exit signals to the shared exit channel  
-(`eg. for i := range pool; exit <- struct{}{}`)
+(eg. `for i := range pool; exit <- struct{}{}`)
 
 This _could_ work, but requires that you keep meticulous track of how many instances are currently running. In the meantime, if an instance was already shut down there would be no receiver and you could get a deadlock; or if a new instance was added, then it might be left running.
 
