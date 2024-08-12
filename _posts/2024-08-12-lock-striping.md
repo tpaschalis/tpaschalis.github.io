@@ -8,7 +8,7 @@ mathjax: false
 description: "This could have a fancier name. Something with zebras? Or a race car?"
 ---
 
-Let's discuss *lock striping*, a very simple technique to reduce lock contention that I haven't seen being mentioned nearly enough. The technique is also known by a bunch of different names, let me know what _you_'ve heard it called!
+Concurrency is a common challenge, particularly when it comes to managing access to shared data structures. One of the key issues is lock contention, where multiple threads compete for access to the same resources, potentially leading to performance bottlenecks. In this post, we’ll explore *lock striping*, a straightforward technique to reduce lock contention that I haven't seen mentioned nearly enough.
 
 ## The problem
 
@@ -18,9 +18,7 @@ Generally solutions to this fall somewhere in the spectrum between coarse-graine
 
 Solutions falling on the earlier part of the spectrum benefit from low overhead but end up with sequential access to the data as usage grows and grabbing/releasing locks in a hot path isn't cheap on the CPU; while solutions falling on the latter part theoretically allow for constant-time concurrent access but with  additional overhead that scales with the size of data.
 
-
 Generally, it's hard to predict what solution will perform better under concurrent access in your specific language, CPU architecture and system load. Go itself contains a [sync.Map](https://pkg.go.dev/sync#Map) types, but it does come with very specific caveats on how to use. So as it's with all performance problems, the same advice applies _"First measure, then improve"_, and this technique allows just that.
-
 
 ## The idea
 
@@ -48,7 +46,6 @@ Here's a slimmed-down version of the struct to showcase the functionality
 // A smaller StripeSize reduces the memory allocated, but can decrease performance with large number of series.
 // DefaultStripeSize is the default number of entries to allocate in the stripeSeries hash map.
 DefaultStripeSize = 1 << 14
-
 
 type stripeSeries struct {
     size    int
