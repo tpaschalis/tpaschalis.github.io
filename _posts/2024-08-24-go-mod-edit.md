@@ -82,18 +82,20 @@ exist in a released version. Here's my usual workflow:
 
 ```
 # Let's try to add the commit directly
-	reading github.com/tpaschalis/prometheus/go.mod at revision v0.0.0-af5a7d1078cee78856d38a879d9ce33a6fdc10b7:
-    unknown revision v0.0.0-af5a7d1078cee78856d38a879d9ce33a6fdc10b7
+  reading github.com/tpaschalis/prometheus/go.mod at revision v0.0.0-af5a7d1078cee78856d38a879d9ce33a6fdc10b7:
+  unknown revision v0.0.0-af5a7d1078cee78856d38a879d9ce33a6fdc10b7
 
 # Whoops, that was wrong, I need a timestamp. Let's add a random one
 # Attempt #2; whoops looks like I need I need to trim down the SHA length
-	pseudo-version "v0.0.0-20211119180816-af5a7d1078cee78856d38a879d9ce33a6fdc10b7" invalid: revision is longer than canonical (expected af5a7d1078ce)
+  pseudo-version "v0.0.0-20211119180816-af5a7d1078cee78856d38a879d9ce33a6fdc10b7"
+  invalid: revision is longer than canonical (expected af5a7d1078ce)
 
 # Ok, now I need to copy the correct timestamp
-	pseudo-version "v0.0.0-20211119180816-af5a7d1078ce" invalid: does not match version-control timestamp (expected 20200316180026)
+  pseudo-version "v0.0.0-20211119180816-af5a7d1078ce"
+  invalid: does not match version-control timestamp (expected 20200316180026)
 
-# Great, I can _finally_ try to test out a custom dependency
-    go: downloading github.com/tpaschalis/prometheus v0.0.0-20200316180026-af5a7d1078ce
+# Great, I can _finally_ try to test my custom dependency
+  go: downloading github.com/tpaschalis/prometheus v0.0.0-20200316180026-af5a7d1078ce
 ```
 
 But now, things can be much simpler:
