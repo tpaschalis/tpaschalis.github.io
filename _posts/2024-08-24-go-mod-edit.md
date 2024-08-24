@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Stop editing go.mod manually
+title:  Let's stop editing go.mod manually
 date:   2024-08-24
 author: Paschalis Ts
 tags:   [go, tooling]
@@ -81,21 +81,22 @@ Let's say I want to want to temporarily test out a dependency that doesn't
 exist in a released version. Here's my usual workflow:
 
 ```
-# Let's try to add the commit directly by copying an existing replace
-# Whoops, that was wrong
-	gotest.tools/v3/fs: github.com/prometheus/prometheus@v0.53.0: reading github.com/tpaschalis/prometheus/go.mod at revision v0.0.0-af5a7d1078cee78856d38a879d9ce33a6fdc10b7: unknown revision v0.0.0-af5a7d1078cee78856d38a879d9ce33a6fdc10b7
+# Let's try to add the commit directly
+	reading github.com/tpaschalis/prometheus/go.mod at revision v0.0.0-af5a7d1078cee78856d38a879d9ce33a6fdc10b7:
+    unknown revision v0.0.0-af5a7d1078cee78856d38a879d9ce33a6fdc10b7
 
-# Ok, I need to trim down the SHA length
-	gotest.tools/v3/fs: github.com/prometheus/prometheus@v0.53.0 (replaced by github.com/tpaschalis/prometheus@v0.0.0-20211119180816-af5a7d1078cee78856d38a879d9ce33a6fdc10b7): pseudo-version "v0.0.0-20211119180816-af5a7d1078cee78856d38a879d9ce33a6fdc10b7" invalid: revision is longer than canonical (expected af5a7d1078ce)
+# Whoops, that was wrong, I need a timestamp. Let's add a random one
+# Attempt #2; whoops looks like I need I need to trim down the SHA length
+	pseudo-version "v0.0.0-20211119180816-af5a7d1078cee78856d38a879d9ce33a6fdc10b7" invalid: revision is longer than canonical (expected af5a7d1078ce)
 
 # Ok, now I need to copy the correct timestamp
-	gotest.tools/v3/fs: github.com/prometheus/prometheus@v0.53.0 (replaced by github.com/tpaschalis/prometheus@v0.0.0-20211119180816-af5a7d1078ce): pseudo-version "v0.0.0-20211119180816-af5a7d1078ce" invalid: does not match version-control timestamp (expected 20200316180026)
+	pseudo-version "v0.0.0-20211119180816-af5a7d1078ce" invalid: does not match version-control timestamp (expected 20200316180026)
 
 # Great, I can _finally_ try to test out a custom dependency
-go: downloading github.com/tpaschalis/prometheus v0.0.0-20200316180026-af5a7d1078ce
+    go: downloading github.com/tpaschalis/prometheus v0.0.0-20200316180026-af5a7d1078ce
 ```
 
-But now, the workflow is much simpler
+But now, things can be much simpler:
 
 ```
 $ go mod edit -replace=github.com/prometheus/prometheus=github.com/tpaschalis/prometheus@1b86d54c7facda4a8d3a4df8e143283a9b498492
@@ -104,6 +105,6 @@ $ go mod tidy
 
 ### Outro
 
-And that's all for today! Let me know if you know of any interesting tricks or use cases for go mod edit!
+And that's all for today! If you know of any interesting tricks or use cases for go mod edit, hit me up on [Twitter](https://twitter.com/tpaschalis_) or [Mastodon](https://m.tpaschalis.me/@tpaschalis)!
 
 Until next time, bye!
