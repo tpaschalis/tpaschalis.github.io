@@ -10,6 +10,45 @@ I used to be an avid book reader. For some years, university education made me *
 Here's a list of books that I’ve read since early 2019, along with tweet-long comments. Titles in **bold** are ones that I would highly recommend.   
 Hope you can find something interesting here as well!
 
+
+## 2024
+
+So I continued _not_ reading anything in 2024, until GrafanaCon 2024. I had several hours to spend on the airport, so I picked up the equivalent of the McDonalds hamgurger of a book -- something quick, dirty, devoid of nearly any sustenance, but enough to get you more hungry. This was [Traitor's Gate](https://www.amazon.com/Traitors-Gate-rollercoaster-thriller-Chronicles-ebook/dp/B0BG3QSJYN/) by Jeffrey Archer, which for some reason has _nearly 12k reviews on Amazon, wth_. The _first_ book of that series has nearly 35k, so yeah, this looks like it's another case that proves [the world is a huge place](https://tpaschalis.me/a-huge-world/).
+
+But anyway, coming back, it was the weekend, and no bookstores were open, so I got to the nearest supermarket and got my first Stephen King novel, it all went on autopilot from there haha.
+
+* [Hyperion](https://www.amazon.com/Hyperion-Cantos-Dan-Simmons-1990-03-01/dp/B01NBOLD9I) by Dan Simmons
+_THIS_ is how popular Sci-Fi is done. Suck it, Dune! Jokes aside, It was really gripping; I had a nightmare about a certain story in the beginning of the book, and another story nearer the end made a grown man nearly cry :) The mystery still holds, really excited to see how the second book of the series holds up.
+* [Do Androids Dream of Electric Sheep?](https://www.amazon.com/Androids-Dream-Electric-Sheep-inspiration/dp/0345404475) by Philip K. Dick
+I _really_ enjoyed all the meta-commentary on religion, consumerism, ecology, exitus acta probat, war and the entire mystery permeating through the background. After seeing Blade Runner, I was happy I'd seen a good-ish movie, but there's no way it could capture everything underneath.
+
+* ['Salem's Lot](https://www.amazon.com/Salems-Lot-Stephen-King/dp/B0D6M6CCVJ) by Stephen King
+* [Dark Tower Book series](https://www.amazon.com/Dark-Tower-Complete-Gunslinger-Wastelands/dp/1604322667) by Stephen King, books 1-3
+* [Hitchiker's Guide to Galaxy](https://www.amazon.com/Hitchhikers-Guide-Galaxy/dp/B0009JKV9W) by Douglas Adams
+
+## 2022 - 2023
+
+I didn't read much (or even at all) I think. Not sure what happened there tbh /shrug. Off the top of my mind:
+
+* [**The Culture Map**](https://www.amazon.com/Culture-Map-INTL-ED-Decoding/dp/1610392760) by Erin Meyer
+This is a _MUST_ read for anyone working at an international, distributed company. It was a recommended reading in my current employer, and we actually got to have a session with Erin herself, which was even more amazing. The ROI you'll get by this book makes this to me, a no brainer.
+
+* [The Basic Laws of Human Stupidity](https://www.amazon.com/Basic-Laws-Human-Stupidity/dp/0385546475/) by Carlo M. Cipolla
+If I had to sum it up with one sentence, it'd this excerpt: *A stupid person is a person who causes losses to another person while deriving no gain and even possibly incurring losses themselves*. Along with [Hanlon's Razor](https://en.wikipedia.org/wiki/Hanlon%27s_razor) it's a core prerequisite to surviving any kind of politics discussions, unfortunately.
+
+* [Thinking, Fast and Slow](https://www.amazon.com/Thinking-Fast-Slow-Daniel-Kahneman/dp/0374533555) by Daniel Kahneman
+This book _really_ helped me challenge a lot of the ways that I'm thinking and helped me identify my own cognitive biases. It's not as a light read as I'd have liked, but nevertheless it's one of a kind.
+
+* [The Daily Stoic: 366 Meditations on Wisdom, Perseverance, and the Art of Living](https://www.amazon.com/Daily-Stoic-Meditations-Wisdom-Perseverance/dp/0735211736/) by Ryan Holiday, Stephen Hanselman
+I was given this book as an onboarding gift in a previous job (Beat), and I got to revisit it together with my SO this year. Back then, it was my first 'real' contact with philosophy and consciously choosing how to live your own life, it's had a profound impact on me, and helped me want to explore _more_ about the shared wisdom that humans have gathered during thousands of years on this planet on how to live a meaningful life.
+
+* [How to build a car](https://www.amazon.com/How-Build-Car-Autobiography-Greatest/dp/000819680X) by Adrian Newey
+This was a birthday present from my SO, it had some fun stories around what goes behind the scenes in F1, but wasn't all that gripping
+
+* [Dune](https://www.amazon.com/Frank-Herbert-Dune-Paperback-July/dp/B08KS7WBWY) by Frank Herbert
+Ok, I'll admit, it was fun, but I don't think it deserved the praise it got, felt more like shonen Sci-Fi to me personally.
+After reading the synopsis of the rest of the series, it seemed to jump the shark _very quickly_ so I'm glad I spent my time on something else. There are some subtle tones of underarching social commentary, but I don't think I'd have made it through the entire series, _just_ for that. Fun fact: it was interesting how the Chakobsa language has some [Romani influences](http://www.jacurutu.com/viewtopic.php?f=21&t=4054&p=140575#p140575) to it
+
 ## 2021
 * [Snow Crash](https://www.amazon.com/Snow-Crash-Neal-Stephenson/dp/0553380958/) by Neal Stephenson  
 It's been a couple of months since I finished a book. Snow Crash was just *fun*! Turns out, I've missed that factor!

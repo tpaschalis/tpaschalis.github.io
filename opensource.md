@@ -5,23 +5,29 @@ permalink: /opensource/
 ---
 
 ### Go
-* [cmd/go: make mod init disallow invalid major version suffixes](https://github.com/golang/go/commit/a2a9a7b5132c7a0b1d4c297018d6072101456709)  
-* [testing: add -shuffle=off|on|N to alter the execution order of tests and benchmarks](https://github.com/golang/go/commit/cbb3f090477de92a7e158050803ef71a5ea825ee)  
-* [archive/zip: fix imports block of biggestZipBytes generator](https://github.com/golang/go/commit/4efd581383ade76c562953289ed8210bb55bff47)  
-* [runtime: replace outdated documentation link in Windows' nanotime](https://github.com/golang/go/commit/5d80f8a82b1fc3261bb4279f1426a9767b654e92)  
-* [reflect: panic if ArrayOf is called with negative length](https://github.com/golang/go/commit/d7cc2f1d7c60b51c600c7d0c808610985dcd9b0c)  
-* [crypto/x509: return errors instead of panicking](https://github.com/golang/go/commit/27280d8c14331c1c46cd90206be9f3c924f6b4c4)  
-* [runtime: improve error messages after allocating a stack that is too big](https://github.com/golang/go/commit/331614c4daa5504ddfe35a96371cc34783d14cf1)  
-* [src/go.mod, net/http: update bundled and latest golang.org/x/net](https://github.com/golang/go/commit/62fe10bf4e62c97af3bb8eb2ef72d9224a8752ba)  
-* [net/http: reject HTTP/1.1 Content-Length with sign in response](https://github.com/golang/go/commit/8da78625b1fe2a6141d331f54248913936dc49c7)  
-* [cmd/go: clean -cache -n should not delete cache](https://github.com/golang/go/commit/c0e8e405c02388fb8e7d3bea092f5aa8b19b2ad9)  
-* [time: fix time.Before to reuse t.sec(), u.sec()](https://github.com/golang/go/commit/ff1eb428654b7815a8fc825f1cc29d6cf72cc2f7)  
+https://github.com/golang/go/commits?author=tpaschalis
 
-### hashicorp
-* [Expose Envoy's /stats for statsd agents (#7173)](https://github.com/hashicorp/consul/commit/a335aa57c54ffd19283815db23581765f93d588e)  
-* [Add packer.ExpandUser() function to support tilde in usage of config.ValidationKeyPath (#8657)](https://github.com/hashicorp/packer/commit/beca6de71ba2c87c981cf12a997eb6008984c801)  
+### Grafana
+
+OSS is in our DNA -- and it's not just a catchphrase, it's a reality. 90% of my work at Grafana Labs is out there in the open
+
+https://github.com/tpaschalis?org=grafana&year_list=1
+
+### Prometheus
+
+https://github.com/prometheus/prometheus/commits?author=tpaschalis
+
+### OpenTelemetry
+
+https://github.com/tpaschalis?org=open-telemetry&year_list=1
+
 
 ### beatlabs/patron
+
+Patron was the FOSS microservices framework that powered Beat's (nowadays FreeNow) entire ecosystem, literally 60+ microservices in Go. 
+
+I served in the maintainer team, in an attempt to improve tooling for every single team throughout the company. While it's a thing of the past, it was my first _real_ case of designing and developing things out there in the open, so I owe [@mantzas](https://github.com/mantzas) a great deal for his trust and support back when I was starting at Beat.
+
 * [Set status code in dynamicCompressionResponseWriter early exit (#429)](https://github.com/beatlabs/patron/commit/a93562a0b961b2a5140afcdea8d5a0e0fec97b72)  
 * [Attempt to ignore patch versions of aws sdk (#381)](https://github.com/beatlabs/patron/commit/cbab2b11b92299bdd12bb408e153e02571ad57b3)  
 * [Enable setting uncompressed paths in service builder (#304)](https://github.com/beatlabs/patron/commit/c0556559f4a96c5cc1aa7d2c7fe651e58715e540)  
@@ -40,6 +46,3 @@ permalink: /opensource/
 * [HTTP Component Builder (#115)](https://github.com/beatlabs/patron/commit/26338ecddfc81993253c79f5ee2554aa1421c2eb)  
 * [Parse DSN to populate Connection Information (#116)](https://github.com/beatlabs/patron/commit/39e1de9f59b69236a8a3c2597fd7bc6a9e8c1dd3)  
 
-### mattermost
-* [Mm 19027 (#12498)](https://github.com/mattermost/mattermost-server/commit/946a5c1417e659516363a866856a1ec10a624ff5)  
-* [Migrate tests from model/compliance_test.go to use testify (#12497)](https://github.com/mattermost/mattermost-server/commit/23d495becaaeaf2677959986b7902754ac679c10)  
