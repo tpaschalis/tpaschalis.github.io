@@ -3,7 +3,7 @@ layout: post
 title:  Joining errors in Go
 date:   2024-09-27
 author: Paschalis Ts
-tags:   [go, tooling]
+tags:   [go, errors]
 mathjax: false
 description: "err1+err2=??"
 ---
