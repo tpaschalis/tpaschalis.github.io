@@ -11,8 +11,8 @@ description: "err1+err2=??"
 I recently realized that the stdlib `errors` package in Go supports _joining_
 multiple errors in addition to the usual direct `%w` wrapping.
 
-I haven't really seen this used in the wild; most people I've known either
-refuse to return multiple errors, use a slice or use
+I haven't really seen this used much in the wild; I think most people either
+refactor to avoid multiple errors, return an []error or use
 [uber-go/multierr](https://github.com/uber-go/multierr). Let's go have a look!
 
 > I started drafting a longer version of this post, but it almost blew up to
@@ -22,7 +22,7 @@ refuse to return multiple errors, use a slice or use
 
 ### Joining errors
 
-One can join multiple errors in two ways. They have _slightly_ different
+You can join multiple errors in two ways. They have _slightly_ different
 semantics under the hood (look at the Appendix section if you care), but they
 both work in a similar way.
 
@@ -41,10 +41,10 @@ err1 := fmt.Errorf("G-switch failed: %w %w %w", ErrRelayOrientation, ErrCosmicRa
 log.Fatal(err1)
 ```
 
-The second way uses the `errors.Join` function introduced in Go 1.20.
-The function takes in a variadic argument of errors, discards any nil values,
-and wraps the rest of the provided errors. The message is formatted by joining
-the strings obtained by calling each argument's Error() method, separated by a
+The second one uses the `errors.Join` function introduced in Go 1.20.
+The function takes in a variadic error argument, discards any nil values, and
+wraps the rest of the provided errors. The message is formatted by joining the
+strings obtained by calling each argument's Error() method, separated by a
 newline.
 
 ```
@@ -62,18 +62,18 @@ log.Fatal(err2)
 
 ## How to use them?
 
-Error wrapping in Go ultimately forms a _tree_ of errors. The ways to inspect
-that tree are the `errors.Is` and `errors.As` functions, with some slightly
-different semantics. Bottom line is that both methods examine the tree in a
-pre-order, depth-first traversal by successively unwrapping every node found.
+Both error wrapping variants ultimately form a _tree_ of errors. The ways to
+inspect that tree are the `errors.Is` and `errors.As` functions. Both of these
+examine the tree in a pre-order, depth-first traversal by successively
+unwrapping every node found.
 
 ```
-func As(err error, target any) bool
 func Is(err, target error) bool
+func As(err error, target any) bool
 ```
 
 The `errors.Is` function examines the input error's tree, looking for a leaf
-that matches the second argument and reports if it finds a match. In our case,
+that matches the target argument and reports if it finds a match. In our case,
 this can look for a leaf node that matches a specific joined error.
 
 ```
@@ -82,7 +82,7 @@ fmt.Println(ok) // true
 ```
 
 On the other hand, `errors.As` examines the input error's tree, looking for a
-leaf that can be _assigned to the type_ of the second argument. Think of it as
+leaf that can be _assigned to the type_ of the target argument. Think of it as
 an analog to json.Unmarshal.
 
 ```
@@ -100,7 +100,8 @@ So, to summarize:
 
 So far so good! We can use both types of wrapping, both direct, single error
 wrapping as well as joining to form a tree. Now that we've seen that, let's
-explore how to inspect the original contents of the tree.
+explore how to inspect the original contents of that tree on another part of
+the codebase.
 
 But there's a _slight_ complication here. Let's try to call errors.Unwrap()
 directly on any of the two joined errors created above.
@@ -110,10 +111,9 @@ fmt.Println(errors.Unwrap(err1)) // nil
 fmt.Println(errors.Unwrap(err2)) // nil
 ```
 
-So, why `nil`?! What's going on? We said that errors.Join returns a wrapped
-error! How can I get the original errors slice and inspect it? Turns out, that
-the two 'varieties' of wrapped errors (direct wrapping and
-joining), implement a _different_ Unwrap method.
+So, why `nil`?! What's going on?  How can I get the original errors slice and
+inspect it? Turns out, that the two 'varieties' of wrapping implement a
+_different_ Unwrap method.
 
 ```
 Unwrap() error
@@ -130,6 +130,9 @@ an inline interface cast to get access to the second Unwrap implementation.
 
 
 ```
+var joinedErrors interface{ Unwrap() []error }
+
+
 // You can use errors.As to make sure that the alternate Unwrap() implementation is available
 if errors.As(err1, &joinedErrors) {
 	for _, e := range joinedErrors.Unwrap() {
@@ -145,16 +148,19 @@ if uw, ok := err2.(interface{ Unwrap() []error }); ok {
 }
 ```
 
-So while it might be a little uglier, you can use either of these methods to
-retrieve the original errors slice.
+So, it's an extra little step, but with either of these techniques you'll be
+able to retrieve the original slice of errors. My inspiration for this was
+following along the [Crafting Interpreters](https://craftinginterpreters.com/introduction.html)
+book; when implementing the language's lexer/scanner, I wanted to keep gather
+all encountered errors and report them in one go.
 
 ### Outro
 
-And that's all for today! If you have any comments, remarks or cool stories,
-feel free to reach out to me on [X/Twitter](https://twitter.com/tpaschalis_) or
+And that's all for today! If you have any comments, remarks or ideas, feel free
+to reach out to me on [X/Twitter](https://twitter.com/tpaschalis_) or
 [Mastodon](https://m.tpaschalis.me/@tpaschalis)!
 
-Oh, and you can play around with the code samples in the [Go Playground](https://go.dev/play/p/7qhSZWCthtW)
+Oh, and you can play around with the code samples in the [Go Playground](https://go.dev/play/p/7qhSZWCthtW).
 
 Until next time, bye!
 
