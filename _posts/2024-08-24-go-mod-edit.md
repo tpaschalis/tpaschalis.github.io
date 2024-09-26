@@ -23,7 +23,7 @@ dependencies, on many different projects:
 * more than two dozen external Prometheus exporters, and >30 service discovery mechanisms
 * libraries for interacting with different cloud providers, the Kubernetes API
 * our own libraries like [dskit](https://github.com/grafana/dskit) or [ckit](https://github.com/grafana/ckit)
-* aaand a few more stuff.
+* ..and a few more stuff.
 
 Given our efforts of giving back to the Open Source community, we're
 upstreaming most, if not all, of our changes to the projects that make Grafana
