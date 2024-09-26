@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Joining errors in Go
-date:   2024-09-27
+date:   2024-09-26
 author: Paschalis Ts
 tags:   [go, errors]
 mathjax: false
