@@ -5,7 +5,7 @@ date:   2024-09-27
 author: Paschalis Ts
 tags:   [go, tooling]
 mathjax: false
-description: ""
+description: "err1+err2=??"
 ---
 
 I recently realized that the stdlib `errors` package in Go supports _joining_
