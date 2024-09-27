@@ -9,15 +9,15 @@ description: "err1+err2=??"
 ---
 
 I recently realized that the stdlib `errors` package in Go supports _joining_
-multiple errors in addition to the usual direct `%w` wrapping.
+multiple errors in addition to the more common `%w` wrapping.
 
 I haven't really seen this used much in the wild; I think most people either
-refactor to avoid multiple errors, return an []error or use
+refactor to avoid multiple errors, return an []error slice or use
 [uber-go/multierr](https://github.com/uber-go/multierr). Let's go have a look!
 
 > I started drafting a longer version of this post, but it almost blew up to
-> become a fully-fledged guide of "Proper use of errors in Go".
-> While this bigger post _may_ be coming in the future, I think this smaller
+> become a fully-fledged "Guide to errors in Go".
+> While that bigger post _may_ be coming in the future, I think this
 > one is useful enough to share on its own.
 
 ### Joining errors
@@ -43,7 +43,7 @@ log.Fatal(err1)
 
 The second one uses the `errors.Join` function introduced in Go 1.20.
 The function takes in a variadic error argument, discards any nil values, and
-wraps the rest of the provided errors. The message is formatted by joining the
+joins the rest of the provided errors. The message is formatted by joining the
 strings obtained by calling each argument's Error() method, separated by a
 newline.
 
@@ -62,7 +62,10 @@ log.Fatal(err2)
 
 ## How to use them?
 
-Both error wrapping variants ultimately form a _tree_ of errors. The ways to
+By now, we've seen the two ways that Go supports error wrapping, direct
+wrapping and joined errors.
+
+Both variants ultimately form a _tree_ of errors. The most common ways to
 inspect that tree are the `errors.Is` and `errors.As` functions. Both of these
 examine the tree in a pre-order, depth-first traversal by successively
 unwrapping every node found.
@@ -98,22 +101,22 @@ So, to summarize:
 
 ## The catch
 
-So far so good! We can use both types of wrapping, both direct, single error
-wrapping as well as joining to form a tree. Now that we've seen that, let's
-explore how to inspect the original contents of that tree on another part of
-the codebase.
+So far so good! We can use these two types of error wrapping to form a tree.
+But let's say we wanted to inspect that tree in a more manual way on another
+part of the codebase. The `errors.Unwrap` function allows you to get direct
+wrapped errors.
 
 But there's a _slight_ complication here. Let's try to call errors.Unwrap()
-directly on any of the two joined errors created above.
+directly on any of the two _joined_ errors created above.
 
 ```
 fmt.Println(errors.Unwrap(err1)) // nil
 fmt.Println(errors.Unwrap(err2)) // nil
 ```
 
-So, why `nil`?! What's going on?  How can I get the original errors slice and
-inspect it? Turns out, that the two 'varieties' of wrapping implement a
-_different_ Unwrap method.
+So, why `nil`?! What's going on? How can I get the original errors slice and
+inspect it? Turns out, that the two 'varieties' implement a _different_ Unwrap
+method.
 
 ```
 Unwrap() error
@@ -125,9 +128,10 @@ the first one and does not unwrap errors returned by Join. There have been
 [multiple](https://github.com/golang/go/issues/53435#issuecomment-1191752789)
 [discussions](https://github.com/golang/go/issues/57358) on golang/go about
 allowing a more straightforward way to unwrap joined errors, but there has been
-no consensus. The way to achieve it right now is to either use `errors.As` or
-an inline interface cast to get access to the second Unwrap implementation.
+no consensus.
 
+The way to achieve it right now is to either use `errors.As` or an inline
+interface cast to get access to the second Unwrap implementation.
 
 ```
 var joinedErrors interface{ Unwrap() []error }
@@ -149,10 +153,11 @@ if uw, ok := err2.(interface{ Unwrap() []error }); ok {
 ```
 
 So, it's an extra little step, but with either of these techniques you'll be
-able to retrieve the original slice of errors. My inspiration for this was
-following along the [Crafting Interpreters](https://craftinginterpreters.com/introduction.html)
-book; when implementing the language's lexer/scanner, I wanted to keep gather
-all encountered errors and report them in one go.
+able to retrieve the original slice of errors and manually traverse the error
+tree. My motivation for this was following along 
+[Crafting Interpreters](https://craftinginterpreters.com/introduction.html);
+when implementing the language's lexer/scanner, I wanted to keep gather all
+encountered errors and report them in one go.
 
 ### Outro
 
@@ -160,7 +165,8 @@ And that's all for today! If you have any comments, remarks or ideas, feel free
 to reach out to me on [X/Twitter](https://twitter.com/tpaschalis_) or
 [Mastodon](https://m.tpaschalis.me/@tpaschalis)!
 
-Oh, and you can play around with the code samples in the [Go Playground](https://go.dev/play/p/7qhSZWCthtW).
+Oh, and you can play around with the code samples in this post on the [Go
+Playground](https://go.dev/play/p/7qhSZWCthtW).
 
 Until next time, bye!
 
