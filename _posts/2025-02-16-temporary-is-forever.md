@@ -12,7 +12,8 @@ There's a greek proverb: "ουδέν μονιμότερον του προσωρ�
 translates to **nothing persists more than the temporary**.
 
 When Romans built arches two millennia ago, they didn't leave wooden scaffolding
-up after laying the stones, but software is a little different.
+up after laying the stones, but software, is a little different. Empires rise
+and fall in the span of months, and temporary often means forever.
 
 * That quick 30-second demo you recorded with wobbly audio? Will be played again
   and again and again in customer meetings, helping close million-dollar deals.
