@@ -168,8 +168,8 @@ type ReadCloser interface {
 }
 ```
 
-So next time you're designing or reviewing an abstraction, pay closer
-attention. [How "deep" is your API](https://www.youtube.com/watch?v=XpqqjU7u5Yc)?
+Next time you design or review an abstraction, take a closer look.
+[How "deep" is your API](https://www.youtube.com/watch?v=XpqqjU7u5Yc)?
 In what ways could you mold it into something simpler that hides complexity
 from the user and reduces cognitive load?
 
