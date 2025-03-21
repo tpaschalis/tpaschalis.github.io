@@ -35,6 +35,23 @@ In our case, the main mechanism for composable abstractions in Go is the
 To me, maybe the best example of a deep interface is `io.Reader`.
 
 ```go
+// Reader is the interface that wraps the basic Read method.
+//
+// Read reads up to len(p) bytes into p. It returns the number of bytes
+// read (0 <= n <= len(p)) and any error encountered. Even if Read
+// returns n < len(p), it may use all of p as scratch space during the call.
+// If some data is available but not len(p) bytes, Read conventionally
+// returns what is available instead of waiting for more.
+//
+// ...
+//
+// Implementations of Read are discouraged from returning a
+// zero byte count with a nil error, except when len(p) == 0.
+// Callers should treat a return of 0 and nil as indicating that
+// nothing happened; in particular it does not indicate EOF.
+//
+// Implementations must not retain p.
+
 type Reader interface {
 	Read(p []byte) (n int, err error)
 }
@@ -46,10 +63,11 @@ that you won't ever need to look it up again. Searching the Go standard library,
 including reading from files, from network connections, compressors, ciphers
 and more.
 
-This abstraction is both easy to understand and use; the underlying
-implementation can be buffered, might allow reading from streams or remote
-locations like an S3 bucket. But crucially, consumers of this API don't need to
-worry about _how_ reading happens — implementation can be deep and non-trivial,
+This abstraction is both easy to understand and use; the docstring tells you
+everything you, as a user, need to know. The underlying implementation can be
+buffered, might allow reading from streams or remote locations like an S3
+bucket. But crucially, consumers of this API don't need to worry about _how_
+reading happens — implementation can be deep and non-trivial,
 but a user doesn't have to care. Furthermore, it allows for very little
 ambiguity when reasoning about what the code does.
 
@@ -91,7 +109,7 @@ type Cmdable interface {
 While the functionality provided by Redis is much larger than just _reading_,
 each of these methods has a much shallower implementation; they do exactly one
 thing, and they're small enough you could possibly replicate them just by their
-name and arguments. The _ratio_ of the functionality provided to the size of
+name and arguments. The ratio of the functionality provided to the size of
 the abstraction is very different than before.
 
 ```go
@@ -124,21 +142,35 @@ func (c cmdable) SetNX(ctx context.Context, key string, value interface{}, expir
 So, is this another post criticizing other dev practices? Not at all! As
 always, things exist in a spectrum.
 
-As a developer, it can often feel more natural to write shallower interfaces as
-they can more closely map what the system affords. Similar 'shallow' examples are the
+As a developer, it can often feel more natural to write shallower interfaces.
+Similar 'shallow' examples (that are not strictly interfaces) are the
 [aws-sdk-go's session Options](https://pkg.go.dev/github.com/aws/aws-sdk-go/aws/session#Options) or
 [Viper's](https://github.com/spf13/viper/blob/d319333b0ffd91a9681feaf2d202ce9332df8ecc/viper.go)
-public API.
+public API. Why?
 
-* It takes less time to think up-front about about how the user will consume it
 * It makes methods smaller and easier to test
 * It maps more closely to the mental map of the system itself
+* It takes less time to think up-front about about how the user will consume it
+* Usually, it only affords a single implementation, maybe two, so it's easier
+  to imagine how it will be used.
 
 Conversely, the Reader implementation has its own benefits.
 
-* It allows for much easier composability into a `ReadWriter` or a `ReadCloser`
+* It allows for natural composability into other abstractions, like aa `ReadWriter` or a `ReadCloser`
 * Can be easily retrofitted to other use cases
 * Requires no state checks to use properly
+
+So next time you're designing or reviewing an abstraction, pay some closer
+attention. [How "deep" is your API](https://www.youtube.com/watch?v=XpqqjU7u5Yc)?
+In what ways could you mold it into something simpler that hides complexity
+from the user and reduces cognitive load?
+
+For example, does that Redis client API _need_ five different methods for
+saving and shutting down? Does a user of the client need to deal with both
+running commands and getting meta-information around the DB connection and
+runtime metrics at the same time? Are each of the datatypes different enough to
+have their own interface? And do I as a reviewer, need to know beforehand
+whether the code needs to `Ping`, `Echo` or `Hello`?
 
 ## Outro
 
