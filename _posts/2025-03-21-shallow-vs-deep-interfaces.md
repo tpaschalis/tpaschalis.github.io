@@ -3,7 +3,7 @@ layout: post
 title:  Deep vs Shallow Go interfaces
 date:   2025-03-21
 author: Paschalis Ts
-tags:   [meta, blog,jekyll]
+tags:   [code, go]
 description: "Not to be confused with Shallow vs Deep copy :P"
 ---
 
