@@ -20,7 +20,7 @@ size, but rather the ratio of utility afforded by the abstraction compared to
 the size of the abstraction itself.
 
 In our case, the main mechanism for composable abstractions in Go is the
-`interface` type, so let's examine the concept under this lens.
+`interface` type, so let's examine the concept through this lens.
 
 
 <figure>
@@ -65,7 +65,7 @@ and more.
 
 This abstraction is both easy to understand and use; the docstring tells you
 everything you, as a user, need to know. The underlying implementation can be
-buffered, might allow reading from streams or remote locations like an S3
+buffered, may allow reading from streams or remote locations like an S3
 bucket. But crucially, consumers of this API don't need to worry about _how_
 reading happens — implementation can be deep and non-trivial,
 but a user doesn't have to care. Furthermore, it allows for very little
@@ -158,7 +158,7 @@ In contrast, `io.Reader` offers additional advantages:
 
 * Can be easily retrofitted to other use cases
 * Requires no state checks to use properly
-* Interfaces like io.Reader tend to remain stable over time, while a shallower version would often grow to accomodate more and more features
+* Interfaces like io.Reader tend to remain stable over time, while a shallower version would often grow to accommodate more and more features
 * It allows for natural composability into other abstractions, like a `ReadWriter` or a `ReadCloser`
 
 ```
@@ -168,15 +168,19 @@ type ReadCloser interface {
 }
 ```
 
-So next time you're designing or reviewing an abstraction, pay some closer
+So next time you're designing or reviewing an abstraction, pay closer
 attention. [How "deep" is your API](https://www.youtube.com/watch?v=XpqqjU7u5Yc)?
 In what ways could you mold it into something simpler that hides complexity
 from the user and reduces cognitive load?
 
+The [go-kit/log.Logger](https://github.com/go-kit/log/blob/c7bf81493e581feca11e11a7672b14be3591ca43/log.go#L10-L12)
+and the [http.Handler](https://pkg.go.dev/net/http#Handler) interfaces are
+prime showcases of these concepts in the real world.
+
 For example, does that Redis client API _need_ five different methods for
 saving and shutting down? Does a user of the client need to deal with both
 running commands and getting meta-information around the DB connection and
-runtime metrics at the same time? Are each of the datatypes different enough to
+runtime metrics at the same time? Is each of the datatypes different enough to
 have their own interface? And do I as a reviewer, need to know beforehand
 whether the code needs to `Ping`, `Echo` or `Hello`?
 
@@ -187,7 +191,7 @@ to reach out to me on [Bluesky](https://bsky.app/profile/tpaschalis.me).
 
 What are your favorite interfaces? Any specific one that you think touches the
 Platonic ideal? Any that disgusts you beyond imagination and makes you wanna
-quit and go grow tomatoes in the countryside? Let me know!
+quit, move to the countryside and grow tomatoes? Let me know!
 
 Until next time, bye!
 
