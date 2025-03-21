@@ -11,13 +11,13 @@ I recently read [A Philosophy of Software Design](https://www.amazon.com/Philoso
 
 One of the core concepts explored in this book is the distinction between
 "deep" vs "shallow" modules (in the author's terms a module is any kind of
-abstraction, separated into the user-facing interface and and the underlying
+abstraction, separated into the user-facing interface and the underlying
 implementation).
 
 The author argues that "the best modules are those that provide powerful
 functionality yet have simple interfaces". The argument is _not_ about absolute
-size, but rather the ratio of utility afforded by the abstraction to the size
-the abstraction itself.
+size, but rather the ratio of utility afforded by the abstraction compared to
+the size of the abstraction itself.
 
 In our case, the main mechanism for composable abstractions in Go is the
 `interface` type, so let's examine the concept under this lens.
@@ -71,7 +71,7 @@ reading happens — implementation can be deep and non-trivial,
 but a user doesn't have to care. Furthermore, it allows for very little
 ambiguity when reasoning about what the code does.
 
-## A 'shallow' interface
+## A shallow interface
 
 On the other hand, an example of a shallow interface I've used recently is from
 the [redis-go](https://github.com/redis/go-redis) client.
@@ -106,7 +106,7 @@ type Cmdable interface {
 }
 ```
 
-While the functionality provided by Redis is much larger than just _reading_,
+While the functionality provided by Redis is much larger than just 'reading',
 each of these methods has a much shallower implementation; they do exactly one
 thing, and they're small enough you could possibly replicate them just by their
 name and arguments. The ratio of the functionality provided to the size of
@@ -125,7 +125,7 @@ func (c cmdable) CommandGetKeys(ctx context.Context, commands ...interface{}) *S
 ```
 
 This also shifts the responsibility of doing the right thing towards the
-consumer, as they have to understand the nuances between individual methods.
+user, as they have to understand the nuances between individual methods.
 In a code review, this makes it harder to reason about what happens at a
 glance.
 
@@ -139,8 +139,8 @@ func (c cmdable) SetNX(ctx context.Context, key string, value interface{}, expir
 
 ## Comparison
 
-So, is this another post criticizing other dev practices? Not at all! As
-always, things exist in a spectrum.
+So, is this another post criticizing other dev practices? Not really. As
+always, things exist on a spectrum.
 
 As a developer, it can often feel more natural to write shallower interfaces.
 Similar 'shallow' examples (that are not strictly interfaces) are the
@@ -150,15 +150,23 @@ public API. Why?
 
 * It makes methods smaller and easier to test
 * It maps more closely to the mental map of the system itself
-* It takes less time to think up-front about about how the user will consume it
+* It takes less time to think up-front about how the user will consume it
 * Usually, it only affords a single implementation, maybe two, so it's easier
   to imagine how it will be used.
 
-Conversely, the Reader implementation has its own benefits.
+In contrast, `io.Reader` offers additional advantages:
 
-* It allows for natural composability into other abstractions, like aa `ReadWriter` or a `ReadCloser`
 * Can be easily retrofitted to other use cases
 * Requires no state checks to use properly
+* Interfaces like io.Reader tend to remain stable over time, while a shallower version would often grow to accomodate more and more features
+* It allows for natural composability into other abstractions, like a `ReadWriter` or a `ReadCloser`
+
+```
+type ReadCloser interface {
+	Reader
+	Closer
+}
+```
 
 So next time you're designing or reviewing an abstraction, pay some closer
 attention. [How "deep" is your API](https://www.youtube.com/watch?v=XpqqjU7u5Yc)?
