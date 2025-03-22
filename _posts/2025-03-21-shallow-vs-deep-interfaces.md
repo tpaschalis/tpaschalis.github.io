@@ -25,7 +25,7 @@ In our case, the main mechanism for composable abstractions in Go is the
 <figure>
 <center>
 	<img src="/images/deep-vs-shallow.png" style='height: 70%; width: 70%; object-fit: contain'/> 
-	<figcaption>(Deep versus shallow interfaces)</figcaption>
+	<figcaption>(Deep versus shallow abstractions)</figcaption>
 </center>
 </figure>
 
