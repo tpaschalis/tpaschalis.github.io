@@ -17,11 +17,10 @@ implementation).
 The author argues that "the best modules are those that provide powerful
 functionality yet have simple interfaces". The argument is _not_ about absolute
 size, but rather the ratio of utility afforded by the abstraction compared to
-the size of the abstraction itself.
+the size of the abstraction itself, in other words, a cost/benefit tradeoff.
 
 In our case, the main mechanism for composable abstractions in Go is the
 `interface` type, so let's examine the concept through this lens.
-
 
 <figure>
 <center>
@@ -42,9 +41,7 @@ To me, maybe the best example of a deep interface is `io.Reader`.
 // returns n < len(p), it may use all of p as scratch space during the call.
 // If some data is available but not len(p) bytes, Read conventionally
 // returns what is available instead of waiting for more.
-//
 // ...
-//
 // Implementations of Read are discouraged from returning a
 // zero byte count with a nil error, except when len(p) == 0.
 // Callers should treat a return of 0 and nil as indicating that
@@ -70,6 +67,9 @@ bucket. But crucially, consumers of this API don't need to worry about _how_
 reading happens — implementation can be deep and non-trivial,
 but a user doesn't have to care. Furthermore, it allows for very little
 ambiguity when reasoning about what the code does.
+
+All these properties are _especially_ important for core functionality that's
+used frequently.
 
 ## A shallow interface
 
@@ -107,7 +107,7 @@ type Cmdable interface {
 ```
 
 While the functionality provided by Redis is much larger than just 'reading',
-each of these methods has a much shallower implementation; they do exactly one
+each of these methods has a much simpler implementation; they do exactly one
 thing, and they're small enough you could possibly replicate them just by their
 name and arguments. The ratio of the functionality provided to the size of
 the abstraction is very different than before.
@@ -140,7 +140,8 @@ func (c cmdable) SetNX(ctx context.Context, key string, value interface{}, expir
 ## Comparison
 
 So, is this another post criticizing other dev practices? Not really. As
-always, things exist on a spectrum.
+always, things exist on a spectrum and these previous examples show the two
+extremes.
 
 As a developer, it can often feel more natural to write shallower interfaces.
 Similar 'shallow' examples (that are not strictly interfaces) are the
@@ -152,13 +153,13 @@ public API. Why?
 * It maps more closely to the mental map of the system itself
 * It takes less time to think up-front about how the user will consume it
 * Usually, it only affords a single implementation, maybe two, so it's easier
-  to imagine how it will be used.
+  to imagine how it will be used
 
 In contrast, `io.Reader` offers additional advantages:
 
 * Can be easily retrofitted to other use cases
 * Requires no state checks to use properly
-* Interfaces like io.Reader tend to remain stable over time, while a shallower version would often grow to accommodate more and more features
+* Interfaces like this tend to remain stable over time, while a shallower version would often grow to accommodate more and more features
 * It allows for natural composability into other abstractions, like a `ReadWriter` or a `ReadCloser`
 
 ```
@@ -168,21 +169,25 @@ type ReadCloser interface {
 }
 ```
 
-Next time you design or review an abstraction, take a closer look.
-[How "deep" is your API](https://www.youtube.com/watch?v=XpqqjU7u5Yc)?
-In what ways could you mold it into something simpler that hides complexity
-from the user and reduces cognitive load?
-
 The [go-kit/log.Logger](https://github.com/go-kit/log/blob/c7bf81493e581feca11e11a7672b14be3591ca43/log.go#L10-L12)
 and the [http.Handler](https://pkg.go.dev/net/http#Handler) interfaces are
 prime showcases of these concepts in the real world.
 
-For example, does that Redis client API _need_ five different methods for
-saving and shutting down? Does a user of the client need to deal with both
-running commands and getting meta-information around the DB connection and
-runtime metrics at the same time? Is each of the datatypes different enough to
-have their own interface? And do I as a reviewer, need to know beforehand
-whether the code needs to `Ping`, `Echo` or `Hello`?
+This not a _fair_ comparison, as you will rarely write such core functionality
+as the Reader from scratch, and well, Cmdable is not an abstraction but rather
+a driver covering the entirety of Redis operations.
+
+But still, does that client API _need_ five different methods for saving and
+shutting down? Does a user of the client need to deal with both running
+commands and getting meta-information around the DB connection and runtime
+metrics at the same time? Is each of the datatypes different enough to have
+their own interface? And do I as a reviewer, need to know beforehand whether
+the code needs to `Ping`, `Echo` or `Hello`?
+
+So, next time you design or review an abstraction, take a closer look.
+[How "deep" is your API](https://www.youtube.com/watch?v=XpqqjU7u5Yc)?
+In what ways could you mold it into something simpler that hides complexity
+from the user and reduces cognitive load?
 
 ## Outro
 
