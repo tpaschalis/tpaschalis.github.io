@@ -25,7 +25,7 @@ me asking more questions than needed.
 
 But thing is I _do_ want to know. I want to know, even though it's not gonna be
 a perfect estimate, but it helps me mentally know at least what I'm looking at.
-Even a semi-random educated-ish guess would be enoughf for me.
+Even a semi-random guesstimate would be enough in many cases.
 
 So far I've got a trick that I think works; it works on my car mechanic, it
 works on our pediatrician, it works on predatory real estate agents. I call it
