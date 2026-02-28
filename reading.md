@@ -17,7 +17,9 @@ Hope you can find something interesting here as well!
 * [The Dark Tower V: Wolves of the Calla](https://www.amazon.com/Dark-Tower-Wolves-Calla/dp/0743251628) by Stephen King
 * [The Dark Tower VI: Song of Susannah](https://www.amazon.com/Dark-Tower-VI-Song-Susannah/dp/1416521496) by Stephen King
 * [The Dark Tower VII: The Dark Tower](https://www.amazon.com/Dark-Tower-VII-Book/dp/1416524525) by Stephen King
+* [Misery](https://www.amazon.com/Misery-Novel-Stephen-King/dp/1501156748) by Stephen King
 * [Leviathan Wakes](https://www.amazon.com/Leviathan-Wakes-James-S-Corey/dp/0316129089) by James S.A. Corey
+* [The Staff Engineer's Path](https://www.amazon.com/Staff-Engineers-Path-Individual-Contributors/dp/1098118731) by Tanya Reilly
 
 ## 2024
 
