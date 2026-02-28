@@ -20,6 +20,7 @@ Hope you can find something interesting here as well!
 * [Misery](https://www.amazon.com/Misery-Novel-Stephen-King/dp/1501156748) by Stephen King
 * [Leviathan Wakes](https://www.amazon.com/Leviathan-Wakes-James-S-Corey/dp/0316129089) by James S.A. Corey
 * [The Staff Engineer's Path](https://www.amazon.com/Staff-Engineers-Path-Individual-Contributors/dp/1098118731) by Tanya Reilly
+* [A Philosophy of Software Design](https://www.amazon.com/Philosophy-Software-Design-2nd/dp/173210221X) by John Ousterhout
 
 ## 2024
 
