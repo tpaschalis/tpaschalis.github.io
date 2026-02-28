@@ -11,6 +11,14 @@ Here's a list of books that I’ve read since early 2019, along with tweet-long 
 Hope you can find something interesting here as well!
 
 
+## 2025
+
+* [The Dark Tower IV: Wizard and Glass](https://www.amazon.com/Dark-Tower-IV-Wizard-Glass/dp/1501161830) by Stephen King
+* [The Dark Tower V: Wolves of the Calla](https://www.amazon.com/Dark-Tower-Wolves-Calla/dp/0743251628) by Stephen King
+* [The Dark Tower VI: Song of Susannah](https://www.amazon.com/Dark-Tower-VI-Song-Susannah/dp/1416521496) by Stephen King
+* [The Dark Tower VII: The Dark Tower](https://www.amazon.com/Dark-Tower-VII-Book/dp/1416524525) by Stephen King
+* [Leviathan Wakes](https://www.amazon.com/Leviathan-Wakes-James-S-Corey/dp/0316129089) by James S.A. Corey
+
 ## 2024
 
 So I continued _not_ reading anything in 2024, until GrafanaCon 2024. I had several hours to spend on the airport, so I picked up the equivalent of the McDonalds hamgurger of a book -- something quick, dirty, devoid of nearly any sustenance, but enough to get you more hungry. This was [Traitor's Gate](https://www.amazon.com/Traitors-Gate-rollercoaster-thriller-Chronicles-ebook/dp/B0BG3QSJYN/) by Jeffrey Archer, which for some reason has _nearly 12k reviews on Amazon, wth_. The _first_ book of that series has nearly 35k, so yeah, this looks like it's another case that proves [the world is a huge place](https://tpaschalis.me/a-huge-world/).
