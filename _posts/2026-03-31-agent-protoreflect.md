@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Protobuf reflection for agent-enabled, self-describing APIs
+title:  Agent-first, self-describing APIs with protobuf reflection
 date:   2026-03-31
 author: Paschalis Ts
 tags:   [code, api]
@@ -23,7 +23,8 @@ One thing I'm really bullish on is Protobuf APIs, and especially [Protobuf refle
 At work, we've been using [ConnectRPC](https://connectrpc.com/) for a couple of
 years now and we've been really happy with that choice. But the unexpected
 killer feature recently has been how it allows for a self-describing API that
-agents can browse and understand with a few network calls.
+agents can browse and understand with a few network calls, without a copy of
+the schema.
 
 ### A real-world example.
 
@@ -74,25 +75,25 @@ Give me an overview of the available services and methods I can use to manage pi
   pipeline.v1.CreatePipelineRequest.
 ```
 
-These are the very same APIs that power the Fleet Management UI in Grafana
-Cloud. We didn't have to build anything new here.
+These are the very same APIs that power a UI in Grafana Cloud. We didn't have
+to build anything new here.
 
 With a couple sentences as input, Claude was able to dive and understand that
 API, what its inputs and outputs are, its various versions, how services have
-evolved and so on. The agent can focus on the specific services it needs, and
-avoid burning context from reading lengthy, inconclusive or outdated
-documentation about features it doesn't necessarily need. Furthermore, the
-truth is objective, what is defined in Protobuf files; there's no room for
-subjective or misleading documentation, falling out of date or trying random
-things until the agent gets a 200 - OK.
+evolved and so on. It can use the same functionality without any browser automations.
+The agent can focus on the specific services it needs, and avoid burning
+context from reading lengthy, inconclusive or outdated documentation about
+features it doesn't necessarily need. Furthermore, the truth is objective, what
+is defined in Protobuf files and there's no need for trial-and-error until the
+agent gets a 200 - OK.
 
-As we're building more advanced APIs that operate on higher abstraction layers,
+As we're building new APIs that operate on higher abstraction layers,
 agents get all these new powers for ~free. For example,  Fleet Management now
 supports a new pair of APIs for `Discovery` and `Instrumentation`. These allow
-onboarding services for telemetry using a slick and shiny UI in the [Instrumentation Hub](https://grafana.com/blog/instrumentation-hub-a-guided-scalable-way-to-roll-out-your-observability-coverage-without-losing-control/).
-I'm proud of that UI jazz, but you know what? You can also tell Claude 'use
-this API to discover all services and instrument X/Y/Z'. And to be honest, it
-might be a better experience for some use cases.
+onboarding services for telemetry using a slick and shiny UI in the
+[Instrumentation Hub](https://grafana.com/blog/instrumentation-hub-a-guided-scalable-way-to-roll-out-your-observability-coverage-without-losing-control/).
+I'm proud of that UI jazz, but you know what? You can also tell Claude 'look
+here, run discovery and instrument X/Y/Z' and call it a day.
 
 ### Interested? Try it out!
 
@@ -100,7 +101,7 @@ If you want to poke around with an example service,
 [here's](https://github.com/grpc/grpc-go/tree/master/examples/features/reflection)
 a great starting point.
 
-Let's start an example server
+Let's start the server
 ```bash
 $ git clone https://github.com/grpc/grpc-go
 $ cd grpc-go/examples/features/reflection/
@@ -122,7 +123,8 @@ helloworld.Greeter.SayHello
 ```
 
 Hmm, looks like this server exposes four services. The `Greeter` service has a
-`SayHello` RPC. Let's inspect how that looks like
+`SayHello` RPC.
+Let's inspect how that looks like.
 
 ```
 $ grpcurl -plaintext localhost:50051 describe helloworld.Greeter
@@ -140,7 +142,7 @@ message HelloRequest {
 }
 ```
 
-This should be enough information to call the rpc, let's go ahead and do that.
+This should be enough information to call it, let's go ahead and do that.
 
 ```bash
 $ grpcurl -plaintext -format text -d 'name: "gRPCurl"' \
