@@ -12,7 +12,7 @@ baby! It's funny how fashion comes and goes, but Unix philosophy tools and
 wiring APIs together are what moves the industry right now (whether it moves it
 to the _right_ direction is an entirely different question).
 
-A new bottleneck arises, how to make agents understand and use new APIs.
+A new bottleneck arises: how to make agents understand and use new APIs.
 The truth is, not everyone gives their API reference the same polish and
 attention that [Stripe](https://docs.stripe.com/api) does. Does _your_ team
 offer an OpenAPI spec and make sure it's up-to-date? If that's a yes, great
@@ -82,18 +82,32 @@ With a couple sentences as input, Claude was able to dive and understand that
 API, what its inputs and outputs are, its various versions, how services have
 evolved and so on. It can use the same functionality without any browser automations.
 The agent can focus on the specific services it needs, and avoid burning
-context from reading lengthy, inconclusive or outdated documentation about
-features it doesn't necessarily need. Furthermore, the truth is objective, what
-is defined in Protobuf files and there's no need for trial-and-error until the
-agent gets a 200 - OK.
+context from reading lengthy documentation about features it doesn't need.
+Furthermore, the truth is objective; specs drift, documentation gets outdated,
+but what is defined in Protobuf files is what the server receives and sends
+back. There's no need for trial-and-error.
 
 As we're building new APIs that operate on higher abstraction layers,
-agents get all these new powers for ~free. For example,  Fleet Management now
+agents get all these new powers for ~free. For example, Fleet Management now
 supports a new pair of APIs for `Discovery` and `Instrumentation`. These allow
 onboarding services for telemetry using a slick and shiny UI in the
 [Instrumentation Hub](https://grafana.com/blog/instrumentation-hub-a-guided-scalable-way-to-roll-out-your-observability-coverage-without-losing-control/).
 I'm proud of that UI jazz, but you know what? You can also tell Claude 'look
 here, run discovery and instrument X/Y/Z' and call it a day.
+
+### So what?
+
+I think this is an interesting lightweight alternative to MCPs. No special
+infrastructure, no MCP server to maintain, no need to write new tool
+definitions. The agent can discover what's available on demand. Pair it with
+the authentication you're likely already using, and you're off.
+
+This also works really well with ConnectRPC's approach of HTTP/JSON
+compatibility. Once the agents sketch out the API, they don't even need gRPC
+tooling, they can build payloads and hit curl for all subsequent calls.
+
+And if you want to build new skills/tools for your agents, you can do so with a
+much greater degree of confidence.
 
 ### Interested? Try it out!
 
@@ -105,6 +119,7 @@ Let's start the server
 ```bash
 $ git clone https://github.com/grpc/grpc-go
 $ cd grpc-go/examples/features/reflection/
+$ go run server/main.go
 server listening at [::]:50051
 ```
 
@@ -124,7 +139,7 @@ helloworld.Greeter.SayHello
 
 Hmm, looks like this server exposes four services. The `Greeter` service has a
 `SayHello` RPC.
-Let's inspect how that looks like.
+Let's inspect what that looks like.
 
 ```
 $ grpcurl -plaintext localhost:50051 describe helloworld.Greeter
