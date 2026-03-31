@@ -75,14 +75,14 @@ Give me an overview of the available services and methods I can use to manage pi
   pipeline.v1.CreatePipelineRequest.
 ```
 
-These are the very same APIs that power our UI in Grafana Cloud. We didn't have
-to build anything new.
+These are the very same endpoints that power our UI. We didn't have to build
+anything new.
 
 With a couple sentences as input, Claude was able to dive and understand that
 API, what its inputs and outputs are, how services have evolved and so on.
 It can use the same functionality without any browser automation.
-The agent can focus on the specific services it needs, and avoid burning
-context from reading lengthy documentation about features it doesn't need.
+The agent can focus on what it needs, and avoid burning context from reading
+lengthy documentation about other features.
 Furthermore, the truth is objective; specs drift, documentation gets outdated,
 but what is defined in Protobuf files is what the server receives and sends
 back. There's no need for trial-and-error.
@@ -103,11 +103,10 @@ definitions. The agent can discover what's available on demand. Pair it with
 the authentication you're likely already using, and you're off.
 
 This also works really well with ConnectRPC's approach of HTTP/JSON
-compatibility. Once the agents sketch out the API, they don't even need gRPC
-tooling, they can build payloads and hit curl for all subsequent calls.
-
-And if you want to build new skills/tools for your agents, you can do so with a
-much greater degree of confidence.
+compatibility. Once the agents sketch out the endpoints, they don't even need gRPC
+tooling, they can build payloads and use curl for all subsequent calls. And if
+you want to build new skills/tools for your agents, you can do so with a much
+greater degree of confidence.
 
 ### Interested? Try it out!
 
