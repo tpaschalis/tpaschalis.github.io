@@ -13,7 +13,7 @@ wiring APIs together are what moves the industry right now (whether it moves it
 to the _right_ direction is an entirely different question).
 
 A new bottleneck arises: how to make agents understand and use new APIs.
-The truth is, not everyone gives their API reference the same polish and
+The truth is, not everyone gives their reference pages the same polish and
 attention that [Stripe](https://docs.stripe.com/api) does. Does _your_ team
 offer an OpenAPI spec and make sure it's up-to-date? If that's a yes, great
 work, but certainly that's _not_ the case for most.
@@ -22,7 +22,7 @@ One thing I'm really bullish on is Protobuf APIs, and especially [Protobuf refle
 
 At work, we've been using [ConnectRPC](https://connectrpc.com/) for a couple of
 years now and we've been really happy with that choice. But the unexpected
-killer feature recently has been how it allows for a self-describing API that
+superpower recently has proved to be how it allows for a self-describing API that
 agents can browse and understand with a few network calls, without a copy of
 the schema.
 
@@ -75,20 +75,20 @@ Give me an overview of the available services and methods I can use to manage pi
   pipeline.v1.CreatePipelineRequest.
 ```
 
-These are the very same APIs that power a UI in Grafana Cloud. We didn't have
-to build anything new here.
+These are the very same APIs that power our UI in Grafana Cloud. We didn't have
+to build anything new.
 
 With a couple sentences as input, Claude was able to dive and understand that
-API, what its inputs and outputs are, its various versions, how services have
-evolved and so on. It can use the same functionality without any browser automations.
+API, what its inputs and outputs are, how services have evolved and so on.
+It can use the same functionality without any browser automation.
 The agent can focus on the specific services it needs, and avoid burning
 context from reading lengthy documentation about features it doesn't need.
 Furthermore, the truth is objective; specs drift, documentation gets outdated,
 but what is defined in Protobuf files is what the server receives and sends
 back. There's no need for trial-and-error.
 
-As we're building new APIs that operate on higher abstraction layers,
-agents get all these new powers for ~free. For example, Fleet Management now
+As we're combining new APIs that operate on higher abstraction layers,
+agents also get these new powers almost for free. For example, we now
 supports a new pair of APIs for `Discovery` and `Instrumentation`. These allow
 onboarding services for telemetry using a slick and shiny UI in the
 [Instrumentation Hub](https://grafana.com/blog/instrumentation-hub-a-guided-scalable-way-to-roll-out-your-observability-coverage-without-losing-control/).
