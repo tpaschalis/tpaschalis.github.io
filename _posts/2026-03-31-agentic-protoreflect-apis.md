@@ -7,8 +7,8 @@ tags:   [code, api]
 description: "A house of mirrors"
 ---
 
-Whichever side you are on the LLM turf wars, one thing is clear. APIs are back,
-baby! It's funny how fashion comes and goes, but Unix philosophy tools and
+Whichever side you are on the LLM turf wars, one thing is clear. APIs are back!
+It's funny how fashion comes and goes, but Unix philosophy tools and
 wiring APIs together are what moves the industry right now (whether it moves it
 to the _right_ direction is an entirely different question).
 
