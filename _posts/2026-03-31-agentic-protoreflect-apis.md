@@ -87,13 +87,14 @@ Furthermore, the truth is objective; specs drift, documentation gets outdated,
 but what is defined in Protobuf files is what the server receives and sends
 back. There's no need for trial-and-error.
 
-As we're combining new APIs that operate on higher abstraction layers,
-agents also get these new powers almost for free. For example, we now
+As we're combining these APIs into new ones that operate on higher abstraction
+layers, agents also get these new powers almost for free. For example, we now
 supports a new pair of APIs for `Discovery` and `Instrumentation`. These allow
 onboarding services for telemetry using a slick and shiny UI in the
 [Instrumentation Hub](https://grafana.com/blog/instrumentation-hub-a-guided-scalable-way-to-roll-out-your-observability-coverage-without-losing-control/).
-I'm proud of that UI jazz, but you know what? You can also tell Claude 'look
-here, run discovery and instrument X/Y/Z' and call it a day.
+I'm proud of that UI jazz, for hand-holding new users but you know what? They
+can also tell Claude 'look here, run discovery and instrument X/Y/Z' and call
+it a day.
 
 ### So what?
 
