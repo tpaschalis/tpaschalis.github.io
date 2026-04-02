@@ -83,32 +83,31 @@ but what is defined in Protobuf files is what the server receives and sends
 back. There's no need for trial-and-error.
 
 As we're combining these APIs into new ones that operate on higher abstraction
-layers, agents also get these new powers almost for free. For example, we now
-supports a new pair of APIs for `Discovery` and `Instrumentation`. These allow
+layers, agents also get these new powers almost for free. For example, an agent
+can understand that Grafana Fleet Management now supports a new pair of APIs
+for `Discovery` and `Instrumentation`. These allow
 onboarding services for telemetry using a slick and shiny UI in the
 [Instrumentation Hub](https://grafana.com/blog/instrumentation-hub-a-guided-scalable-way-to-roll-out-your-observability-coverage-without-losing-control/).
-I'm proud of that UI jazz, for hand-holding new users but you know what?
+I'm proud of that UI jazz for hand-holding new users but you know what?
 Now, anyone can also tell Claude 'look here, run discovery and instrument
 X/Y/Z' and call it a day.
 
 ### So what?
 
-I think this is an interesting lightweight alternative to MCPs. While MCP can
+I think this is an interesting lightweight alternative to MCP. While MCP can
 be more descriptive for complex usage patterns or multi-step actions, for
 tighter APIs this approach requires no special infrastructure or MCP server to
-maintain, and no need to write new tool definitions since the agent can
-discover what's available on demand.
+maintain since the agent can discover what's available on demand.
 Pair it with the authentication you're likely already using, and you're off to
 a good start.
 
 This also works really well with ConnectRPC's approach of Protobuf + HTTP/JSON
-compatibility. After agents sketch out the endpoints, they don't need gRPC
+compatibility. After agents sketch out the endpoints they don't need gRPC
 tooling, they can construct payloads and use curl for all subsequent calls.
 
 Finally, it's a natural pairing with "always-on" agents. Say you have an agent
 that's running for weeks, and then you deploy a new version of the API. Using
-this paradigm the effort can automatically adapt without having to be
-interrupted of its current workflows.
+this paradigm the agent can automatically adapt without being interrupted.
 
 ### Interested? Try it out!
 
@@ -166,6 +165,8 @@ $ grpcurl -plaintext -format text -d 'name: "gRPCurl"' \
 
 message: "Hello gRPCurl"
 ```
+
+All this took was [one line of code](https://github.com/grpc/grpc-go/blob/21438020fd4e0154302f3e234462097d4ab2513f/examples/features/reflection/server/main.go#L73-L74) on the server.
 
 ### Outro
 
