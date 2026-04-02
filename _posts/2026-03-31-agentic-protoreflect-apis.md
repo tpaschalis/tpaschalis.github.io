@@ -1,30 +1,25 @@
 ---
 layout: post
-title:  Agent-first, self-describing APIs with protobuf reflection
+title:  Agent-first APIs using  protobuf reflection
 date:   2026-03-31
 author: Paschalis Ts
 tags:   [code, api]
 description: "A house of mirrors"
 ---
 
-Whichever side you are on the LLM turf wars, one thing is clear. APIs are back!
-It's funny how fashion comes and goes, but Unix philosophy tools and
-wiring APIs together are what moves the industry right now (whether it moves it
-to the _right_ direction is an entirely different question).
+Whichever side you are on the LLM turf wars, one thing is clear: what's old is new again.
+Wiring APIs together with unix philosophy tools and small CLIs are what moves
+the industry right now (whether it moves it to the _right_ direction is an
+entirely different question).
 
 A new bottleneck arises: how to make agents understand and use new APIs.
 The truth is, not everyone gives their reference pages the same polish and
 attention that [Stripe](https://docs.stripe.com/api) does. Does _your_ team
-offer an OpenAPI spec and make sure it's up-to-date? If that's a yes, great
-work, but certainly that's _not_ the case for most.
+offer an OpenAPI spec and make sure it's up-to-date?
 
-One thing I'm really bullish on is Protobuf APIs, and especially [Protobuf reflection](https://grpc.io/docs/guides/reflection/).
-
-At work, we've been using [ConnectRPC](https://connectrpc.com/) for a couple of
-years now and we've been really happy with that choice. But the unexpected
-superpower recently has proved to be how it allows for a self-describing API that
-agents can browse and understand with a few network calls, without a copy of
-the schema.
+One thing I'm really bullish on is Protobuf APIs, and especially [Protobuf reflection](https://grpc.io/docs/guides/reflection/)
+for building _self-describing APIs_ that agents can browse and understand with
+a few network calls.
 
 ### A real-world example.
 
@@ -92,22 +87,28 @@ layers, agents also get these new powers almost for free. For example, we now
 supports a new pair of APIs for `Discovery` and `Instrumentation`. These allow
 onboarding services for telemetry using a slick and shiny UI in the
 [Instrumentation Hub](https://grafana.com/blog/instrumentation-hub-a-guided-scalable-way-to-roll-out-your-observability-coverage-without-losing-control/).
-I'm proud of that UI jazz, for hand-holding new users but you know what? They
-can also tell Claude 'look here, run discovery and instrument X/Y/Z' and call
-it a day.
+I'm proud of that UI jazz, for hand-holding new users but you know what?
+Now, anyone can also tell Claude 'look here, run discovery and instrument
+X/Y/Z' and call it a day.
 
 ### So what?
 
-I think this is an interesting lightweight alternative to MCPs. No special
-infrastructure, no MCP server to maintain, no need to write new tool
-definitions. The agent can discover what's available on demand. Pair it with
-the authentication you're likely already using, and you're off.
+I think this is an interesting lightweight alternative to MCPs. While MCP can
+be more descriptive for complex usage patterns or multi-step actions, for
+tighter APIs this approach requires no special infrastructure or MCP server to
+maintain, and no need to write new tool definitions since the agent can
+discover what's available on demand.
+Pair it with the authentication you're likely already using, and you're off to
+a good start.
 
-This also works really well with ConnectRPC's approach of HTTP/JSON
-compatibility. Once the agents sketch out the endpoints, they don't even need gRPC
-tooling, they can build payloads and use curl for all subsequent calls. And if
-you want to build new skills/tools for your agents, you can do so with a much
-greater degree of confidence.
+This also works really well with ConnectRPC's approach of Protobuf + HTTP/JSON
+compatibility. After agents sketch out the endpoints, they don't need gRPC
+tooling, they can construct payloads and use curl for all subsequent calls.
+
+Finally, it's a natural pairing with "always-on" agents. Say you have an agent
+that's running for weeks, and then you deploy a new version of the API. Using
+this paradigm the effort can automatically adapt without having to be
+interrupted of its current workflows.
 
 ### Interested? Try it out!
 
@@ -170,5 +171,9 @@ message: "Hello gRPCurl"
 
 So that's all for today. A small brain-dump on something I'm excited about.
 
-What's your take on agent-first APIs? If your team is working with protos, give
-this a spin!
+What's your take on agents using APIs? Any other approaches that worked well for you? Hit me up on [Bluesky](https://bsky.app/profile/tpaschalis.me) and let me know!
+
+
+<br><br><br>
+
+_Special thanks to Apostolis Mpostanis and William Dumont for their feedback on this post_.
